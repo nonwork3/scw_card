@@ -79,10 +79,10 @@
         บันทึกลงผู้ติดต่อ
       </button>
       <button class="btn-qr" onclick="toggleQR()" aria-label="แสดง QR Code">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/><rect x="14" y="18" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true">...</svg>
       </button>
     </div>
-    <div class="qr-panel" id="qr-panel">
+    <div class="qr-panel" id="qr-panel" style="display:block">
       <div id="qr-box"></div>
       <p class="qr-url-label" id="c-qr-url"></p>
     </div>
@@ -108,5 +108,17 @@ window.SCW_PERSON = {
 };
 </script>
 <script src="../../assets/card.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  var panel = document.getElementById("qr-panel");
+  panel.dataset.rendered = "1";
+  new QRCode(document.getElementById("qr-box"), {
+    text: window.SCW_PERSON.cardURL,
+    width: 148, height: 148,
+    colorDark: "#0F6E56", colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+});
+</script>
 </body>
 </html>
