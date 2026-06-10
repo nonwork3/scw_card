@@ -8,17 +8,11 @@
   <link rel="stylesheet" href="../../assets/card.css" />
 </head>
 <body>
-
 <main class="card" role="main">
 
-  <!-- Header -->
   <div class="card-header">
     <div class="logo-row">
-      <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="9"  cy="9"  r="6" stroke="rgba(255,255,255,0.8)" stroke-width="1.6"/>
-        <circle cx="19" cy="9"  r="6" stroke="rgba(255,255,255,0.8)" stroke-width="1.6"/>
-        <circle cx="14" cy="19" r="6" stroke="rgba(255,255,255,0.8)" stroke-width="1.6"/>
-      </svg>
+      <img class="logo-img" src="../../assets/logo.png" alt="Siam Cotton Wool logo" />
       <span class="logo-text">Siam Cotton Wool Ltd.</span>
     </div>
     <p class="name-th" id="c-name-th">เดชิน สิทธิชินวุฒิ</p>
@@ -26,9 +20,7 @@
     <span class="title-pill" id="c-title">GENERAL MANAGER</span>
   </div>
 
-  <!-- Body -->
   <div class="card-body">
-
     <div class="info-row">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
@@ -38,7 +30,6 @@
         <span class="info-value"><a id="c-email" href="mailto:deshin@siamcottonwool.co.th">deshin@siamcottonwool.co.th</a></span>
       </div>
     </div>
-
     <div class="info-row">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.07 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/></svg>
@@ -48,7 +39,6 @@
         <span class="info-value"><a id="c-phone-link" href="tel:+66655362898" id="c-phone-display">+6665 5362898</a></span>
       </div>
     </div>
-
     <div class="info-row" id="row-web" style="display:none">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -58,7 +48,6 @@
         <span class="info-value"><a id="c-web" href="#"></a></span>
       </div>
     </div>
-
     <div class="info-row">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -68,28 +57,20 @@
         <span class="info-value addr">40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru,<br>Phrapradaeng, Samutprakan 10130</span>
       </div>
     </div>
+  </div>
 
-  </div><!-- /card-body -->
-
-  <!-- Footer -->
   <div class="card-footer">
-    <div class="btn-row">
-      <button class="btn-save" onclick="downloadVCard()" aria-label="บันทึกลงรายชื่อผู้ติดต่อ">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        บันทึกลงผู้ติดต่อ
-      </button>
-      <button class="btn-qr" onclick="toggleQR()" aria-label="แสดง QR Code">
-        <svg viewBox="0 0 24 24" aria-hidden="true">...</svg>
-      </button>
-    </div>
-    <div class="qr-panel" id="qr-panel" style="display:block">
+    <button class="btn-save" onclick="downloadVCard()" aria-label="บันทึกลงรายชื่อผู้ติดต่อ">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      บันทึกลงผู้ติดต่อ
+    </button>
+    <div class="qr-panel">
       <div id="qr-box"></div>
       <p class="qr-url-label" id="c-qr-url"></p>
     </div>
   </div>
 
 </main>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 window.SCW_PERSON = {
@@ -104,21 +85,9 @@ window.SCW_PERSON = {
   phoneDisplay: "+6665 5362898",
   web:          null,
   slug:         "deshin",
-  cardURL:      "https://scw-it.github.io/card/deshin/"
+  cardURL:      "https://nonwork3.github.io/scw_card/card/deshin/"
 };
 </script>
 <script src="../../assets/card.js"></script>
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-  var panel = document.getElementById("qr-panel");
-  panel.dataset.rendered = "1";
-  new QRCode(document.getElementById("qr-box"), {
-    text: window.SCW_PERSON.cardURL,
-    width: 148, height: 148,
-    colorDark: "#0F6E56", colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.M
-  });
-});
-</script>
 </body>
 </html>

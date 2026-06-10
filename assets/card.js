@@ -1,12 +1,8 @@
-
 // SCW Digital Card — shared renderer
-// Usage: include this script after defining window.SCW_PERSON = { ... }
-
 (function () {
   const p = window.SCW_PERSON;
   if (!p) return;
 
-  // ── vCard download ──────────────────────────────────────────────
   window.downloadVCard = function () {
     const lines = [
       "BEGIN:VCARD",
@@ -21,9 +17,7 @@
       "ADR;TYPE=WORK:;;40/5 M.3 Soi Krunai\\, Suksawad Rd.;Bangkru\\, Phrapradaeng;Samutprakan;;Thailand",
       "NOTE:Tax ID 0115551012980",
       "END:VCARD",
-    ]
-      .filter(Boolean)
-      .join("\r\n");
+    ].filter(Boolean).join("\r\n");
     const blob = new Blob([lines], { type: "text/vcard;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -33,25 +27,6 @@
     a.remove();
   };
 
-  // ── QR toggle ───────────────────────────────────────────────────
-  window.toggleQR = function () {
-    const panel = document.getElementById("qr-panel");
-    const isOpen = panel.style.display === "block";
-    panel.style.display = isOpen ? "none" : "block";
-    if (!isOpen && !panel.dataset.rendered) {
-      panel.dataset.rendered = "1";
-      new QRCode(document.getElementById("qr-box"), {
-        text: p.cardURL,
-        width: 148,
-        height: 148,
-        colorDark: "#0F6E56",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M,
-      });
-    }
-  };
-
-  // ── Populate DOM ────────────────────────────────────────────────
   document.addEventListener("DOMContentLoaded", function () {
     document.title = p.nameEN + " — Siam Cotton Wool";
     set("c-name-th", p.nameTH);
@@ -68,6 +43,15 @@
     }
 
     set("c-qr-url", p.cardURL);
+
+    // Render QR immediately
+    new QRCode(document.getElementById("qr-box"), {
+      text: p.cardURL,
+      width: 148, height: 148,
+      colorDark: "#0F6E56",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M,
+    });
   });
 
   function set(id, val) {

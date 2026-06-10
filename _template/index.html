@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tirachai Sirirattanatrai — Siam Cotton Wool</title>
-  <meta name="description" content="Factory Manager, Siam Cotton Wool Ltd." />
+  <title>FULLNAME — Siam Cotton Wool</title>
   <link rel="stylesheet" href="../../assets/card.css" />
 </head>
 <body>
@@ -15,9 +14,9 @@
       <img class="logo-img" src="../../assets/logo.png" alt="Siam Cotton Wool logo" />
       <span class="logo-text">Siam Cotton Wool Ltd.</span>
     </div>
-    <p class="name-th" id="c-name-th">ทิรชัย ศิริรัตนาตรัย</p>
-    <h1 class="name-en" id="c-name-en">Tirachai Sirirattanatrai</h1>
-    <span class="title-pill" id="c-title">FACTORY MANAGER</span>
+    <p class="name-th" id="c-name-th"></p>
+    <h1 class="name-en" id="c-name-en"></h1>
+    <span class="title-pill" id="c-title"></span>
   </div>
 
   <div class="card-body">
@@ -27,7 +26,7 @@
       </div>
       <div class="info-content">
         <span class="info-label">Email</span>
-        <span class="info-value"><a id="c-email" href="mailto:agm@siamcottonwool.co.th">agm@siamcottonwool.co.th</a></span>
+        <span class="info-value"><a id="c-email" href="#"></a></span>
       </div>
     </div>
     <div class="info-row">
@@ -36,16 +35,16 @@
       </div>
       <div class="info-content">
         <span class="info-label">Phone</span>
-        <span class="info-value"><a id="c-phone-link" href="tel:+66879306853">+6687 9306853</a></span>
+        <span class="info-value"><a id="c-phone-link" href="#"></a></span>
       </div>
     </div>
-    <div class="info-row" id="row-web">
+    <div class="info-row" id="row-web" style="display:none">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       </div>
       <div class="info-content">
         <span class="info-label">Website</span>
-        <span class="info-value"><a id="c-web" href="https://www.siamcottonwool.com">www.siamcottonwool.com</a></span>
+        <span class="info-value"><a id="c-web" href="#"></a></span>
       </div>
     </div>
     <div class="info-row">
@@ -60,7 +59,7 @@
   </div>
 
   <div class="card-footer">
-    <button class="btn-save" onclick="downloadVCard()" aria-label="บันทึกลงรายชื่อผู้ติดต่อ">
+    <button class="btn-save" onclick="downloadVCard()">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       บันทึกลงผู้ติดต่อ
     </button>
@@ -73,20 +72,24 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
+// ============================================================
+//  แก้เฉพาะส่วนนี้เท่านั้น
+// ============================================================
 window.SCW_PERSON = {
-  nameTH:       "ทิรชัย ศิริรัตนาตรัย",
-  nameEN:       "Tirachai Sirirattanatrai",
-  nameFirst:    "Tirachai",
-  nameLast:     "Sirirattanatrai",
-  title:        "FACTORY MANAGER",
-  titleDisplay: "Factory Manager",
-  email:        "agm@siamcottonwool.co.th",
-  phone:        "+66879306853",
-  phoneDisplay: "+6687 9306853",
-  web:          "www.siamcottonwool.com",
-  slug:         "tirachai",
-  cardURL:      "https://nonwork3.github.io/scw_card/card/tirachai/"
+  nameTH:       "ชื่อภาษาไทย",               // เช่น "สมชาย ใจดี"
+  nameEN:       "Firstname Lastname",          // เช่น "Somchai Jaidee"
+  nameFirst:    "Firstname",                   // เช่น "Somchai"
+  nameLast:     "Lastname",                    // เช่น "Jaidee"
+  title:        "JOB TITLE",                   // ALL CAPS เช่น "SALES MANAGER"
+  titleDisplay: "Job Title",                   // Title Case เช่น "Sales Manager"
+  email:        "email@siamcottonwool.co.th",
+  phone:        "+66XXXXXXXXX",                // ไม่มีเว้นวรรค เช่น "+66812345678"
+  phoneDisplay: "+66XX XXXXXXX",               // แสดงบนหน้า เช่น "+6681 2345678"
+  web:          null,                          // ใส่ "www.siamcottonwool.com" หรือ null
+  slug:         "firstname",                   // ชื่อโฟลเดอร์ lowercase เช่น "somchai"
+  cardURL:      "https://nonwork3.github.io/scw_card/card/firstname/"
 };
+// ============================================================
 </script>
 <script src="../../assets/card.js"></script>
 </body>
