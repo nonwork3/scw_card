@@ -1,65 +1,65 @@
 # SCW Digital Card — GitHub Pages
 
-นามบัตรดิจิทัล Siam Cotton Wool Ltd.  
+นามบัตรดิจิทัล Siam Cotton Wool Ltd.
 deploy บน GitHub Pages, ใช้งานได้ทุกที่ทั่วโลก
+
+**Live URL:** https://nonwork3.github.io/scw_card/
 
 ## โครงสร้างไฟล์
 
 ```
-scw-card/
-├── index.html              ← หน้าหลัก (แสดงเมื่อเปิด root URL)
+scw_card/
+├── index.html          ← หน้าหลัก (แสดงเมื่อเปิด root URL)
+├── CLAUDE.md           ← คู่มือสำหรับ Claude Code
 ├── assets/
-│   ├── card.css            ← shared styles
-│   └── card.js             ← shared logic (vCard, QR toggle)
+│   ├── card.css        ← shared styles
+│   ├── card.js         ← shared logic (vCard, QR)
+│   └── logo.png        ← โลโก้ Siam Cotton Wool
+├── _template/
+│   └── index.html      ← template สำหรับสร้างนามบัตรคนใหม่
 └── card/
     ├── deshin/
-    │   └── index.html      ← https://scw-it.github.io/card/deshin/
+    │   └── index.html  ← https://nonwork3.github.io/scw_card/card/deshin/
     └── tirachai/
-        └── index.html      ← https://scw-it.github.io/card/tirachai/
+        └── index.html  ← https://nonwork3.github.io/scw_card/card/tirachai/
 ```
 
----
+## พนักงานปัจจุบัน
+
+| ชื่อ | ตำแหน่ง | URL |
+|------|---------|-----|
+| เดชิน สิทธิชินวุฒิ (Deshin Sidhishinawudh) | General Manager | https://nonwork3.github.io/scw_card/card/deshin/ |
+| ทิรชัย ศิริรัตนาตรัย (Tirachai Sirirattanatrai) | Factory Manager | https://nonwork3.github.io/scw_card/card/tirachai/ |
 
 ## วิธี Deploy ขึ้น GitHub Pages
 
 ### ครั้งแรก (ตั้งค่า repo)
+1. ไปที่ Settings → Pages → Source เลือก `main` branch / root
+2. รอ ~2 นาที → เว็บ live ที่ `https://nonwork3.github.io/scw_card/`
 
-1. ไปที่ github.com → New repository
-2. ตั้งชื่อ repo ว่า `card` (จะได้ URL: `scw-it.github.io/card/...`)
-3. ตั้งเป็น **Public**
-4. อัพโหลดไฟล์ทั้งหมดในโฟลเดอร์นี้ขึ้นไป
-5. ไปที่ Settings → Pages → Source เลือก **main branch / root**
-6. รอ ~2 นาที → เว็บ live!
-
-### เพิ่มพนักงานใหม่
-
-1. copy โฟลเดอร์ `card/deshin/` → เปลี่ยนชื่อเป็นชื่อพนักงาน เช่น `card/john/`
-2. แก้ไขข้อมูลใน `window.SCW_PERSON = { ... }` ด้านล่างของ `index.html`
-3. เปลี่ยน `cardURL` ให้ตรง เช่น `"https://scw-it.github.io/card/john/"`
+## เพิ่มพนักงานใหม่
+1. copy `_template/index.html` → `card/<ชื่อ>/index.html`
+2. แก้ไขข้อมูลใน `window.SCW_PERSON = { ... }` ด้านล่างของไฟล์
+3. เปลี่ยน `cardURL` ให้ตรง เช่น `"https://nonwork3.github.io/scw_card/card/john/"`
 4. push ขึ้น GitHub → live ภายใน 2 นาที
 
-### แก้ไขข้อมูล
+## แก้ไขข้อมูล
 
-แก้เฉพาะ block `window.SCW_PERSON` ใน `index.html` ของแต่ละคน  
+แก้เฉพาะ block `window.SCW_PERSON` ใน `index.html` ของแต่ละคน
 ไม่ต้องแตะ `card.css` หรือ `card.js`
-
----
 
 ## QR Code
 
-QR code ถูก generate ในหน้าเว็บโดยอัตโนมัติ  
-ชี้ไปที่ URL ของแต่ละคน เช่น `https://scw-it.github.io/card/deshin/`
+QR code ถูก generate ในหน้าเว็บโดยอัตโนมัติ ชี้ไปที่ `cardURL` ของแต่ละคน
 
-หากต้องการ QR image ไฟล์ .png สำหรับพิมพ์ ให้ใช้เว็บ:  
-→ https://qr.io หรือ https://qrcode-monkey.com  
+หากต้องการ QR image ไฟล์ `.png` สำหรับพิมพ์ ให้ใช้เว็บ:
+→ https://qr.io หรือ https://qrcode-monkey.com
 ใส่ URL ด้านบน + สี `#0F6E56` (SCW green)
-
----
 
 ## ข้อมูลที่แก้ใน SCW_PERSON
 
 | Field | คำอธิบาย |
-|-------|----------|
+|-------|---------|
 | `nameTH` | ชื่อภาษาไทย |
 | `nameEN` | ชื่อภาษาอังกฤษ (แสดงหลัก) |
 | `nameFirst` | ชื่อ (สำหรับ vCard) |
