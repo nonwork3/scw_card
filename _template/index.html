@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FULLNAME โ€” Siam Cotton Wool</title>
+  <title>FULLNAME — Siam Cotton Wool</title>
   <link rel="stylesheet" href="../../assets/card.css" />
 </head>
 <body>
@@ -61,7 +61,7 @@
   <div class="card-footer">
     <button class="btn-save" onclick="downloadVCard()">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      เธเธฑเธเธ—เธถเธเธฅเธเธเธนเนเธ•เธดเธ”เธ•เนเธญ
+      บันทึกลงผู้ติดต่อ
     </button>
     <div class="qr-panel">
       <div id="qr-box"></div>
@@ -73,20 +73,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 // ============================================================
-//  เนเธเนเน€เธเธเธฒเธฐเธชเนเธงเธเธเธตเนเน€เธ—เนเธฒเธเธฑเนเธ
+//  แก้เฉพาะส่วนนี้เท่านั้น
 // ============================================================
 window.SCW_PERSON = {
-  nameTH:       "เธเธทเนเธญเธ เธฒเธฉเธฒเนเธ—เธข",               // เน€เธเนเธ "เธชเธกเธเธฒเธข เนเธเธ”เธต"
-  nameEN:       "Firstname Lastname",          // เน€เธเนเธ "Somchai Jaidee"
-  nameFirst:    "Firstname",                   // เน€เธเนเธ "Somchai"
-  nameLast:     "Lastname",                    // เน€เธเนเธ "Jaidee"
-  title:        "JOB TITLE",                   // ALL CAPS เน€เธเนเธ "SALES MANAGER"
-  titleDisplay: "Job Title",                   // Title Case เน€เธเนเธ "Sales Manager"
+  nameTH:       "ชื่อภาษาไทย",               // เช่น "สมชาย ใจดี"
+  nameEN:       "Firstname Lastname",          // เช่น "Somchai Jaidee"
+  nameFirst:    "Firstname",                   // เช่น "Somchai"
+  nameLast:     "Lastname",                    // เช่น "Jaidee"
+  title:        "JOB TITLE",                   // ALL CAPS เช่น "SALES MANAGER"
+  titleDisplay: "Job Title",                   // Title Case เช่น "Sales Manager"
   email:        "email@siamcottonwool.co.th",
-  phone:        "+66XXXXXXXXX",                // เนเธกเนเธกเธตเน€เธงเนเธเธงเธฃเธฃเธ เน€เธเนเธ "+66812345678"
-  phoneDisplay: "+66XX XXXXXXX",               // เนเธชเธ”เธเธเธเธซเธเนเธฒ เน€เธเนเธ "+6681 2345678"
-  web:          null,                          // เนเธชเน "www.siamcottonwool.com" เธซเธฃเธทเธญ null
-  slug:         "firstname",                   // เธเธทเนเธญเนเธเธฅเน€เธ”เธญเธฃเน lowercase เน€เธเนเธ "somchai"
+  phone:        "+66XXXXXXXXX",                // ไม่มีเว้นวรรค เช่น "+66812345678"
+  phoneDisplay: "+66XX XXXXXXX",               // แสดงบนหน้า เช่น "+6681 2345678"
+  web:          null,                          // ใส่ "www.siamcottonwool.com" หรือ null
+  slug:         "firstname",                   // ชื่อโฟลเดอร์ lowercase เช่น "somchai"
   cardURL:      "https://nonwork3.github.io/scw_card/card/firstname/"
 };
 // ============================================================
