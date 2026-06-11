@@ -238,11 +238,6 @@
     </div>
     <div class="divider"></div>
     <div class="field">
-      <label>Slug (ชื่อโฟลเดอร์)</label>
-      <input id="slug" type="text" placeholder="somchai" class="derived" autocomplete="off" />
-      <div class="hint">auto จาก First Name — แก้ได้</div>
-    </div>
-    <div class="field">
       <label>Card URL</label>
       <input id="cardURL" type="text" readonly class="derived" />
     </div>
@@ -325,28 +320,22 @@ function showPATStatus(ok, msg) {
 }
 
 // ── Auto-derive ──────────────────────────────────────────────
-let slugEdited = false;
-
 document.getElementById('title').addEventListener('input', function () {
   const pos = this.selectionStart;
   this.value = this.value.toUpperCase();
   this.setSelectionRange(pos, pos);
   update();
 });
-document.getElementById('nameEN').addEventListener('input', function () {
-  if (!slugEdited) document.getElementById('slug').value = toSlug(this.value.split(' ')[0]);
-  update();
-});
-document.getElementById('slug').addEventListener('input', function () {
-  slugEdited = !!this.value;
-  update();
-});
-['nameTH','email','phone'].forEach(id =>
+['nameTH','nameEN','email','phone'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
 
-function toSlug(s) {
-  return s.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+function makeSlug(nameEN) {
+  const parts  = nameEN.trim().split(/\s+/);
+  const first  = (parts[0] || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const last   = parts.slice(1).join('').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const suffix = last.slice(0, 3);
+  return suffix ? `${first}.${suffix}` : first;
 }
 function toTitleCase(s) {
   return s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
@@ -395,7 +384,7 @@ function getValues() {
     email:     document.getElementById('email').value.trim(),
     phone:     document.getElementById('phone').value.trim(),
     web:       null,
-    slug:      document.getElementById('slug').value.trim(),
+    slug:      makeSlug(nameEN),
   };
 }
 
