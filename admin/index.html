@@ -236,10 +236,6 @@
       <input id="phone" type="text" placeholder="+66812345678" autocomplete="off" />
       <div class="hint">ไม่มีเว้นวรรค เช่น +66812345678</div>
     </div>
-    <div class="field">
-      <label>เว็บไซต์ <span style="color:#ccc;font-weight:400">(ไม่บังคับ)</span></label>
-      <input id="web" type="text" placeholder="www.siamcottonwool.com" autocomplete="off" />
-    </div>
     <div class="divider"></div>
     <div class="field">
       <label>Slug (ชื่อโฟลเดอร์)</label>
@@ -345,7 +341,7 @@ document.getElementById('slug').addEventListener('input', function () {
   slugEdited = !!this.value;
   update();
 });
-['nameTH','email','phone','web'].forEach(id =>
+['nameTH','email','phone'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
 
@@ -398,7 +394,7 @@ function getValues() {
     title:     document.getElementById('title').value.trim().toUpperCase(),
     email:     document.getElementById('email').value.trim(),
     phone:     document.getElementById('phone').value.trim(),
-    web:       document.getElementById('web').value.trim() || null,
+    web:       null,
     slug:      document.getElementById('slug').value.trim(),
   };
 }
