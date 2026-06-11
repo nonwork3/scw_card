@@ -95,6 +95,13 @@ function toTitleCase(s) {
   return s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
 }
 
+function normalizePhone(raw) {
+  const d = raw.replace(/\D/g, '');
+  if (d.startsWith('0') && d.length === 10) return '+66' + d.slice(1);
+  if (d.startsWith('66') && d.length >= 11)  return '+' + d;
+  return raw;
+}
+
 function fmtPhone(raw) {
   const d = raw.replace(/\D/g, '');
   if (d.startsWith('66') && d.length >= 11) return '+' + d.slice(0, 4) + ' ' + d.slice(4);

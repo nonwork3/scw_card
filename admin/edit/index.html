@@ -165,6 +165,10 @@ async function loadCard() {
     ['nameTH', 'nameEN', 'email', 'phone'].forEach(id =>
       document.getElementById(id).addEventListener('input', update)
     );
+    document.getElementById('phone').addEventListener('blur', function () {
+      const n = normalizePhone(this.value.trim());
+      if (n !== this.value.trim()) { this.value = n; update(); }
+    });
   } catch (e) {
     showState(e.status === 401 ? 'Token ไม่ถูกต้องหรือหมดอายุค่ะ' : 'โหลดไม่ได้: ' + e.message);
   }

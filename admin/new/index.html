@@ -133,6 +133,10 @@ document.getElementById('title').addEventListener('input', function () {
 ['nameTH', 'nameEN', 'email', 'phone'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
+document.getElementById('phone').addEventListener('blur', function () {
+  const n = normalizePhone(this.value.trim());
+  if (n !== this.value.trim()) { this.value = n; update(); }
+});
 
 function getValues() {
   const nameEN = document.getElementById('nameEN').value.trim();
