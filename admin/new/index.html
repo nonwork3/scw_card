@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เพิ่มพนักงาน — SCW Admin</title>
+  <link rel="stylesheet" href="../admin.css" />
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo-badge"><img src="../../assets/logo.svg" alt="SCW" /></div>
+  <div class="header-text">
+    <h1>เพิ่มพนักงานใหม่</h1>
+    <p>Siam Cotton Wool — Digital Cards</p>
+  </div>
+  <button class="btn-icon" onclick="toggleSettings()" title="GitHub Token">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+  </button>
+</div>
+
+<div class="breadcrumb">
+  <a href="../">Admin</a>
+  <span>›</span>
+  <span>เพิ่มพนักงาน</span>
+</div>
+
+<div class="pat-wrapper" id="patWrapper">
+  <div class="pat-panel">
+    <label>GitHub Personal Access Token</label>
+    <div class="pat-row">
+      <input type="password" id="patInput" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" />
+      <button class="btn btn-primary btn-sm" onclick="savePAT()">บันทึก</button>
+    </div>
+    <div class="pat-status" id="patStatus"></div>
+    <div class="pat-note">
+      Settings → Developer settings → Personal access tokens (fine-grained)<br>
+      Permissions: <strong>Contents: Read and write</strong>
+    </div>
+  </div>
+</div>
+
+<div class="form-layout">
+
+  <!-- Form -->
+  <div class="panel">
+    <div class="panel-title">ข้อมูลพนักงาน</div>
+
+    <div class="field">
+      <label>ชื่อภาษาไทย</label>
+      <input id="nameTH" type="text" placeholder="เช่น สมชาย ใจดี" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label>ชื่อภาษาอังกฤษ</label>
+      <input id="nameEN" type="text" placeholder="เช่น Somchai Jaidee" autocomplete="off" />
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label>ตำแหน่ง</label>
+      <input id="title" type="text" placeholder="SALES MANAGER" autocomplete="off" />
+      <div class="hint">พิมพ์ได้ทั้ง case — แปลงอัตโนมัติ</div>
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label>Email</label>
+      <input id="email" type="email" placeholder="somchai@siamcottonwool.co.th" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label>เบอร์โทร</label>
+      <input id="phone" type="text" placeholder="+66812345678" autocomplete="off" />
+      <div class="hint">ไม่มีเว้นวรรค เช่น +66812345678</div>
+    </div>
+    <div class="divider"></div>
+    <div class="field">
+      <label>Card URL</label>
+      <input id="cardURL" type="text" readonly class="derived" />
+    </div>
+
+    <div class="success-banner" id="successBanner">
+      <div class="s-title">✓ สร้างนามบัตรสำเร็จแล้ว</div>
+      <div class="s-url"><a id="successLink" href="#" target="_blank"></a></div>
+      <div class="s-note">GitHub Pages จะ deploy ภายใน ~2 นาที</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btnSave" onclick="doSave()">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        บันทึกขึ้น GitHub
+      </button>
+    </div>
+
+    <div id="emailSection" style="display:none; margin-top:12px">
+      <div class="field" style="margin-bottom:8px">
+        <label>ส่งลิงก์ไปที่อีเมล</label>
+        <input id="sendToEmail" type="email" autocomplete="off" placeholder="อีเมลผู้รับ" />
+      </div>
+      <button class="btn btn-email" style="width:100%" onclick="sendEmail()">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        ส่งลิงก์ทางอีเมล
+      </button>
+    </div>
+  </div>
+
+  <!-- Preview -->
+  <div class="panel preview-wrap">
+    <div class="panel-title">ตัวอย่างนามบัตร</div>
+    <div class="preview-empty" id="previewEmpty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.5" stroke-linecap="round">
+        <rect x="2" y="4" width="20" height="16" rx="3"/>
+        <path d="M8 10h8M8 14h5"/>
+      </svg>
+      กรอกข้อมูลด้านซ้ายเพื่อดูตัวอย่าง
+    </div>
+    <iframe id="preview" title="Card preview"></iframe>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script src="../admin.js"></script>
+<script>
+let _savedCardURL = '';
+let _savedV       = null;
+
+document.getElementById('title').addEventListener('input', function () {
+  const pos = this.selectionStart;
+  this.value = this.value.toUpperCase();
+  this.setSelectionRange(pos, pos);
+  update();
+});
+['nameTH', 'nameEN', 'email', 'phone'].forEach(id =>
+  document.getElementById(id).addEventListener('input', update)
+);
+
+function getValues() {
+  const nameEN = document.getElementById('nameEN').value.trim();
+  const parts  = nameEN.split(/\s+/);
+  return {
+    nameTH:    document.getElementById('nameTH').value.trim(),
+    nameEN,
+    nameFirst: parts[0] || '',
+    nameLast:  parts.slice(1).join(' '),
+    title:     document.getElementById('title').value.trim().toUpperCase(),
+    email:     document.getElementById('email').value.trim(),
+    phone:     document.getElementById('phone').value.trim(),
+    web:       'www.siamcottonwool.com',
+    slug:      makeSlug(nameEN),
+  };
+}
+
+function update() {
+  const v = getValues();
+  document.getElementById('cardURL').value = BASE + (v.slug || '') + '/';
+  const hasData = v.nameFirst || v.nameTH;
+  document.getElementById('previewEmpty').style.display = hasData ? 'none' : 'block';
+  const frame = document.getElementById('preview');
+  if (hasData) {
+    frame.style.display = 'block';
+    frame.srcdoc = buildHTML(v).replace(
+      '<head>',
+      '<head>\n  <base href="https://nonwork3.github.io/scw_card/card/_preview/">'
+    );
+  } else {
+    frame.style.display = 'none';
+  }
+}
+
+async function doSave() {
+  const v = getValues();
+  if (!v.slug)  { toast('กรุณากรอกชื่อภาษาอังกฤษก่อนค่ะ'); return; }
+  if (!v.nameTH && !v.nameFirst) { toast('กรุณากรอกชื่อพนักงานก่อนค่ะ'); return; }
+  if (!getPAT()) {
+    document.getElementById('patWrapper').classList.add('open');
+    toast('กรุณากรอก GitHub Token ก่อนค่ะ');
+    return;
+  }
+
+  const btn = document.getElementById('btnSave');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> กำลังบันทึก…';
+
+  try {
+    const path = `card/${v.slug}/index.html`;
+    let sha = null;
+    try { sha = (await apiGet(path)).sha; } catch {}
+
+    const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+    await apiPut(path, buildHTML(v), `Add card: ${nameEN || v.slug}`, sha);
+
+    _savedCardURL = BASE + v.slug + '/';
+    _savedV       = v;
+
+    const link = document.getElementById('successLink');
+    link.href        = _savedCardURL;
+    link.textContent = _savedCardURL;
+    document.getElementById('successBanner').classList.add('visible');
+    document.getElementById('sendToEmail').value      = v.email || '';
+    document.getElementById('emailSection').style.display = 'block';
+
+    toast('บันทึกสำเร็จ — รอประมาณ 2 นาทีถึงจะใช้งานได้ค่ะ', 5000);
+    document.getElementById('successBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (e) {
+    if (e.status === 401) toast('Token ไม่ถูกต้องหรือหมดอายุค่ะ');
+    else toast('เกิดข้อผิดพลาด: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> บันทึกขึ้น GitHub`;
+  }
+}
+
+function sendEmail() {
+  const to = document.getElementById('sendToEmail').value.trim();
+  if (!to) { toast('กรุณากรอกอีเมลผู้รับค่ะ'); return; }
+  const v   = _savedV || getValues();
+  const url = _savedCardURL || (BASE + v.slug + '/');
+  const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+  openEmail(to, v.nameTH ? `คุณ${v.nameTH}` : nameEN, url);
+}
+</script>
+</body>
+</html>

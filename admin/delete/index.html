@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ลบนามบัตร — SCW Admin</title>
+  <link rel="stylesheet" href="../admin.css" />
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo-badge"><img src="../../assets/logo.svg" alt="SCW" /></div>
+  <div class="header-text">
+    <h1>ลบนามบัตร</h1>
+    <p>Siam Cotton Wool — Digital Cards</p>
+  </div>
+  <button class="btn-icon" onclick="toggleSettings()" title="GitHub Token">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+  </button>
+</div>
+
+<div class="breadcrumb">
+  <a href="../">Admin</a>
+  <span>›</span>
+  <span>ลบนามบัตร</span>
+</div>
+
+<div class="pat-wrapper" id="patWrapper">
+  <div class="pat-panel">
+    <label>GitHub Personal Access Token</label>
+    <div class="pat-row">
+      <input type="password" id="patInput" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" />
+      <button class="btn btn-primary btn-sm" onclick="savePAT()">บันทึก</button>
+    </div>
+    <div class="pat-status" id="patStatus"></div>
+    <div class="pat-note">
+      Settings → Developer settings → Personal access tokens (fine-grained)<br>
+      Permissions: <strong>Contents: Read and write</strong>
+    </div>
+  </div>
+</div>
+
+<div class="delete-wrap">
+
+  <div id="loadingState" style="text-align:center; padding:60px 20px; color:#aaa; font-size:13px">
+    กำลังโหลดข้อมูล...
+  </div>
+
+  <div id="deleteContent" style="display:none">
+    <div class="panel">
+      <div class="panel-title">ยืนยันการลบ</div>
+
+      <div class="delete-card-info">
+        <div class="emp-avatar" id="delAvatar">?</div>
+        <div class="emp-info">
+          <div class="emp-name-en" id="delNameEN"></div>
+          <div class="emp-name-th" id="delNameTH"></div>
+          <div class="emp-meta"    id="delMeta"></div>
+        </div>
+      </div>
+
+      <div class="delete-warn">
+        ⚠ การลบนามบัตรจะลบไฟล์ออกจาก GitHub และ URL ของนามบัตรจะไม่สามารถเข้าถึงได้อีก
+        การดำเนินการนี้ไม่สามารถยกเลิกได้
+      </div>
+
+      <div class="btn-row">
+        <a href="../" class="btn btn-secondary">ยกเลิก</a>
+        <button class="btn btn-danger-solid" id="btnDelete" onclick="doDelete()">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6M14 11v6"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+          ลบนามบัตร
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="errorState" style="display:none; text-align:center; padding:40px; color:#c0392b; font-size:13px"></div>
+
+</div>
+
+<div id="toast"></div>
+
+<script src="../admin.js"></script>
+<script>
+const slug = new URLSearchParams(location.search).get('slug');
+
+window.addEventListener('load', async () => {
+  if (!slug) { showError('ไม่พบ slug ใน URL — <a href="../">กลับหน้าหลัก</a>'); return; }
+  if (!getPAT()) {
+    document.getElementById('patWrapper').classList.add('open');
+    showError('กรุณาตั้งค่า GitHub Token ก่อนค่ะ');
+    return;
+  }
+
+  try {
+    const data = await apiGet(`card/${slug}/index.html`);
+    const p    = parseCardData(b64decode(data.content)) || {};
+
+    const nameEN = p.nameEN || slug;
+    document.getElementById('delAvatar').textContent = nameEN.charAt(0).toUpperCase();
+    document.getElementById('delNameEN').textContent = nameEN;
+    document.getElementById('delNameTH').textContent = p.nameTH || '';
+    document.getElementById('delMeta').textContent   = [p.title, p.email].filter(Boolean).join(' · ');
+
+    document.getElementById('loadingState').style.display  = 'none';
+    document.getElementById('deleteContent').style.display = '';
+  } catch (e) {
+    showError(e.status === 401 ? 'Token ไม่ถูกต้องหรือหมดอายุค่ะ' : 'โหลดไม่ได้: ' + e.message);
+  }
+});
+
+function showError(html) {
+  document.getElementById('loadingState').style.display = 'none';
+  const el = document.getElementById('errorState');
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+
+async function doDelete() {
+  if (!getPAT()) {
+    document.getElementById('patWrapper').classList.add('open');
+    toast('กรุณากรอก GitHub Token ก่อนค่ะ');
+    return;
+  }
+
+  const btn = document.getElementById('btnDelete');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> กำลังลบ…';
+
+  try {
+    const data = await apiGet(`card/${slug}/index.html`);
+    await apiDelete(`card/${slug}/index.html`, data.sha, `Remove card: ${slug}`);
+    toast('ลบนามบัตรสำเร็จแล้วค่ะ', 2500);
+    setTimeout(() => { window.location.href = '../'; }, 1500);
+  } catch (e) {
+    if (e.status === 401) toast('Token ไม่ถูกต้องหรือหมดอายุค่ะ');
+    else toast('เกิดข้อผิดพลาด: ' + e.message);
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg> ลบนามบัตร`;
+  }
+}
+</script>
+</body>
+</html>
