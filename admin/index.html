@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เพิ่มพนักงาน — SCW Cards</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:      #1D9E75;
+      --green-dark: #0F6E56;
+      --green-pale: #E1F5EE;
+      --green-mid:  #9FE1CB;
+      --radius:     14px;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f4f2;
+      min-height: 100vh;
+      padding: 24px 16px 56px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 4px;
+    }
+    .page-header .logo-wrap {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .page-header .logo-wrap img {
+      width: 22px; height: 22px;
+      filter: brightness(0) invert(1);
+    }
+    .page-header h1 { font-size: 17px; font-weight: 600; color: #1a1a1a; }
+    .page-header p  { font-size: 12px; color: #999; margin-top: 1px; }
+
+    /* ── Layout ── */
+    .layout {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    /* ── Panel ── */
+    .panel {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.05);
+    }
+    .panel-title {
+      font-size: 11px; font-weight: 600;
+      color: #aaa; text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    /* ── Form ── */
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block;
+      font-size: 11px; font-weight: 500; color: #666;
+      margin-bottom: 4px;
+    }
+    .field input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #e4e4e4;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #1a1a1a;
+      transition: border-color .15s, box-shadow .15s;
+      background: #fff;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(29,158,117,.1);
+    }
+    .field input.derived {
+      background: #f8faf9;
+      color: #666;
+    }
+    .field .hint {
+      font-size: 10.5px; color: #bbb;
+      margin-top: 3px;
+    }
+    .divider {
+      height: 1px; background: #f0f0f0;
+      margin: 16px 0;
+    }
+
+    /* ── Buttons ── */
+    .btn-row { display: flex; gap: 8px; margin-top: 16px; }
+    .btn {
+      flex: 1; padding: 10px 12px;
+      border: none; border-radius: 9px;
+      font-size: 13px; font-weight: 500; font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: background .15s, transform .1s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: var(--green-dark); }
+    .btn-secondary { background: var(--green-pale); color: var(--green-dark); border: 1px solid #c8e8da; }
+    .btn-secondary:hover { background: #d2eee3; }
+    .btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* ── Path hint ── */
+    .path-hint {
+      margin-top: 12px;
+      padding: 9px 12px;
+      background: #f8faf9;
+      border-radius: 8px;
+      border: 1px solid #dceee7;
+      font-size: 12px; color: #666;
+      display: none;
+    }
+    .path-hint code {
+      font-family: 'Menlo', 'Consolas', monospace;
+      color: var(--green-dark); font-weight: 600;
+    }
+    .path-hint.visible { display: block; }
+
+    /* ── Preview ── */
+    .preview-wrap {
+      position: sticky;
+      top: 20px;
+    }
+    .preview-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #ccc;
+      font-size: 13px;
+    }
+    .preview-empty svg {
+      display: block; margin: 0 auto 12px;
+      opacity: .3;
+    }
+    iframe#preview {
+      width: 100%; border: none;
+      border-radius: 10px;
+      min-height: 520px;
+      display: none;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #1a1a1a; color: #fff;
+      padding: 9px 18px; border-radius: 20px;
+      font-size: 13px;
+      opacity: 0; transition: opacity .2s;
+      pointer-events: none; white-space: nowrap;
+      z-index: 999;
+    }
+    #toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo-wrap">
+    <img src="../assets/logo.svg" alt="SCW" />
+  </div>
+  <div>
+    <h1>เพิ่มพนักงานใหม่</h1>
+    <p>Siam Cotton Wool — Digital Cards</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- ── Form ── -->
+  <div class="panel">
+    <div class="panel-title">ข้อมูลพนักงาน</div>
+
+    <div class="field">
+      <label>ชื่อภาษาไทย</label>
+      <input id="nameTH" type="text" placeholder="เช่น สมชาย ใจดี" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label>First Name (EN)</label>
+      <input id="nameFirst" type="text" placeholder="Somchai" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label>Last Name (EN)</label>
+      <input id="nameLast" type="text" placeholder="Jaidee" autocomplete="off" />
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label>ตำแหน่ง</label>
+      <input id="title" type="text" placeholder="SALES MANAGER" autocomplete="off" />
+      <div class="hint">พิมพ์ได้ทั้ง case — จะแปลงอัตโนมัติ</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="email" type="email" placeholder="somchai@siamcottonwool.co.th" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label>เบอร์โทร</label>
+      <input id="phone" type="text" placeholder="+66812345678" autocomplete="off" />
+      <div class="hint">ไม่มีเว้นวรรค เช่น +66812345678</div>
+    </div>
+    <div class="field">
+      <label>เว็บไซต์ <span style="color:#ccc;font-weight:400">(ไม่บังคับ)</span></label>
+      <input id="web" type="text" placeholder="www.siamcottonwool.com" autocomplete="off" />
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label>Slug (ชื่อโฟลเดอร์)</label>
+      <input id="slug" type="text" placeholder="somchai" class="derived" autocomplete="off" />
+      <div class="hint">auto จาก First Name — แก้ได้</div>
+    </div>
+    <div class="field">
+      <label>Card URL</label>
+      <input id="cardURL" type="text" readonly class="derived" />
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="downloadCard()">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        ดาวน์โหลด
+      </button>
+      <button class="btn btn-secondary" onclick="copyHTML()">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        คัดลอก
+      </button>
+    </div>
+
+    <div class="path-hint" id="pathHint">
+      บันทึกไฟล์ไปที่ <code id="pathText"></code> แล้ว commit ขึ้น GitHub
+    </div>
+  </div>
+
+  <!-- ── Preview ── -->
+  <div class="panel preview-wrap">
+    <div class="panel-title">ตัวอย่างนามบัตร</div>
+    <div class="preview-empty" id="previewEmpty">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M8 10h8M8 14h5"/></svg>
+      กรอกข้อมูลด้านซ้ายเพื่อดูตัวอย่าง
+    </div>
+    <iframe id="preview" title="Card preview"></iframe>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const BASE = 'https://nonwork3.github.io/scw_card/card/';
+
+// ── Auto-derive fields ──────────────────────────────────────
+let titleDisplayEdited = false;
+let slugEdited = false;
+
+document.getElementById('title').addEventListener('input', function () {
+  const pos = this.selectionStart;
+  this.value = this.value.toUpperCase();
+  this.setSelectionRange(pos, pos);
+  if (!titleDisplayEdited) {
+    const tc = this.value.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
+    // no-op needed here; titleDisplay is computed in update()
+  }
+  update();
+});
+
+document.getElementById('titleDisplay') && null; // not in form; derived in generate
+
+document.getElementById('nameFirst').addEventListener('input', function () {
+  if (!slugEdited) {
+    document.getElementById('slug').value = toSlug(this.value);
+  }
+  update();
+});
+
+document.getElementById('slug').addEventListener('input', function () {
+  slugEdited = !!this.value;
+  update();
+});
+
+['nameTH','nameLast','email','phone','web'].forEach(id => {
+  document.getElementById(id).addEventListener('input', update);
+});
+
+// ── Helpers ────────────────────────────────────────────────
+function toSlug(s) {
+  return s.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+}
+
+function toTitleCase(s) {
+  return s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
+}
+
+function fmtPhone(raw) {
+  const d = raw.replace(/\D/g, '');
+  if (d.startsWith('66') && d.length >= 11) {
+    return '+' + d.slice(0, 4) + ' ' + d.slice(4);
+  }
+  return raw;
+}
+
+// ── Main update ─────────────────────────────────────────────
+function update() {
+  const v = getValues();
+  document.getElementById('cardURL').value = BASE + (v.slug || '') + '/';
+
+  const hint = document.getElementById('pathHint');
+  if (v.slug) {
+    document.getElementById('pathText').textContent = `card/${v.slug}/index.html`;
+    hint.classList.add('visible');
+  } else {
+    hint.classList.remove('visible');
+  }
+
+  const hasData = v.nameFirst || v.nameTH;
+  document.getElementById('previewEmpty').style.display = hasData ? 'none' : 'block';
+  const frame = document.getElementById('preview');
+  if (hasData) {
+    frame.style.display = 'block';
+    frame.srcdoc = buildHTML(v);
+  } else {
+    frame.style.display = 'none';
+  }
+}
+
+function getValues() {
+  return {
+    nameTH:       document.getElementById('nameTH').value.trim(),
+    nameFirst:    document.getElementById('nameFirst').value.trim(),
+    nameLast:     document.getElementById('nameLast').value.trim(),
+    title:        document.getElementById('title').value.trim().toUpperCase(),
+    email:        document.getElementById('email').value.trim(),
+    phone:        document.getElementById('phone').value.trim(),
+    web:          document.getElementById('web').value.trim() || null,
+    slug:         document.getElementById('slug').value.trim(),
+  };
+}
+
+// ── Build HTML ──────────────────────────────────────────────
+function buildHTML(v) {
+  const nameEN       = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+  const titleDisplay = toTitleCase(v.title || '');
+  const phoneDisplay = fmtPhone(v.phone);
+  const cardURL      = BASE + v.slug + '/';
+  const webRow       = v.web ? '' : ' style="display:none"';
+  const webHref      = v.web ? (v.web.startsWith('http') ? v.web : 'https://' + v.web) : '#';
+
+  return `<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${nameEN || 'New Employee'} — Siam Cotton Wool</title>
+  <meta name="description" content="${titleDisplay}, Siam Cotton Wool Ltd." />
+  <link rel="stylesheet" href="../../assets/card.css" />
+</head>
+<body>
+<main class="card" role="main">
+
+  <div class="card-header">
+    <div class="logo-row">
+      <img class="logo-img" src="../../assets/logo.svg" alt="Siam Cotton Wool logo" />
+      <span class="logo-text">Siam Cotton Wool Ltd.</span>
+    </div>
+    <p class="name-th" id="c-name-th">${v.nameTH}</p>
+    <h1 class="name-en" id="c-name-en">${nameEN}</h1>
+    <span class="title-pill" id="c-title">${v.title}</span>
+  </div>
+
+  <div class="card-body">
+    <div class="info-row">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Email</span>
+        <span class="info-value"><a id="c-email" href="mailto:${v.email}">${v.email}</a></span>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.07 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Phone</span>
+        <span class="info-value"><a id="c-phone-link" href="tel:${v.phone}">${phoneDisplay}</a></span>
+      </div>
+    </div>
+    <div class="info-row"${webRow} id="row-web">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Website</span>
+        <span class="info-value"><a id="c-web" href="${webHref}">${v.web || ''}</a></span>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Address</span>
+        <span class="info-value addr">40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru,<br>Phrapradaeng, Samutprakan 10130</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <button class="btn-save" onclick="downloadVCard()" aria-label="บันทึกลงรายชื่อผู้ติดต่อ">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      บันทึกลงผู้ติดต่อ
+    </button>
+    <div class="qr-panel">
+      <div id="qr-box"></div>
+      <p class="qr-url-label" id="c-qr-url"></p>
+    </div>
+  </div>
+
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>
+<script>
+window.SCW_PERSON = {
+  nameTH:       "${v.nameTH}",
+  nameEN:       "${nameEN}",
+  nameFirst:    "${v.nameFirst}",
+  nameLast:     "${v.nameLast}",
+  title:        "${v.title}",
+  titleDisplay: "${titleDisplay}",
+  email:        "${v.email}",
+  phone:        "${v.phone}",
+  phoneDisplay: "${phoneDisplay}",
+  web:          ${v.web ? '"' + v.web + '"' : 'null'},
+  slug:         "${v.slug}",
+  cardURL:      "${cardURL}"
+};
+<\/script>
+<script src="../../assets/card.js"><\/script>
+</body>
+</html>`;
+}
+
+// ── Download ────────────────────────────────────────────────
+function downloadCard() {
+  const v = getValues();
+  if (!v.slug) { toast('กรุณากรอก Slug ก่อนค่ะ'); return; }
+  const html = buildHTML(v);
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  toast('ดาวน์โหลดแล้ว — บันทึกไปที่ card/' + v.slug + '/index.html');
+}
+
+function copyHTML() {
+  const v = getValues();
+  const html = buildHTML(v);
+  navigator.clipboard.writeText(html).then(() => toast('คัดลอก HTML แล้วค่ะ'));
+}
+
+// ── Toast ────────────────────────────────────────────────────
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
