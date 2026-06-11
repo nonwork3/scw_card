@@ -10,7 +10,6 @@
       --green:      #1D9E75;
       --green-dark: #0F6E56;
       --green-pale: #E1F5EE;
-      --green-mid:  #9FE1CB;
       --radius:     14px;
     }
     body {
@@ -23,180 +22,200 @@
 
     /* ── Header ── */
     .page-header {
-      max-width: 900px;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 4px;
+      max-width: 900px; margin: 0 auto 20px;
+      display: flex; align-items: center; gap: 12px; padding: 0 4px;
     }
-    .page-header .logo-wrap {
-      width: 36px; height: 36px;
-      background: var(--green);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+    .logo-badge {
+      width: 36px; height: 36px; background: var(--green); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .page-header .logo-wrap img {
-      width: 22px; height: 22px;
-      filter: brightness(0) invert(1);
-    }
+    .logo-badge img { width: 22px; height: 22px; filter: brightness(0) invert(1); }
     .page-header h1 { font-size: 17px; font-weight: 600; color: #1a1a1a; }
     .page-header p  { font-size: 12px; color: #999; margin-top: 1px; }
 
     /* ── Layout ── */
     .layout {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 16px;
-      align-items: start;
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 360px 1fr;
+      gap: 16px; align-items: start;
     }
-    @media (max-width: 700px) {
-      .layout { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 700px) { .layout { grid-template-columns: 1fr; } }
 
     /* ── Panel ── */
     .panel {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.05);
+      background: #fff; border-radius: var(--radius); padding: 20px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06), 0 0 0 .5px rgba(0,0,0,.05);
     }
     .panel-title {
-      font-size: 11px; font-weight: 600;
-      color: #aaa; text-transform: uppercase; letter-spacing: 1px;
-      margin-bottom: 16px;
+      font-size: 11px; font-weight: 600; color: #aaa;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
     }
 
-    /* ── Form ── */
+    /* ── GitHub Settings ── */
+    .settings-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .settings-bar .panel-title { margin: 0; }
+    .btn-icon {
+      width: 28px; height: 28px; border: none; background: #f4f4f4;
+      border-radius: 7px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; color: #888;
+      transition: background .15s;
+    }
+    .btn-icon:hover { background: #ebebeb; }
+    .btn-icon svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; }
+
+    .pat-section {
+      background: #f8faf9; border-radius: 10px; border: 1px solid #e0ede8;
+      padding: 12px; margin-bottom: 16px; display: none;
+    }
+    .pat-section.open { display: block; }
+    .pat-section label { font-size: 11px; color: #666; font-weight: 500; display: block; margin-bottom: 6px; }
+    .pat-row { display: flex; gap: 6px; }
+    .pat-row input {
+      flex: 1; padding: 7px 10px; border: 1px solid #dde8e2;
+      border-radius: 7px; font-size: 12px; font-family: monospace; color: #1a1a1a;
+    }
+    .pat-row input:focus { outline: none; border-color: var(--green); }
+    .btn-sm {
+      padding: 7px 12px; border: none; border-radius: 7px;
+      font-size: 12px; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: background .15s; white-space: nowrap;
+      background: var(--green); color: #fff;
+    }
+    .btn-sm:hover { background: var(--green-dark); }
+    .pat-status { font-size: 11px; margin-top: 6px; }
+    .pat-status.ok  { color: var(--green-dark); }
+    .pat-status.err { color: #c0392b; }
+    .pat-note { font-size: 10.5px; color: #aaa; margin-top: 6px; line-height: 1.5; }
+
+    /* ── Form fields ── */
     .field { margin-bottom: 12px; }
-    .field label {
-      display: block;
-      font-size: 11px; font-weight: 500; color: #666;
-      margin-bottom: 4px;
-    }
+    .field label { display: block; font-size: 11px; font-weight: 500; color: #666; margin-bottom: 4px; }
     .field input {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1px solid #e4e4e4;
-      border-radius: 8px;
-      font-size: 13px;
-      font-family: inherit;
-      color: #1a1a1a;
-      transition: border-color .15s, box-shadow .15s;
-      background: #fff;
+      width: 100%; padding: 8px 10px; border: 1px solid #e4e4e4;
+      border-radius: 8px; font-size: 13px; font-family: inherit; color: #1a1a1a;
+      transition: border-color .15s, box-shadow .15s; background: #fff;
     }
-    .field input:focus {
-      outline: none;
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(29,158,117,.1);
-    }
-    .field input.derived {
-      background: #f8faf9;
-      color: #666;
-    }
-    .field .hint {
-      font-size: 10.5px; color: #bbb;
-      margin-top: 3px;
-    }
-    .divider {
-      height: 1px; background: #f0f0f0;
-      margin: 16px 0;
-    }
+    .field input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
+    .field input.derived { background: #f8faf9; color: #777; }
+    .field .hint { font-size: 10.5px; color: #ccc; margin-top: 3px; }
+    .divider { height: 1px; background: #f0f0f0; margin: 14px 0; }
 
     /* ── Buttons ── */
     .btn-row { display: flex; gap: 8px; margin-top: 16px; }
     .btn {
-      flex: 1; padding: 10px 12px;
-      border: none; border-radius: 9px;
-      font-size: 13px; font-weight: 500; font-family: inherit;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      transition: background .15s, transform .1s;
+      flex: 1; padding: 11px 12px; border: none; border-radius: 9px;
+      font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      transition: background .15s, opacity .15s, transform .1s;
     }
     .btn:active { transform: scale(.97); }
-    .btn-primary { background: var(--green); color: #fff; }
-    .btn-primary:hover { background: var(--green-dark); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-primary   { background: var(--green); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--green-dark); }
+    .btn-email     { background: #4a6fa5; color: #fff; }
+    .btn-email:hover:not(:disabled) { background: #3d5e8e; }
     .btn-secondary { background: var(--green-pale); color: var(--green-dark); border: 1px solid #c8e8da; }
     .btn-secondary:hover { background: #d2eee3; }
-    .btn svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .btn svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
     /* ── Path hint ── */
     .path-hint {
-      margin-top: 12px;
-      padding: 9px 12px;
-      background: #f8faf9;
-      border-radius: 8px;
-      border: 1px solid #dceee7;
-      font-size: 12px; color: #666;
-      display: none;
+      margin-top: 12px; padding: 9px 12px; background: #f8faf9;
+      border-radius: 8px; border: 1px solid #dceee7;
+      font-size: 12px; color: #666; display: none;
     }
-    .path-hint code {
-      font-family: 'Menlo', 'Consolas', monospace;
-      color: var(--green-dark); font-weight: 600;
-    }
+    .path-hint code { font-family: monospace; color: var(--green-dark); font-weight: 600; }
     .path-hint.visible { display: block; }
 
     /* ── Preview ── */
-    .preview-wrap {
-      position: sticky;
-      top: 20px;
-    }
+    .preview-wrap { position: sticky; top: 20px; }
     .preview-empty {
-      text-align: center;
-      padding: 60px 20px;
-      color: #ccc;
-      font-size: 13px;
+      text-align: center; padding: 60px 20px; color: #ccc; font-size: 13px;
     }
-    .preview-empty svg {
-      display: block; margin: 0 auto 12px;
-      opacity: .3;
+    .preview-empty svg { display: block; margin: 0 auto 12px; opacity: .3; }
+    iframe#preview { width: 100%; border: none; border-radius: 10px; min-height: 520px; display: none; }
+
+    /* ── Success banner ── */
+    .success-banner {
+      display: none; background: var(--green-pale); border: 1px solid #b8e0cc;
+      border-radius: 11px; padding: 16px; margin-bottom: 14px;
     }
-    iframe#preview {
-      width: 100%; border: none;
-      border-radius: 10px;
-      min-height: 520px;
-      display: none;
+    .success-banner.visible { display: block; }
+    .success-banner .s-title { font-size: 13px; font-weight: 600; color: var(--green-dark); margin-bottom: 8px; }
+    .success-banner .s-url {
+      font-size: 12px; font-family: monospace; color: var(--green-dark);
+      background: #fff; border-radius: 7px; padding: 8px 10px;
+      border: 1px solid #c8e8da; word-break: break-all; margin-bottom: 10px;
     }
+    .success-banner .s-url a { color: var(--green-dark); text-decoration: none; }
+    .success-banner .s-url a:hover { text-decoration: underline; }
+    .success-banner .s-note { font-size: 11px; color: #7aac95; }
 
     /* ── Toast ── */
     #toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      background: #1a1a1a; color: #fff;
-      padding: 9px 18px; border-radius: 20px;
-      font-size: 13px;
-      opacity: 0; transition: opacity .2s;
-      pointer-events: none; white-space: nowrap;
-      z-index: 999;
+      background: #1a1a1a; color: #fff; padding: 9px 18px; border-radius: 20px;
+      font-size: 13px; opacity: 0; transition: opacity .2s;
+      pointer-events: none; white-space: nowrap; z-index: 999;
     }
     #toast.show { opacity: 1; }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,.35); border-top-color: #fff;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
 <div class="page-header">
-  <div class="logo-wrap">
+  <div class="logo-badge">
     <img src="../assets/logo.svg" alt="SCW" />
   </div>
   <div>
     <h1>เพิ่มพนักงานใหม่</h1>
-    <p>Siam Cotton Wool — Digital Cards</p>
+    <p>Siam Cotton Wool — Digital Cards Admin</p>
   </div>
 </div>
 
 <div class="layout">
 
-  <!-- ── Form ── -->
+  <!-- ── Left: Form ── -->
   <div class="panel">
-    <div class="panel-title">ข้อมูลพนักงาน</div>
 
+    <!-- GitHub settings -->
+    <div class="settings-bar">
+      <div class="panel-title" style="margin:0">ข้อมูลพนักงาน</div>
+      <button class="btn-icon" onclick="toggleSettings()" title="GitHub Token">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </button>
+    </div>
+
+    <div class="pat-section" id="patSection">
+      <label>GitHub Personal Access Token</label>
+      <div class="pat-row">
+        <input type="password" id="patInput" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" />
+        <button class="btn-sm" onclick="savePAT()">บันทึก</button>
+      </div>
+      <div class="pat-status" id="patStatus"></div>
+      <div class="pat-note">
+        สร้าง token ที่ GitHub → Settings → Developer settings → Personal access tokens<br>
+        ต้องการ scope: <strong>repo</strong> (contents write)<br>
+        token ถูกเก็บไว้ใน browser ของเครื่องนี้เท่านั้น
+      </div>
+    </div>
+
+    <!-- Form fields -->
     <div class="field">
       <label>ชื่อภาษาไทย</label>
       <input id="nameTH" type="text" placeholder="เช่น สมชาย ใจดี" autocomplete="off" />
     </div>
-
     <div class="field">
       <label>First Name (EN)</label>
       <input id="nameFirst" type="text" placeholder="Somchai" autocomplete="off" />
@@ -205,17 +224,13 @@
       <label>Last Name (EN)</label>
       <input id="nameLast" type="text" placeholder="Jaidee" autocomplete="off" />
     </div>
-
     <div class="divider"></div>
-
     <div class="field">
       <label>ตำแหน่ง</label>
       <input id="title" type="text" placeholder="SALES MANAGER" autocomplete="off" />
-      <div class="hint">พิมพ์ได้ทั้ง case — จะแปลงอัตโนมัติ</div>
+      <div class="hint">พิมพ์ได้ทั้ง case — แปลงอัตโนมัติ</div>
     </div>
-
     <div class="divider"></div>
-
     <div class="field">
       <label>Email</label>
       <input id="email" type="email" placeholder="somchai@siamcottonwool.co.th" autocomplete="off" />
@@ -229,9 +244,7 @@
       <label>เว็บไซต์ <span style="color:#ccc;font-weight:400">(ไม่บังคับ)</span></label>
       <input id="web" type="text" placeholder="www.siamcottonwool.com" autocomplete="off" />
     </div>
-
     <div class="divider"></div>
-
     <div class="field">
       <label>Slug (ชื่อโฟลเดอร์)</label>
       <input id="slug" type="text" placeholder="somchai" class="derived" autocomplete="off" />
@@ -242,23 +255,43 @@
       <input id="cardURL" type="text" readonly class="derived" />
     </div>
 
+    <!-- Success banner -->
+    <div class="success-banner" id="successBanner">
+      <div class="s-title">✓ สร้างนามบัตรสำเร็จแล้ว</div>
+      <div class="s-url"><a id="successLink" href="#" target="_blank"></a></div>
+      <div class="s-note">GitHub Pages จะ deploy ภายใน ~2 นาที</div>
+    </div>
+
+    <!-- Action buttons -->
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="downloadCard()">
-        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        ดาวน์โหลด
+      <button class="btn btn-primary" id="btnGitHub" onclick="saveToGitHub()">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        บันทึกขึ้น GitHub
       </button>
-      <button class="btn btn-secondary" onclick="copyHTML()">
+      <button class="btn btn-email" id="btnEmail" onclick="sendEmail()" disabled>
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        ส่งลิงก์ทางอีเมล
+      </button>
+    </div>
+
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn btn-secondary" style="font-size:12px" onclick="downloadCard()">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        ดาวน์โหลด HTML
+      </button>
+      <button class="btn btn-secondary" style="font-size:12px" onclick="copyHTML()">
         <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        คัดลอก
+        คัดลอก HTML
       </button>
     </div>
 
     <div class="path-hint" id="pathHint">
       บันทึกไฟล์ไปที่ <code id="pathText"></code> แล้ว commit ขึ้น GitHub
     </div>
+
   </div>
 
-  <!-- ── Preview ── -->
+  <!-- ── Right: Preview ── -->
   <div class="panel preview-wrap">
     <div class="panel-title">ตัวอย่างนามบัตร</div>
     <div class="preview-empty" id="previewEmpty">
@@ -273,62 +306,71 @@
 <div id="toast"></div>
 
 <script>
-const BASE = 'https://nonwork3.github.io/scw_card/card/';
+const OWNER = 'nonwork3';
+const REPO  = 'scw_card';
+const BASE  = `https://${OWNER}.github.io/${REPO}/card/`;
 
-// ── Auto-derive fields ──────────────────────────────────────
-let titleDisplayEdited = false;
+// ── PAT ─────────────────────────────────────────────────────
+function toggleSettings() {
+  document.getElementById('patSection').classList.toggle('open');
+  const stored = localStorage.getItem('scw_pat');
+  if (stored) {
+    document.getElementById('patInput').value = stored;
+    showPATStatus(true);
+  }
+}
+function savePAT() {
+  const val = document.getElementById('patInput').value.trim();
+  if (!val) { showPATStatus(false, 'กรุณากรอก token'); return; }
+  localStorage.setItem('scw_pat', val);
+  showPATStatus(true);
+  toast('บันทึก token แล้วค่ะ');
+}
+function showPATStatus(ok, msg) {
+  const el = document.getElementById('patStatus');
+  el.className = 'pat-status ' + (ok ? 'ok' : 'err');
+  el.textContent = ok ? '✓ Token พร้อมใช้งาน' : (msg || '');
+}
+
+// ── Auto-derive ──────────────────────────────────────────────
 let slugEdited = false;
 
 document.getElementById('title').addEventListener('input', function () {
   const pos = this.selectionStart;
   this.value = this.value.toUpperCase();
   this.setSelectionRange(pos, pos);
-  if (!titleDisplayEdited) {
-    const tc = this.value.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
-    // no-op needed here; titleDisplay is computed in update()
-  }
   update();
 });
-
-document.getElementById('titleDisplay') && null; // not in form; derived in generate
-
 document.getElementById('nameFirst').addEventListener('input', function () {
-  if (!slugEdited) {
-    document.getElementById('slug').value = toSlug(this.value);
-  }
+  if (!slugEdited) document.getElementById('slug').value = toSlug(this.value);
   update();
 });
-
 document.getElementById('slug').addEventListener('input', function () {
   slugEdited = !!this.value;
   update();
 });
+['nameTH','nameLast','email','phone','web'].forEach(id =>
+  document.getElementById(id).addEventListener('input', update)
+);
 
-['nameTH','nameLast','email','phone','web'].forEach(id => {
-  document.getElementById(id).addEventListener('input', update);
-});
-
-// ── Helpers ────────────────────────────────────────────────
 function toSlug(s) {
   return s.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
 }
-
 function toTitleCase(s) {
   return s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
 }
-
 function fmtPhone(raw) {
   const d = raw.replace(/\D/g, '');
-  if (d.startsWith('66') && d.length >= 11) {
-    return '+' + d.slice(0, 4) + ' ' + d.slice(4);
-  }
+  if (d.startsWith('66') && d.length >= 11)
+    return '+' + d.slice(0,4) + ' ' + d.slice(4);
   return raw;
 }
 
-// ── Main update ─────────────────────────────────────────────
+// ── Update preview ───────────────────────────────────────────
 function update() {
   const v = getValues();
-  document.getElementById('cardURL').value = BASE + (v.slug || '') + '/';
+  const url = BASE + (v.slug || '') + '/';
+  document.getElementById('cardURL').value = url;
 
   const hint = document.getElementById('pathHint');
   if (v.slug) {
@@ -351,18 +393,18 @@ function update() {
 
 function getValues() {
   return {
-    nameTH:       document.getElementById('nameTH').value.trim(),
-    nameFirst:    document.getElementById('nameFirst').value.trim(),
-    nameLast:     document.getElementById('nameLast').value.trim(),
-    title:        document.getElementById('title').value.trim().toUpperCase(),
-    email:        document.getElementById('email').value.trim(),
-    phone:        document.getElementById('phone').value.trim(),
-    web:          document.getElementById('web').value.trim() || null,
-    slug:         document.getElementById('slug').value.trim(),
+    nameTH:    document.getElementById('nameTH').value.trim(),
+    nameFirst: document.getElementById('nameFirst').value.trim(),
+    nameLast:  document.getElementById('nameLast').value.trim(),
+    title:     document.getElementById('title').value.trim().toUpperCase(),
+    email:     document.getElementById('email').value.trim(),
+    phone:     document.getElementById('phone').value.trim(),
+    web:       document.getElementById('web').value.trim() || null,
+    slug:      document.getElementById('slug').value.trim(),
   };
 }
 
-// ── Build HTML ──────────────────────────────────────────────
+// ── Build HTML ───────────────────────────────────────────────
 function buildHTML(v) {
   const nameEN       = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
   const titleDisplay = toTitleCase(v.title || '');
@@ -466,23 +508,113 @@ window.SCW_PERSON = {
 </html>`;
 }
 
-// ── Download ────────────────────────────────────────────────
+// ── Save to GitHub ───────────────────────────────────────────
+async function saveToGitHub() {
+  const v = getValues();
+  if (!v.slug)  { toast('กรุณากรอก Slug ก่อนค่ะ'); return; }
+  if (!v.nameTH && !v.nameFirst) { toast('กรุณากรอกชื่อพนักงานก่อนค่ะ'); return; }
+
+  const pat = localStorage.getItem('scw_pat');
+  if (!pat) {
+    document.getElementById('patSection').classList.add('open');
+    toast('กรุณากรอก GitHub Token ก่อนค่ะ');
+    return;
+  }
+
+  const btn = document.getElementById('btnGitHub');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> กำลังบันทึก…';
+
+  const html    = buildHTML(v);
+  const path    = `card/${v.slug}/index.html`;
+  const apiURL  = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+  const headers = { Authorization: `token ${pat}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+
+  try {
+    // ตรวจว่าไฟล์มีอยู่แล้ว (ดึง SHA สำหรับ update)
+    let sha = null;
+    const check = await fetch(apiURL, { headers });
+    if (check.ok) { sha = (await check.json()).sha; }
+
+    // สร้าง / อัพเดตไฟล์
+    const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+    const body   = {
+      message: `Add card: ${nameEN || v.slug}`,
+      content: btoa(unescape(encodeURIComponent(html))),
+      ...(sha && { sha })
+    };
+
+    const res = await fetch(apiURL, { method: 'PUT', headers, body: JSON.stringify(body) });
+
+    if (res.ok) {
+      const cardURL = BASE + v.slug + '/';
+      showSuccess(cardURL, v);
+    } else {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 401) toast('Token ไม่ถูกต้องหรือหมดอายุค่ะ');
+      else toast('เกิดข้อผิดพลาด: ' + (err.message || res.status));
+    }
+  } catch(e) {
+    toast('ไม่สามารถเชื่อมต่อ GitHub ได้ — ตรวจ internet และ token อีกครั้ง');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> บันทึกขึ้น GitHub`;
+  }
+}
+
+function showSuccess(cardURL, v) {
+  const banner = document.getElementById('successBanner');
+  const link   = document.getElementById('successLink');
+  link.href = cardURL;
+  link.textContent = cardURL;
+  banner.classList.add('visible');
+
+  const emailBtn = document.getElementById('btnEmail');
+  emailBtn.disabled = false;
+  emailBtn.onclick = () => openMailTo(v, cardURL);
+
+  toast('สร้างนามบัตรสำเร็จค่ะ 🎉');
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ── Email ────────────────────────────────────────────────────
+function sendEmail() { /* overridden in showSuccess */ }
+
+function openMailTo(v, cardURL) {
+  if (!v.email) { toast('ไม่มีอีเมลพนักงานค่ะ'); return; }
+  const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+  const greeting = v.nameTH ? `คุณ${v.nameTH}` : nameEN;
+  const subject  = encodeURIComponent('นามบัตรดิจิทัล — Siam Cotton Wool Ltd.');
+  const body     = encodeURIComponent(
+`เรียน ${greeting}
+
+นามบัตรดิจิทัลของท่านพร้อมใช้งานแล้วค่ะ
+
+🔗 ${cardURL}
+
+วิธีใช้งาน:
+• เปิดลิงก์บนมือถือ กด "บันทึกลงผู้ติดต่อ" เพื่อบันทึก vCard
+• หรือ Scan QR Code จากหน้านี้ได้เลย
+
+ด้วยความนับถือ
+Siam Cotton Wool Ltd.`
+  );
+  window.open(`mailto:${v.email}?subject=${subject}&body=${body}`);
+}
+
+// ── Download / Copy ──────────────────────────────────────────
 function downloadCard() {
   const v = getValues();
   if (!v.slug) { toast('กรุณากรอก Slug ก่อนค่ะ'); return; }
-  const html = buildHTML(v);
-  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'index.html';
+  const blob = new Blob([buildHTML(v)], { type: 'text/html;charset=utf-8' });
+  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: 'index.html' });
   a.click();
   toast('ดาวน์โหลดแล้ว — บันทึกไปที่ card/' + v.slug + '/index.html');
 }
 
 function copyHTML() {
   const v = getValues();
-  const html = buildHTML(v);
-  navigator.clipboard.writeText(html).then(() => toast('คัดลอก HTML แล้วค่ะ'));
+  navigator.clipboard.writeText(buildHTML(v)).then(() => toast('คัดลอก HTML แล้วค่ะ'));
 }
 
 // ── Toast ────────────────────────────────────────────────────
@@ -490,8 +622,13 @@ function toast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2800);
+  setTimeout(() => el.classList.remove('show'), 3000);
 }
+
+// ── Init ─────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  if (localStorage.getItem('scw_pat')) showPATStatus(true);
+});
 </script>
 </body>
 </html>
