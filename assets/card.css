@@ -91,6 +91,25 @@ html, body {
   color: #fff; font-weight: 500;
 }
 
+/* ── Icon strip ── */
+.icon-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.icon-strip svg {
+  width: 20px; height: 20px;
+  stroke: rgba(255,255,255,0.5);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ── Body ── */
 .card-body { padding: 6px 20px 4px; }
 

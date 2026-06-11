@@ -160,6 +160,15 @@ function buildHTML(v) {
     <p class="name-th" id="c-name-th">${v.nameTH}</p>
     <h1 class="name-en" id="c-name-en">${nameEN}</h1>
     <span class="title-pill" id="c-title">${v.title}</span>
+    <div class="icon-strip" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="6" rx="0.5"/><ellipse cx="5" cy="12" rx="1.5" ry="3"/><ellipse cx="19" cy="12" rx="1.5" ry="3"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M8 4h8M8 20h8M8 4v16M16 4v16"/><ellipse cx="12" cy="12" rx="3.5" ry="5.5"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="5.5" r="2"/><circle cx="18.5" cy="8.5" r="2"/><circle cx="18.5" cy="15.5" r="2"/><circle cx="12" cy="18.5" r="2"/><circle cx="5.5" cy="15.5" r="2"/><circle cx="5.5" cy="8.5" r="2"/></svg>
+      <svg viewBox="0 0 24 24"><line x1="5" y1="4" x2="5" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="19" y1="4" x2="19" y2="20"/><path d="M3 8h4M10 8h4M17 8h4M3 16h4M10 16h4M17 16h4"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="3" y="15" width="18" height="5" rx="1"/><rect x="8" y="5" width="8" height="10" rx="1"/><circle cx="12" cy="10" r="2"/></svg>
+    </div>
   </div>
 
   <div class="card-body">
