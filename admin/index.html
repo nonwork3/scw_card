@@ -255,25 +255,18 @@
         <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         บันทึกขึ้น GitHub
       </button>
-      <button class="btn btn-email" id="btnEmail" onclick="sendEmail()" disabled>
+    </div>
+
+    <!-- Email section — แสดงหลัง save สำเร็จ -->
+    <div id="emailSection" style="display:none; margin-top:12px;">
+      <div class="field" style="margin-bottom:8px">
+        <label>ส่งลิงก์ไปที่อีเมล</label>
+        <input id="sendToEmail" type="email" autocomplete="off" placeholder="อีเมลผู้รับ" />
+      </div>
+      <button class="btn btn-email" onclick="sendEmail()">
         <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
         ส่งลิงก์ทางอีเมล
       </button>
-    </div>
-
-    <div class="btn-row" style="margin-top:8px">
-      <button class="btn btn-secondary" style="font-size:12px" onclick="downloadCard()">
-        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        ดาวน์โหลด HTML
-      </button>
-      <button class="btn btn-secondary" style="font-size:12px" onclick="copyHTML()">
-        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        คัดลอก HTML
-      </button>
-    </div>
-
-    <div class="path-hint" id="pathHint">
-      บันทึกไฟล์ไปที่ <code id="pathText"></code> แล้ว commit ขึ้น GitHub
     </div>
 
   </div>
@@ -546,6 +539,9 @@ async function saveToGitHub() {
   }
 }
 
+let _savedCardURL = '';
+let _savedV = null;
+
 function showSuccess(cardURL, v) {
   const banner = document.getElementById('successBanner');
   const link   = document.getElementById('successLink');
@@ -553,20 +549,25 @@ function showSuccess(cardURL, v) {
   link.textContent = cardURL;
   banner.classList.add('visible');
 
-  const emailBtn = document.getElementById('btnEmail');
-  emailBtn.disabled = false;
-  emailBtn.onclick = () => openMailTo(v, cardURL);
+  _savedCardURL = cardURL;
+  _savedV = v;
 
-  toast('สร้างนามบัตรสำเร็จค่ะ 🎉');
+  // แสดง email section พร้อม pre-fill อีเมลพนักงาน
+  const sec = document.getElementById('emailSection');
+  document.getElementById('sendToEmail').value = v.email || '';
+  sec.style.display = 'block';
+
+  toast('สร้างนามบัตรสำเร็จค่ะ');
   banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // ── Email ────────────────────────────────────────────────────
-function sendEmail() { /* overridden in showSuccess */ }
-
-function openMailTo(v, cardURL) {
-  if (!v.email) { toast('ไม่มีอีเมลพนักงานค่ะ'); return; }
-  const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+function sendEmail() {
+  const to = document.getElementById('sendToEmail').value.trim();
+  if (!to) { toast('กรุณากรอกอีเมลผู้รับค่ะ'); return; }
+  const v   = _savedV || getValues();
+  const url = _savedCardURL || (BASE + v.slug + '/');
+  const nameEN   = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
   const greeting = v.nameTH ? `คุณ${v.nameTH}` : nameEN;
   const subject  = encodeURIComponent('นามบัตรดิจิทัล — Siam Cotton Wool Ltd.');
   const body     = encodeURIComponent(
@@ -574,7 +575,7 @@ function openMailTo(v, cardURL) {
 
 นามบัตรดิจิทัลของท่านพร้อมใช้งานแล้วค่ะ
 
-🔗 ${cardURL}
+🔗 ${url}
 
 วิธีใช้งาน:
 • เปิดลิงก์บนมือถือ กด "บันทึกลงผู้ติดต่อ" เพื่อบันทึก vCard
@@ -583,22 +584,7 @@ function openMailTo(v, cardURL) {
 ด้วยความนับถือ
 Siam Cotton Wool Ltd.`
   );
-  window.open(`mailto:${v.email}?subject=${subject}&body=${body}`);
-}
-
-// ── Download / Copy ──────────────────────────────────────────
-function downloadCard() {
-  const v = getValues();
-  if (!v.slug) { toast('กรุณากรอก Slug ก่อนค่ะ'); return; }
-  const blob = new Blob([buildHTML(v)], { type: 'text/html;charset=utf-8' });
-  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: 'index.html' });
-  a.click();
-  toast('ดาวน์โหลดแล้ว — บันทึกไปที่ card/' + v.slug + '/index.html');
-}
-
-function copyHTML() {
-  const v = getValues();
-  navigator.clipboard.writeText(buildHTML(v)).then(() => toast('คัดลอก HTML แล้วค่ะ'));
+  window.open(`mailto:${to}?subject=${subject}&body=${body}`);
 }
 
 // ── Toast ────────────────────────────────────────────────────
