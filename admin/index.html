@@ -529,7 +529,7 @@ async function loadCardList() {
         );
         if (!r.ok) return { slug: folder.name };
         const data = await r.json();
-        const html = atob(data.content.replace(/\n/g, ''));
+        const html = b64decode(data.content);
         const p = parseCardData(html);
         return { slug: folder.name, ...(p || {}) };
       } catch { return { slug: folder.name }; }
@@ -641,6 +641,14 @@ async function doDelete(slug, name) {
   } catch(e) {
     toast('ไม่สามารถลบได้: ' + e.message);
   }
+}
+
+// ── Base64 → UTF-8 string (handles Thai / multi-byte) ────────
+function b64decode(b64) {
+  const binary = atob(b64.replace(/\n/g, ''));
+  const bytes  = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
 }
 
 // ── Parse SCW_PERSON from card HTML ─────────────────────────
