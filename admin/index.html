@@ -385,7 +385,7 @@ function update() {
   const frame = document.getElementById('preview');
   if (hasData) {
     frame.style.display = 'block';
-    frame.srcdoc = buildHTML(v);
+    frame.srcdoc = buildHTML(v).replace('<head>', '<head>\n  <base href="https://nonwork3.github.io/scw_card/card/_preview/">');
   } else {
     frame.style.display = 'none';
   }
