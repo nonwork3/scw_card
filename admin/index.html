@@ -217,12 +217,8 @@
       <input id="nameTH" type="text" placeholder="เช่น สมชาย ใจดี" autocomplete="off" />
     </div>
     <div class="field">
-      <label>First Name (EN)</label>
-      <input id="nameFirst" type="text" placeholder="Somchai" autocomplete="off" />
-    </div>
-    <div class="field">
-      <label>Last Name (EN)</label>
-      <input id="nameLast" type="text" placeholder="Jaidee" autocomplete="off" />
+      <label>ชื่อภาษาอังกฤษ</label>
+      <input id="nameEN" type="text" placeholder="เช่น Somchai Jaidee" autocomplete="off" />
     </div>
     <div class="divider"></div>
     <div class="field">
@@ -341,15 +337,15 @@ document.getElementById('title').addEventListener('input', function () {
   this.setSelectionRange(pos, pos);
   update();
 });
-document.getElementById('nameFirst').addEventListener('input', function () {
-  if (!slugEdited) document.getElementById('slug').value = toSlug(this.value);
+document.getElementById('nameEN').addEventListener('input', function () {
+  if (!slugEdited) document.getElementById('slug').value = toSlug(this.value.split(' ')[0]);
   update();
 });
 document.getElementById('slug').addEventListener('input', function () {
   slugEdited = !!this.value;
   update();
 });
-['nameTH','nameLast','email','phone','web'].forEach(id =>
+['nameTH','email','phone','web'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
 
@@ -392,10 +388,13 @@ function update() {
 }
 
 function getValues() {
+  const nameEN = document.getElementById('nameEN').value.trim();
+  const parts  = nameEN.split(/\s+/);
   return {
     nameTH:    document.getElementById('nameTH').value.trim(),
-    nameFirst: document.getElementById('nameFirst').value.trim(),
-    nameLast:  document.getElementById('nameLast').value.trim(),
+    nameEN,
+    nameFirst: parts[0] || '',
+    nameLast:  parts.slice(1).join(' '),
     title:     document.getElementById('title').value.trim().toUpperCase(),
     email:     document.getElementById('email').value.trim(),
     phone:     document.getElementById('phone').value.trim(),
