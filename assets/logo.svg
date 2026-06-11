@@ -2,18 +2,16 @@
   <defs>
     <mask id="m">
       <rect width="100" height="100" fill="white"/>
-      <!-- inner holes: outer_r - ring(9.51) -->
-      <circle cx="50.00" cy="20.25" r="10.77" fill="black"/>
-      <circle cx="24.35" cy="47.14" r="14.74" fill="black"/>
-      <circle cx="75.65" cy="47.14" r="14.74" fill="black"/>
-      <circle cx="50.00" cy="72.79" r="17.65" fill="black"/>
+      <circle cx="50.000" cy="23.250" r="12.250" fill="black"/>
+      <circle cx="27.750" cy="49.750" r="16.750" fill="black"/>
+      <circle cx="72.250" cy="49.750" r="16.750" fill="black"/>
+      <circle cx="50.000" cy="71.813" r="17.125" fill="black"/>
     </mask>
   </defs>
   <g mask="url(#m)">
-    <!-- outer puff circles traced from logo.png pixel data -->
-    <circle cx="50.00" cy="20.25" r="20.28" fill="#5BC2AD"/>
-    <circle cx="24.35" cy="47.14" r="24.25" fill="#5BC2AD"/>
-    <circle cx="75.65" cy="47.14" r="24.25" fill="#5BC2AD"/>
-    <circle cx="50.00" cy="72.79" r="27.16" fill="#5BC2AD"/>
+    <circle cx="50.000" cy="23.250" r="21.375" fill="#5BC2AE"/>
+    <circle cx="27.750" cy="49.750" r="25.875" fill="#5BC2AE"/>
+    <circle cx="72.250" cy="49.750" r="25.875" fill="#5BC2AE"/>
+    <circle cx="50.000" cy="71.813" r="26.250" fill="#5BC2AE"/>
   </g>
 </svg>
