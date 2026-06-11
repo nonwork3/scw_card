@@ -557,7 +557,7 @@ function showSuccess(cardURL, v) {
   document.getElementById('sendToEmail').value = v.email || '';
   sec.style.display = 'block';
 
-  toast('สร้างนามบัตรสำเร็จค่ะ');
+  toast('บันทึกสำเร็จ — รอประมาณ 2 นาทีถึงจะใช้งานได้ค่ะ', 5000);
   banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
@@ -588,11 +588,11 @@ Siam Cotton Wool Ltd.`
 }
 
 // ── Toast ────────────────────────────────────────────────────
-function toast(msg) {
+function toast(msg, duration = 3000) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 3000);
+  setTimeout(() => el.classList.remove('show'), duration);
 }
 
 // ── Init ─────────────────────────────────────────────────────
