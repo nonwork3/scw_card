@@ -163,7 +163,7 @@ body {
   text-align: center; padding: 60px 20px; color: #ccc; font-size: 13px;
 }
 .preview-empty svg { display: block; margin: 0 auto 12px; opacity: .3; }
-iframe#preview { width: 100%; border: none; border-radius: 10px; min-height: 520px; display: none; }
+iframe#preview { width: 100%; border: none; border-radius: 10px; display: none; overflow: hidden; }
 
 /* ── Success banner ── */
 .success-banner {

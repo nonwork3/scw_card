@@ -116,7 +116,7 @@
         <path d="M8 10h8M8 14h5"/>
       </svg>
     </div>
-    <iframe id="preview" title="Card preview"></iframe>
+    <iframe id="preview" title="Card preview" scrolling="no"></iframe>
   </div>
 
 </div>
@@ -201,6 +201,12 @@ function update() {
     '<head>',
     '<head>\n  <base href="https://nonwork3.github.io/scw_card/card/_preview/">'
   );
+  frame.onload = () => {
+    try {
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      frame.style.height = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight) + 'px';
+    } catch {}
+  };
 }
 
 async function doSave() {
