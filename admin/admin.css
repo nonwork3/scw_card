@@ -147,13 +147,14 @@ body {
 
 .field { margin-bottom: 12px; }
 .field label { display: block; font-size: 11px; font-weight: 500; color: #666; margin-bottom: 4px; }
-.field input {
+.field input, .field textarea {
   width: 100%; padding: 8px 10px; border: 1px solid #e4e4e4;
   border-radius: 8px; font-size: 13px; font-family: inherit; color: #1a1a1a;
   transition: border-color .15s, box-shadow .15s; background: #fff;
 }
-.field input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
 .field input.derived { background: #f8faf9; color: #777; }
+.field textarea { resize: vertical; }
 .field .hint { font-size: 10.5px; color: #ccc; margin-top: 3px; }
 .divider { height: 1px; background: #f0f0f0; margin: 14px 0; }
 

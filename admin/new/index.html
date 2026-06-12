@@ -79,6 +79,10 @@
       <label>Website URL</label>
       <input id="web" type="text" placeholder="เช่น www.siamcottonwool.com หรือเว้นว่างถ้าไม่มี" autocomplete="off" />
     </div>
+    <div class="field">
+      <label>Address</label>
+      <textarea id="address" rows="2" placeholder="40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru, Phrapradaeng, Samutprakan 10130" autocomplete="off"></textarea>
+    </div>
     <div class="divider"></div>
     <div class="field">
       <label>Card URL</label>
@@ -139,7 +143,7 @@ document.getElementById('title').addEventListener('input', function () {
   this.setSelectionRange(pos, pos);
   update();
 });
-['nameTH', 'nameEN', 'email', 'phone', 'line', 'web'].forEach(id =>
+['nameTH', 'nameEN', 'email', 'phone', 'line', 'web', 'address'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
 document.getElementById('phone').addEventListener('blur', function () {
@@ -160,6 +164,7 @@ function getValues() {
     phone:     document.getElementById('phone').value.trim(),
     line:      document.getElementById('line').value.trim() || null,
     web:       document.getElementById('web').value.trim() || null,
+    address:   document.getElementById('address').value.trim() || null,
     slug:      makeSlug(nameEN),
   };
 }

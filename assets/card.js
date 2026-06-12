@@ -46,6 +46,9 @@
     showRow("row-web", p.web);
     if (p.web) setLink("c-web", "https://" + p.web, p.web);
 
+    set("c-address", p.address);
+    showRow("row-address", p.address);
+
     set("c-qr-url", p.cardURL);
 
     // Render QR immediately

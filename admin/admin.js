@@ -129,6 +129,7 @@ function parseCardData(html) {
     title:     str('title'),     email:    str('email'),
     phone:     str('phone'),     web:      str('web'),
     line:      str('line'),
+    address:   str('address'),
     slug:      str('slug'),      cardURL:  str('cardURL'),
   };
 }
@@ -142,6 +143,7 @@ function buildHTML(v) {
   const lineHref     = v.line ? 'https://line.me/ti/p/~' + v.line : '#';
   const webRow       = v.web ? '' : ' style="display:none"';
   const webHref      = v.web ? (v.web.startsWith('http') ? v.web : 'https://' + v.web) : '#';
+  const addressRow   = v.address ? '' : ' style="display:none"';
 
   return `<!DOCTYPE html>
 <html lang="th">
@@ -217,13 +219,13 @@ function buildHTML(v) {
         <span class="info-value"><a id="c-web" href="${webHref}">${v.web || ''}</a></span>
       </div>
     </div>
-    <div class="info-row">
+    <div class="info-row"${addressRow} id="row-address">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
       <div class="info-content">
         <span class="info-label">Address</span>
-        <span class="info-value addr">40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru,<br>Phrapradaeng, Samutprakan 10130</span>
+        <span class="info-value addr" id="c-address">${v.address || ''}</span>
       </div>
     </div>
   </div>
@@ -254,6 +256,7 @@ window.SCW_PERSON = {
   phoneDisplay: "${phoneDisplay}",
   web:          ${v.web ? '"' + v.web + '"' : 'null'},
   line:         ${v.line ? '"' + v.line + '"' : 'null'},
+  address:      ${v.address ? '"' + v.address + '"' : 'null'},
   slug:         "${v.slug}",
   cardURL:      "${cardURL}"
 };
