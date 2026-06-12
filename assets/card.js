@@ -38,15 +38,23 @@
     if (phoneLink) phoneLink.href = "tel:" + p.phone;
 
     const lineRow = document.getElementById("row-line");
-    if (p.line && lineRow) {
-      lineRow.style.display = "flex";
-      setLink("c-line", "https://line.me/ti/p/~" + p.line, p.line);
+    if (lineRow) {
+      if (p.line) {
+        lineRow.style.display = "flex";
+        setLink("c-line", "https://line.me/ti/p/~" + p.line, p.line);
+      } else {
+        lineRow.style.display = "none";
+      }
     }
 
     const webRow = document.getElementById("row-web");
-    if (p.web) {
-      webRow.style.display = "flex";
-      setLink("c-web", "https://" + p.web, p.web);
+    if (webRow) {
+      if (p.web) {
+        webRow.style.display = "flex";
+        setLink("c-web", "https://" + p.web, p.web);
+      } else {
+        webRow.style.display = "none";
+      }
     }
 
     set("c-qr-url", p.cardURL);
