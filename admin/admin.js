@@ -312,7 +312,7 @@ function generateSignature(v) {
   style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#333333;background:#ffffff;padding:16px 20px;border-radius:8px;width:420px;max-width:420px;">
   <tr>
     <td colspan="2" style="padding-bottom:10px;line-height:1;">
-      <img src="https://nonwork3.github.io/scw_card/assets/logo.png" alt="Siam Cotton Wool" width="70" height="50" style="display:block;border:0;">
+      <img src="https://nonwork3.github.io/scw_card/assets/logo-email.png" alt="Siam Cotton Wool" width="55" height="55" style="display:block;border:0;">
     </td>
   </tr>
   <tr>
