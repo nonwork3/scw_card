@@ -80,6 +80,10 @@
       <label>LINE ID</label>
       <input id="line" type="text" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
     </div>
+    <div class="field">
+      <label>Website URL</label>
+      <input id="web" type="text" placeholder="เช่น www.siamcottonwool.com หรือเว้นว่างถ้าไม่มี" autocomplete="off" />
+    </div>
     <div class="divider"></div>
     <div class="field">
       <label>Card URL</label>
@@ -156,6 +160,7 @@ async function loadCard() {
     document.getElementById('email').value  = p.email  || '';
     document.getElementById('phone').value  = p.phone  || '';
     document.getElementById('line').value   = p.line   || '';
+    document.getElementById('web').value    = p.web    || '';
     document.getElementById('breadcrumbLabel').textContent = p.nameEN || slug;
 
     document.getElementById('stateWrap').style.display  = 'none';
@@ -168,7 +173,7 @@ async function loadCard() {
       this.setSelectionRange(pos, pos);
       update();
     });
-    ['nameTH', 'nameEN', 'email', 'phone', 'line'].forEach(id =>
+    ['nameTH', 'nameEN', 'email', 'phone', 'line', 'web'].forEach(id =>
       document.getElementById(id).addEventListener('input', update)
     );
     document.getElementById('phone').addEventListener('blur', function () {
@@ -198,7 +203,7 @@ function getValues() {
     email:     document.getElementById('email').value.trim(),
     phone:     document.getElementById('phone').value.trim(),
     line:      document.getElementById('line').value.trim() || null,
-    web:       'www.siamcottonwool.com',
+    web:       document.getElementById('web').value.trim() || null,
     slug:      _editSlug,
   };
 }
