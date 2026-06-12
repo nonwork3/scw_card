@@ -70,6 +70,10 @@
       <input id="phone" type="text" placeholder="+66812345678" autocomplete="off" />
       <div class="hint">ไม่มีเว้นวรรค เช่น +66812345678</div>
     </div>
+    <div class="field">
+      <label>LINE ID</label>
+      <input id="line" type="text" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+    </div>
     <div class="divider"></div>
     <div class="field">
       <label>Card URL</label>
@@ -130,7 +134,7 @@ document.getElementById('title').addEventListener('input', function () {
   this.setSelectionRange(pos, pos);
   update();
 });
-['nameTH', 'nameEN', 'email', 'phone'].forEach(id =>
+['nameTH', 'nameEN', 'email', 'phone', 'line'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
 document.getElementById('phone').addEventListener('blur', function () {
@@ -149,6 +153,7 @@ function getValues() {
     title:     document.getElementById('title').value.trim().toUpperCase(),
     email:     document.getElementById('email').value.trim(),
     phone:     document.getElementById('phone').value.trim(),
+    line:      document.getElementById('line').value.trim() || null,
     web:       'www.siamcottonwool.com',
     slug:      makeSlug(nameEN),
   };

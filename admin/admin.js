@@ -128,6 +128,7 @@ function parseCardData(html) {
     nameFirst: str('nameFirst'), nameLast: str('nameLast'),
     title:     str('title'),     email:    str('email'),
     phone:     str('phone'),     web:      str('web'),
+    line:      str('line'),
     slug:      str('slug'),      cardURL:  str('cardURL'),
   };
 }
@@ -137,6 +138,8 @@ function buildHTML(v) {
   const titleDisplay = toTitleCase(v.title || '');
   const phoneDisplay = fmtPhone(v.phone);
   const cardURL      = BASE + v.slug + '/';
+  const lineRow      = v.line ? '' : ' style="display:none"';
+  const lineHref     = v.line ? 'https://line.me/ti/p/~' + v.line : '#';
   const webRow       = v.web ? '' : ' style="display:none"';
   const webHref      = v.web ? (v.web.startsWith('http') ? v.web : 'https://' + v.web) : '#';
 
@@ -160,14 +163,14 @@ function buildHTML(v) {
     <p class="name-th" id="c-name-th">${v.nameTH}</p>
     <h1 class="name-en" id="c-name-en">${nameEN}</h1>
     <span class="title-pill" id="c-title">${v.title}</span>
-    <div class="icon-strip" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><rect x="2" y="8" width="16" height="8" rx="1"/><ellipse cx="20" cy="12" rx="3" ry="4"/><line x1="2" y1="12" x2="17" y2="12"/></svg>
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><circle cx="7" cy="16.5" r="4"/><circle cx="17" cy="16.5" r="4"/></svg>
-      <svg viewBox="0 0 24 24"><path d="M21 12 a9 9 0 1 0 -9 -9"/><path d="M17 12 a5 5 0 1 0 -5 -5"/><circle cx="12" cy="12" r="1.5"/></svg>
-      <svg viewBox="0 0 24 24"><path d="M3 19c3-2 6-2 9 0s6 2 9 0"/><path d="M3 15c3-2 6-2 9 0s6 2 9 0"/><path d="M3 11c3-2 6-2 9 0s6 2 9 0"/><path d="M3 7c3-2 6-2 9 0s6 2 9 0"/></svg>
-      <svg viewBox="0 0 24 24"><circle cx="9" cy="13" r="5"/><line x1="9" y1="8" x2="9" y2="18"/><line x1="4" y1="13" x2="14" y2="13"/><circle cx="17" cy="9" r="4"/><line x1="17" y1="5" x2="17" y2="13"/><line x1="13" y1="9" x2="21" y2="9"/></svg>
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="4" height="2.5" rx="0.5"/><rect x="2" y="18.5" width="4" height="2.5" rx="0.5"/><line x1="4" y1="5.5" x2="4" y2="18.5"/><rect x="10" y="3" width="4" height="2.5" rx="0.5"/><rect x="10" y="18.5" width="4" height="2.5" rx="0.5"/><line x1="12" y1="5.5" x2="12" y2="18.5"/><rect x="18" y="3" width="4" height="2.5" rx="0.5"/><rect x="18" y="18.5" width="4" height="2.5" rx="0.5"/><line x1="20" y1="5.5" x2="20" y2="18.5"/></svg>
-      <svg viewBox="0 0 24 24"><rect x="2" y="15" width="20" height="6" rx="1"/><rect x="5" y="8" width="14" height="7" rx="1"/><circle cx="9" cy="11.5" r="2"/><circle cx="15" cy="11.5" r="2"/><line x1="9" y1="8" x2="9" y2="6"/><line x1="15" y1="8" x2="15" y2="6"/><path d="M9 6h6"/></svg>
+    <div class="icon-bar" aria-hidden="true">
+      <svg><use href="../../assets/icons.svg#scw-roll"/></svg>
+      <svg><use href="../../assets/icons.svg#scw-cotton"/></svg>
+      <svg><use href="../../assets/icons.svg#scw-yarn"/></svg>
+      <svg><use href="../../assets/icons.svg#scw-fabric"/></svg>
+      <svg><use href="../../assets/icons.svg#scw-pad"/></svg>
+      <svg><use href="../../assets/icons.svg#scw-swab"/></svg>
+      <svg><use href="../../assets/icons.svg#scw-tissue"/></svg>
     </div>
   </div>
 
@@ -188,6 +191,15 @@ function buildHTML(v) {
       <div class="info-content">
         <span class="info-label">Phone</span>
         <span class="info-value"><a id="c-phone-link" href="tel:${v.phone}">${phoneDisplay}</a></span>
+      </div>
+    </div>
+    <div class="info-row"${lineRow} id="row-line">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <div class="info-content">
+        <span class="info-label">LINE</span>
+        <span class="info-value"><a id="c-line" href="${lineHref}">${v.line || ''}</a></span>
       </div>
     </div>
     <div class="info-row"${webRow} id="row-web">
@@ -235,6 +247,7 @@ window.SCW_PERSON = {
   phone:        "${v.phone}",
   phoneDisplay: "${phoneDisplay}",
   web:          ${v.web ? '"' + v.web + '"' : 'null'},
+  line:         ${v.line ? '"' + v.line + '"' : 'null'},
   slug:         "${v.slug}",
   cardURL:      "${cardURL}"
 };
