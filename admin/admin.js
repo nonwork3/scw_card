@@ -286,6 +286,94 @@ Siam Cotton Wool Ltd.`
   window.open(`mailto:${to}?subject=${subject}&body=${body}`);
 }
 
+// ── Signature generator ───────────────────────────────────────
+function generateSignature(v) {
+  const nameEN       = v.nameEN || [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
+  const titleDisplay = toTitleCase(v.title || '');
+  const phoneDisplay = v.phone ? fmtPhone(v.phone) : '';
+  const cardURL      = BASE + v.slug + '/';
+  const qrData       = encodeURIComponent(cardURL);
+  const phoneRow     = v.phone ? `
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:6px;">
+        <tr><td>
+          <span style="font-size:12px;color:#888888;">&#9990;&nbsp;</span>
+          <a href="tel:${v.phone}" style="font-size:12px;color:#333333;text-decoration:none;white-space:nowrap;">${phoneDisplay}</a>
+        </td></tr>
+      </table>` : '';
+
+  return `<!DOCTYPE html>
+<html lang="th">
+<head><meta charset="UTF-8"><title>Email Signature</title></head>
+<body style="margin:0;padding:24px;background:#f0f0f0;font-family:Arial,sans-serif;">
+<p style="font-size:11px;color:#999;margin:0 0 12px;">
+  copy ตั้งแต่ table#sig ถึง /table ไปวางใน Outlook / Gmail
+</p>
+<table id="sig" cellpadding="0" cellspacing="0" border="0"
+  style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#333333;background:#ffffff;padding:16px 20px;border-radius:8px;width:420px;max-width:420px;">
+  <tr>
+    <td colspan="2" style="padding-bottom:10px;line-height:1;">
+      <img src="https://nonwork3.github.io/scw_card/assets/logo.png" alt="Siam Cotton Wool" width="70" height="50" style="display:block;border:0;">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-bottom:1px;line-height:1.3;">
+      <span style="font-size:15px;font-weight:bold;color:#111111;">${v.nameTH}</span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-bottom:12px;line-height:1.4;white-space:nowrap;">
+      <span style="font-size:12px;color:#666666;">${nameEN}</span>
+      <span style="font-size:12px;color:#cccccc;">&nbsp;|&nbsp;</span>
+      <span style="font-size:12px;font-weight:bold;color:#1D9E75;">${titleDisplay}</span>
+      <span style="font-size:12px;color:#cccccc;">&nbsp;|&nbsp;</span>
+      <span style="font-size:11px;color:#999999;">Siam Cotton Wool Ltd.</span>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-bottom:12px;">
+      <div style="height:1.5px;background:#1D9E75;width:100%;font-size:0;line-height:0;">&nbsp;</div>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top;padding-right:16px;">
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:6px;">
+        <tr><td>
+          <span style="font-size:12px;color:#888888;">&#9993;&nbsp;</span>
+          <a href="mailto:${v.email}" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">${v.email}</a>
+        </td></tr>
+      </table>${phoneRow}
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr><td>
+          <span style="font-size:12px;color:#888888;">&#127760;&nbsp;</span>
+          <a href="https://www.siamcottonwool.co.th" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">www.siamcottonwool.co.th</a>
+        </td></tr>
+      </table>
+    </td>
+    <td style="vertical-align:middle;text-align:center;width:90px;">
+      <a href="${cardURL}" style="display:block;text-decoration:none;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=${qrData}"
+          alt="QR Code" width="72" height="72" style="display:block;border-radius:4px;border:0;margin:0 auto;">
+        <span style="font-size:10px;color:#aaaaaa;display:block;margin-top:4px;line-height:1.4;white-space:nowrap;">สแกนบันทึก contact</span>
+      </a>
+    </td>
+  </tr>
+</table>
+</body></html>`;
+}
+
+function downloadSignature() {
+  const v    = getValues();
+  const html = generateSignature(v);
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = 'signature-' + (v.slug || 'employee') + '.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+}
+
 // ── Toast ─────────────────────────────────────────────────────
 function toast(msg, duration = 3000) {
   const el = document.getElementById('toast');
