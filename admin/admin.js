@@ -364,14 +364,17 @@ function generateSignature(v) {
 function downloadSignature() {
   const v    = getValues();
   const html = generateSignature(v);
+  console.log('[signature] getValues:', v);
+  console.log('[signature] html length:', html.length);
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  a.href     = URL.createObjectURL(blob);
-  a.download = 'signature-' + (v.slug || 'employee') + '.html';
+  a.href     = url;
+  a.download = 'signature-' + (v.slug || 'scw') + '.html';
   document.body.appendChild(a);
   a.click();
-  a.remove();
-  URL.revokeObjectURL(a.href);
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 // ── Toast ─────────────────────────────────────────────────────
