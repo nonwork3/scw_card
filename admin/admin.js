@@ -151,6 +151,12 @@ function buildHTML(v) {
   <title>${nameEN || 'New Employee'} — Siam Cotton Wool</title>
   <meta name="description" content="${titleDisplay}, Siam Cotton Wool Ltd." />
   <link rel="stylesheet" href="../../assets/card.css" />
+  <link rel="icon" href="../../assets/logo.svg" type="image/svg+xml" />
+  <meta property="og:title" content="${nameEN} — ${titleDisplay}" />
+  <meta property="og:description" content="Siam Cotton Wool Ltd." />
+  <meta property="og:image" content="https://nonwork3.github.io/scw_card/assets/logo.svg" />
+  <meta property="og:url" content="${cardURL}" />
+  <meta property="og:type" content="profile" />
 </head>
 <body>
 <main class="card" role="main">
