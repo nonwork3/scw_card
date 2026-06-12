@@ -37,25 +37,14 @@
     var phoneLink = document.getElementById("c-phone-link");
     if (phoneLink) phoneLink.href = "tel:" + p.phone;
 
-    const lineRow = document.getElementById("row-line");
-    if (lineRow) {
-      if (p.line) {
-        lineRow.style.display = "flex";
-        setLink("c-line", "https://line.me/ti/p/~" + p.line, p.line);
-      } else {
-        lineRow.style.display = "none";
-      }
-    }
+    showRow("row-email", p.email);
+    showRow("row-phone", p.phone);
 
-    const webRow = document.getElementById("row-web");
-    if (webRow) {
-      if (p.web) {
-        webRow.style.display = "flex";
-        setLink("c-web", "https://" + p.web, p.web);
-      } else {
-        webRow.style.display = "none";
-      }
-    }
+    showRow("row-line", p.line);
+    if (p.line) setLink("c-line", "https://line.me/ti/p/~" + p.line, p.line);
+
+    showRow("row-web", p.web);
+    if (p.web) setLink("c-web", "https://" + p.web, p.web);
 
     set("c-qr-url", p.cardURL);
 
@@ -82,5 +71,9 @@
   function setLink(id, href, text) {
     const el = document.getElementById(id);
     if (el) { el.href = href; el.textContent = text; }
+  }
+  function showRow(id, condition) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = condition ? "flex" : "none";
   }
 })();
