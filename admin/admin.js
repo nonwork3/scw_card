@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const OWNER = 'nonwork3';
 const REPO  = 'scw_card';
@@ -153,10 +153,10 @@ function buildHTML(v) {
   <title>${nameEN || 'New Employee'} — Siam Cotton Wool</title>
   <meta name="description" content="${titleDisplay}, Siam Cotton Wool Ltd." />
   <link rel="stylesheet" href="../../assets/card.css" />
-  <link rel="icon" href="../../assets/logo.svg" type="image/svg+xml" />
+  <link rel="icon" href="../../assets/logo.png" type="image/svg+xml" />
   <meta property="og:title" content="${nameEN} — ${titleDisplay}" />
   <meta property="og:description" content="Siam Cotton Wool Ltd." />
-  <meta property="og:image" content="https://nonwork3.github.io/scw_card/assets/logo.svg" />
+  <meta property="og:image" content="https://nonwork3.github.io/scw_card/assets/logo.png" />
   <meta property="og:url" content="${cardURL}" />
   <meta property="og:type" content="profile" />
 </head>
@@ -165,7 +165,7 @@ function buildHTML(v) {
 
   <div class="card-header">
     <div class="logo-row">
-      <img class="logo-img" src="../../assets/logo.svg" alt="Siam Cotton Wool logo" />
+      <img class="logo-img" src="../../assets/logo.png" alt="Siam Cotton Wool logo" />
       <span class="logo-text">Siam Cotton Wool Ltd.</span>
     </div>
     <p class="name-th" id="c-name-th">${v.nameTH}</p>
