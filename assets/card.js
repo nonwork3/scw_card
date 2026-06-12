@@ -28,14 +28,14 @@
     a.remove();
   };
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function init() {
     document.title = p.nameEN + " — Siam Cotton Wool";
     set("c-name-th", p.nameTH);
     set("c-name-en", p.nameEN);
     set("c-title", p.title);
     setLink("c-email", "mailto:" + p.email, p.email);
-    set("c-phone-display", p.phoneDisplay);
-    document.getElementById("c-phone-link").href = "tel:" + p.phone;
+    var phoneLink = document.getElementById("c-phone-link");
+    if (phoneLink) phoneLink.href = "tel:" + p.phone;
 
     const lineRow = document.getElementById("row-line");
     if (p.line && lineRow) {
@@ -59,7 +59,13 @@
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.M,
     });
-  });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 
   function set(id, val) {
     const el = document.getElementById(id);
