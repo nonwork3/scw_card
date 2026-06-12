@@ -14,6 +14,7 @@
       "EMAIL;TYPE=WORK:" + p.email,
       "TEL;TYPE=CELL:" + p.phone,
       p.web ? "URL:https://" + p.web : null,
+      p.line ? "X-SOCIALPROFILE;type=LINE:https://line.me/ti/p/~" + p.line : null,
       "ADR;TYPE=WORK:;;40/5 M.3 Soi Krunai\\, Suksawad Rd.;Bangkru\\, Phrapradaeng;Samutprakan;;Thailand",
       "NOTE:Tax ID 0115551012980",
       "END:VCARD",
@@ -35,6 +36,12 @@
     setLink("c-email", "mailto:" + p.email, p.email);
     set("c-phone-display", p.phoneDisplay);
     document.getElementById("c-phone-link").href = "tel:" + p.phone;
+
+    const lineRow = document.getElementById("row-line");
+    if (p.line && lineRow) {
+      lineRow.style.display = "flex";
+      setLink("c-line", "https://line.me/ti/p/~" + p.line, p.line);
+    }
 
     const webRow = document.getElementById("row-web");
     if (p.web) {
