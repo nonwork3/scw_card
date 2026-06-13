@@ -316,7 +316,7 @@ function generateSignature(v) {
     </td>
   </tr>
   <tr>
-    <td colspan="2" style="padding-bottom:0;line-height:1.3;mso-line-height-rule:exactly;">
+    <td colspan="2" style="padding-top:0;padding-bottom:0;line-height:1.2;mso-line-height-rule:exactly;">
       <span style="font-size:15px;font-weight:bold;color:#111111;">${v.nameTH}</span>
     </td>
   </tr>
@@ -345,7 +345,7 @@ function generateSignature(v) {
       <table cellpadding="0" cellspacing="0" border="0">
         <tr><td style="padding-bottom:3px;white-space:nowrap;mso-line-height-rule:exactly;line-height:1.2;">
           <span style="font-size:12px;color:#888888;">&#127760;&nbsp;</span>
-          <a href="https://www.siamcottonwool.co.th" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">www.siamcottonwool.co.th</a>
+          <a href="https://www.siamcottonwool.co.th" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">siamcottonwool.co.th</a>
         </td></tr>
       </table>
     </td>
