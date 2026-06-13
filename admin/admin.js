@@ -294,9 +294,9 @@ function generateSignature(v) {
   const cardURL      = BASE + v.slug + '/';
   const qrData       = encodeURIComponent(cardURL);
   const phoneRow     = v.phone ? `
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="padding-bottom:3px;mso-line-height-rule:exactly;line-height:1.2;">
-          <span style="font-size:12px;color:#888888;">&#9990;&nbsp;</span>
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+        <tr><td style="mso-line-height-rule:exactly;line-height:1.4;">
+          <span style="font-size:12px;color:#888;">&#9990;&nbsp;</span>
           <a href="tel:${v.phone}" style="font-size:12px;color:#333333;text-decoration:none;white-space:nowrap;">${phoneDisplay}</a>
         </td></tr>
       </table>` : '';
@@ -335,27 +335,27 @@ function generateSignature(v) {
     </td>
   </tr>
   <tr>
-    <td style="vertical-align:top;mso-line-height-rule:exactly;line-height:1.4;">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="padding-bottom:3px;mso-line-height-rule:exactly;line-height:1.2;">
-          <span style="font-size:12px;color:#888888;">&#9993;&nbsp;</span>
+    <td style="vertical-align:top;padding-right:16px;mso-line-height-rule:exactly;line-height:1.4;">
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+        <tr><td style="mso-line-height-rule:exactly;line-height:1.4;">
+          <span style="font-size:12px;color:#888;">&#9993;&nbsp;</span>
           <a href="mailto:${v.email}" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">${v.email}</a>
         </td></tr>
       </table>${phoneRow}
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr><td style="padding-bottom:3px;white-space:nowrap;mso-line-height-rule:exactly;line-height:1.2;">
-          <span style="font-size:12px;color:#888888;">&#127760;&nbsp;</span>
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+        <tr><td style="white-space:nowrap;mso-line-height-rule:exactly;line-height:1.4;">
+          <span style="font-size:12px;color:#888;">&#127760;&nbsp;</span>
           <a href="https://www.siamcottonwool.co.th" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">www.siamcottonwool.co.th&nbsp;&nbsp;</a>
         </td></tr>
       </table>
     </td>
-    <td style="vertical-align:top;text-align:right;padding-left:16px;width:90px;mso-line-height-rule:exactly;">
+    <td style="vertical-align:top;text-align:center;width:80px;padding-left:8px;mso-line-height-rule:exactly;">
       <a href="${cardURL}" style="text-decoration:none;">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=${qrData}"
           alt="QR Code" width="72" height="72"
-          style="display:block;border:0;border-radius:3px;margin-left:auto;">
+          style="display:block;border:0;border-radius:3px;">
       </a>
-      <span style="display:block;text-align:right;font-size:10px;color:#aaaaaa;margin-top:4px;white-space:nowrap;font-family:Arial,sans-serif;mso-line-height-rule:exactly;line-height:1.3;">สแกนบันทึก contact</span>
+      <span style="display:block;font-size:9px;color:#aaaaaa;margin-top:3px;white-space:nowrap;text-align:center;font-family:Arial,sans-serif;mso-line-height-rule:exactly;line-height:1.2;">สแกนบันทึก contact</span>
     </td>
   </tr>
 </table>
