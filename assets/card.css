@@ -60,7 +60,7 @@ html, body {
   margin-bottom: 16px;
 }
 .logo-img {
-  height: 60px; width: auto;
+  width: 36px; height: 36px;
   object-fit: contain;
   flex-shrink: 0;
 }
