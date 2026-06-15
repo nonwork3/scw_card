@@ -434,6 +434,46 @@ function generateSignature(v) {
 </body></html>`;
 }
 
+// ── Cloudflare Worker email ───────────────────────────────────
+// หลัง deploy email-worker/ แล้ว แก้ YOUR-SUBDOMAIN ด้านล่างด้วยค่ะ
+const EMAIL_WORKER_URL =
+  'https://scw-email-service.YOUR-SUBDOMAIN.workers.dev/send-card-email';
+
+async function sendCardEmail() {
+  const input    = document.getElementById('send-to-email');
+  const statusEl = document.getElementById('send-status');
+  const to       = input ? input.value.trim() : '';
+  if (!to) {
+    if (statusEl) { statusEl.style.color = '#b91c1c'; statusEl.textContent = 'กรุณากรอกอีเมลผู้รับค่ะ'; }
+    return;
+  }
+
+  const v       = getValues();
+  const name    = v.nameTH || v.nameFirst || v.nameEN || '';
+  const cardURL = (document.getElementById('cardURL') || {}).value || '';
+  const sig     = generateSignature(v);
+
+  if (statusEl) { statusEl.style.color = '#888'; statusEl.textContent = 'กำลังส่ง...'; }
+
+  try {
+    const res  = await fetch(EMAIL_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to, name, cardURL, signatureHTML: sig }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      if (statusEl) { statusEl.style.color = '#0F6E56'; statusEl.textContent = 'ส่งอีเมลสำเร็จแล้วค่ะ ✓'; }
+      toast('ส่งอีเมลสำเร็จแล้วค่ะ', 4000);
+    } else {
+      throw new Error(data.error || 'Worker returned success:false');
+    }
+  } catch (err) {
+    if (statusEl) { statusEl.style.color = '#b91c1c'; statusEl.textContent = 'ส่งไม่สำเร็จ: ' + err.message; }
+    toast('ส่งอีเมลไม่สำเร็จ: ' + err.message);
+  }
+}
+
 function downloadSignature() {
   const v    = getValues();
   const html = generateSignature(v);

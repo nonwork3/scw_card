@@ -1,0 +1,6 @@
+name             = "scw-email-service"
+main             = "src/index.js"
+compatibility_date = "2026-06-15"
+
+# Secrets (ห้าม commit ค่าจริง — ใช้ wrangler secret put แทน):
+#   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM

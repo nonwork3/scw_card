@@ -130,6 +130,17 @@
         ส่งลิงก์ทางอีเมล
       </button>
     </div>
+
+    <div class="divider" style="margin-top:16px"></div>
+    <div class="field-group" id="worker-email-section">
+      <label>ส่งอีเมลให้พนักงาน (ผ่าน Cloudflare Worker)</label>
+      <div class="field-row">
+        <input type="email" id="send-to-email"
+          placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="sendCardEmail()">ส่ง</button>
+      </div>
+      <p id="send-status" style="font-size:12px;margin-top:2px;min-height:16px"></p>
+    </div>
   </div>
 
   <!-- Preview -->
