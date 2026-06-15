@@ -37,12 +37,9 @@
   };
 
   function fmtPh(ph) {
-    var d = ph.replace(/\D/g, '');
-    if (d.length === 11 && d.slice(0, 2) === '66') {
-      d = '0' + d.slice(2);
-    }
-    if (d.length === 10) {
-      return d.slice(0, 2) + '-' + d.slice(2, 6) + '-' + d.slice(6);
+    if (ph.slice(0, 3) === '+66') {
+      var d = ph.slice(3).replace(/\D/g, '');
+      return '+66' + d.slice(0, 2) + ' ' + d.slice(2);
     }
     return ph;
   }
