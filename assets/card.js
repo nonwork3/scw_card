@@ -36,25 +36,57 @@
     a.remove();
   };
 
+  function fmtPh(ph) {
+    var d = ph.replace(/\D/g, '');
+    if (d.length === 11 && d.slice(0, 2) === '66') {
+      d = '0' + d.slice(2);
+    }
+    if (d.length === 10) {
+      return d.slice(0, 2) + '-' + d.slice(2, 6) + '-' + d.slice(6);
+    }
+    return ph;
+  }
+
+  function fillList(listId, vals, hrefFn, textFn, extraCls) {
+    var el = document.getElementById(listId);
+    if (!el) return false;
+    el.innerHTML = '';
+    vals.forEach(function (val) {
+      var a = document.createElement('a');
+      a.href = hrefFn(val);
+      a.className = 'info-value-link' + (extraCls ? ' ' + extraCls : '');
+      a.textContent = textFn ? textFn(val) : val;
+      el.appendChild(a);
+    });
+    return true;
+  }
+
   function init() {
     document.title = p.nameEN + ' — Siam Cotton Wool';
     set('c-name-th', p.nameTH);
     set('c-name-en', p.nameEN);
     set('c-title', p.title);
 
-    // First-row ids used by old cards; new multi-row cards have static HTML already set
     showRow('row-email', emails.length > 0);
-    if (emails[0]) setLink('c-email', 'mailto:' + emails[0], emails[0]);
+    if (!fillList('c-email-list', emails, function (e) { return 'mailto:' + e; }, null, '')) {
+      if (emails[0]) setLink('c-email', 'mailto:' + emails[0], emails[0]);
+    }
 
     showRow('row-phone', phones.length > 0);
-    var phoneLink = document.getElementById('c-phone-link');
-    if (phoneLink && phones[0]) phoneLink.href = 'tel:' + phones[0];
+    if (!fillList('c-phone-list', phones, function (ph) { return 'tel:' + ph; }, fmtPh, 'plain')) {
+      var phoneLink = document.getElementById('c-phone-link');
+      if (phoneLink && phones[0]) phoneLink.href = 'tel:' + phones[0];
+    }
 
     showRow('row-line', lines.length > 0);
-    if (lines[0]) setLink('c-line', 'https://line.me/ti/p/~' + lines[0], lines[0]);
+    if (!fillList('c-line-list', lines, function (l) { return 'https://line.me/ti/p/~' + l; }, null, '')) {
+      if (lines[0]) setLink('c-line', 'https://line.me/ti/p/~' + lines[0], lines[0]);
+    }
 
     showRow('row-web', webs.length > 0);
-    if (webs[0]) setLink('c-web', webs[0].startsWith('http') ? webs[0] : 'https://' + webs[0], webs[0]);
+    if (!fillList('c-web-list', webs, function (w) { return w.startsWith('http') ? w : 'https://' + w; }, null, '')) {
+      if (webs[0]) setLink('c-web', webs[0].startsWith('http') ? webs[0] : 'https://' + webs[0], webs[0]);
+    }
 
     set('c-address', p.address);
     showRow('row-address', p.address);

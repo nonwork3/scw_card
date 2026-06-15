@@ -159,6 +159,16 @@ html, body {
 .info-value a { color: var(--scw-green-dark); text-decoration: none; }
 .info-value a:hover { text-decoration: underline; }
 .info-value.addr { font-size: 12px; font-weight: 400; white-space: normal; color: #444; line-height: 1.5; }
+.info-value-link {
+  display: block;
+  font-size: 13.5px; font-weight: 500;
+  color: var(--scw-green-dark);
+  text-decoration: none;
+  line-height: 1.6;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.info-value-link:hover { text-decoration: underline; }
+.info-value-link.plain { color: #333333; }
 
 /* ── Footer ── */
 .card-footer {
@@ -203,6 +213,7 @@ html, body {
   .info-row { border-bottom-color: #2e352e; }
   .info-value { color: #e8e8e8; }
   .info-value.addr { color: #aaa; }
+  .info-value-link.plain { color: #cccccc; }
   .card-footer { border-top-color: #2e352e; }
   .qr-panel { background: #1e2520; border-color: #2e352e; }
 }

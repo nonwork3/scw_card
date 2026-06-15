@@ -194,36 +194,31 @@ function buildHTML(v) {
   const lines  = v.lines  || (v.line  ? [v.line]  : []);
   const webs   = v.webs   || (v.web   ? [v.web]   : []);
 
-  // Generate repeated info rows; first row keeps legacy id for card.js backward compat
-  const infoRows = (vals, rowId, cellId, iconPath, label, hrefFn, textFn) => {
-    if (!vals.length) return `
-    <div class="info-row" id="${rowId}" style="display:none">
-      <div class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24">${iconPath}</svg></div>
-      <div class="info-content"><span class="info-label">${label}</span><span class="info-value"><a id="${cellId}" href="#">-</a></span></div>
-    </div>`;
-    return vals.map((val, i) => `
-    <div class="info-row"${i === 0 ? ` id="${rowId}"` : ''}>
+  // Generate single grouped row with stacked links per field
+  const infoGroup = (vals, rowId, listId, iconPath, label, hrefFn, textFn, extraCls) => `
+    <div class="info-row"${vals.length ? '' : ' style="display:none"'} id="${rowId}">
       <div class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24">${iconPath}</svg></div>
       <div class="info-content">
         <span class="info-label">${label}</span>
-        <span class="info-value"><a${i === 0 ? ` id="${cellId}"` : ''} href="${hrefFn(val)}">${textFn ? textFn(val) : val}</a></span>
+        <div id="${listId}">${vals.map(val =>
+          `<a href="${hrefFn(val)}" class="info-value-link${extraCls ? ' ' + extraCls : ''}">${textFn ? textFn(val) : val}</a>`
+        ).join('')}</div>
       </div>
-    </div>`).join('');
-  };
+    </div>`;
 
-  const emailRows = infoRows(emails, 'row-email', 'c-email',
+  const emailGroup = infoGroup(emails, 'row-email', 'c-email-list',
     '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>',
     'Email', e => 'mailto:' + e);
 
-  const phoneRows = infoRows(phones, 'row-phone', 'c-phone-link',
+  const phoneGroup = infoGroup(phones, 'row-phone', 'c-phone-list',
     '<path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.07 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/>',
-    'Phone', ph => 'tel:' + ph, ph => fmtPhone(ph));
+    'Phone', ph => 'tel:' + ph, ph => fmtPhone(ph), 'plain');
 
-  const lineRows = infoRows(lines, 'row-line', 'c-line',
+  const lineGroup = infoGroup(lines, 'row-line', 'c-line-list',
     '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
     'LINE', l => 'https://line.me/ti/p/~' + l);
 
-  const webRows = infoRows(webs, 'row-web', 'c-web',
+  const webGroup = infoGroup(webs, 'row-web', 'c-web-list',
     '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
     'Website', w => w.startsWith('http') ? w : 'https://' + w);
 
@@ -269,10 +264,10 @@ function buildHTML(v) {
   </div>
 
   <div class="card-body">
-    ${emailRows}
-    ${phoneRows}
-    ${lineRows}
-    ${webRows}
+    ${emailGroup}
+    ${phoneGroup}
+    ${lineGroup}
+    ${webGroup}
     <div class="info-row"${v.address ? '' : ' style="display:none"'} id="row-address">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
