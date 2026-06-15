@@ -91,8 +91,18 @@ function makeSlug(nameEN) {
   return suffix ? `${first}.${suffix}` : first;
 }
 
+const ACRONYMS = new Set([
+  'IT','QMR','HR','PR','PO','QA','QC',
+  'CEO','CFO','COO','GM','AGM','VP','MD','R&D',
+]);
+
 function toTitleCase(s) {
-  return s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
+  return s.toLowerCase().replace(/\S+/g, word => {
+    const core = word.replace(/[^a-z&]/gi, '').toUpperCase();
+    return ACRONYMS.has(core)
+      ? word.toUpperCase()
+      : word.replace(/^[a-z]/, c => c.toUpperCase());
+  });
 }
 
 function normalizePhone(raw) {
