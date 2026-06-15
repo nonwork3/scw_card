@@ -126,34 +126,110 @@ function b64decode(b64) {
 }
 
 function parseCardData(html) {
-  const m = html.match(/window\.SCW_PERSON\s*=\s*\{([\s\S]*?)\};/);
+  const m = html.match(/window\.SCW_PERSON\s*=\s*(\{[\s\S]*?\});/);
   if (!m) return null;
-  const obj = m[1];
-  const str = (key) => {
-    const r = obj.match(new RegExp(key + '\\s*:\\s*"([^"]*)"'));
-    return r ? r[1] : '';
-  };
-  return {
-    nameTH:    str('nameTH'),    nameEN:   str('nameEN'),
-    nameFirst: str('nameFirst'), nameLast: str('nameLast'),
-    title:     str('title'),     email:    str('email'),
-    phone:     str('phone'),     web:      str('web'),
-    line:      str('line'),
-    address:   str('address'),
-    slug:      str('slug'),      cardURL:  str('cardURL'),
-  };
+  try {
+    const p = new Function('return ' + m[1])(); // eslint-disable-line no-new-func
+    const toArr = (arr, single) =>
+      Array.isArray(arr) ? arr.filter(Boolean) : (single ? [single] : []);
+    return {
+      nameTH:    p.nameTH    || '',
+      nameEN:    p.nameEN    || '',
+      nameFirst: p.nameFirst || '',
+      nameLast:  p.nameLast  || '',
+      title:     p.title     || '',
+      emails:    toArr(p.emails, p.email),
+      phones:    toArr(p.phones, p.phone),
+      lines:     toArr(p.lines,  p.line),
+      webs:      toArr(p.webs,   p.web),
+      address:   p.address   || '',
+      slug:      p.slug      || '',
+      cardURL:   p.cardURL   || '',
+    };
+  } catch { return null; }
+}
+
+// ── Multi-value field helpers ─────────────────────────────────
+const FIELD_CFG = {
+  email: { cls: 'email-input', type: 'email', ph: 'เช่น siam@siamcottonwool.co.th' },
+  phone: { cls: 'phone-input', type: 'text',  ph: 'เช่น +6612 3456789' },
+  line:  { cls: 'line-input',  type: 'text',  ph: 'เช่น lineid หรือ @groupid' },
+  web:   { cls: 'web-input',   type: 'text',  ph: 'เช่น www.siamcottonwool.co.th' },
+};
+
+function addField(type) {
+  const c     = FIELD_CFG[type];
+  const group = document.getElementById(type + '-group');
+  const row   = document.createElement('div');
+  row.className = 'field-row';
+  row.innerHTML = `<input type="${c.type}" class="${c.cls}" placeholder="${c.ph}" autocomplete="off"><button type="button" class="btn-remove" title="ลบ">✕</button>`;
+  row.querySelector('.btn-remove').onclick = () => { row.remove(); update(); };
+  group.insertBefore(row, group.querySelector('.hint') || null);
+}
+
+function populateGroup(type, values) {
+  const c     = FIELD_CFG[type];
+  const group = document.getElementById(type + '-group');
+  const first = group.querySelector('.' + c.cls);
+  if (first) first.value = values[0] || '';
+  for (let i = 1; i < values.length; i++) {
+    addField(type);
+    const all = group.querySelectorAll('.' + c.cls);
+    all[all.length - 1].value = values[i];
+  }
+}
+
+function collectFields(sel) {
+  return [...document.querySelectorAll(sel)].map(el => el.value.trim()).filter(Boolean);
 }
 
 function buildHTML(v) {
   const nameEN       = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
   const titleDisplay = toTitleCase(v.title || '');
-  const phoneDisplay = fmtPhone(v.phone);
   const cardURL      = BASE + v.slug + '/';
-  const lineRow      = v.line ? '' : ' style="display:none"';
-  const lineHref     = v.line ? 'https://line.me/ti/p/~' + v.line : '#';
-  const webRow       = v.web ? '' : ' style="display:none"';
-  const webHref      = v.web ? (v.web.startsWith('http') ? v.web : 'https://' + v.web) : '#';
-  const addressRow   = v.address ? '' : ' style="display:none"';
+
+  // Normalize to arrays (backward compat: old callers may pass email/phone/line/web)
+  const emails = v.emails || (v.email ? [v.email] : []);
+  const phones = v.phones || (v.phone ? [v.phone] : []);
+  const lines  = v.lines  || (v.line  ? [v.line]  : []);
+  const webs   = v.webs   || (v.web   ? [v.web]   : []);
+
+  // Generate repeated info rows; first row keeps legacy id for card.js backward compat
+  const infoRows = (vals, rowId, cellId, iconPath, label, hrefFn, textFn) => {
+    if (!vals.length) return `
+    <div class="info-row" id="${rowId}" style="display:none">
+      <div class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24">${iconPath}</svg></div>
+      <div class="info-content"><span class="info-label">${label}</span><span class="info-value"><a id="${cellId}" href="#">-</a></span></div>
+    </div>`;
+    return vals.map((val, i) => `
+    <div class="info-row"${i === 0 ? ` id="${rowId}"` : ''}>
+      <div class="info-icon" aria-hidden="true"><svg viewBox="0 0 24 24">${iconPath}</svg></div>
+      <div class="info-content">
+        <span class="info-label">${label}</span>
+        <span class="info-value"><a${i === 0 ? ` id="${cellId}"` : ''} href="${hrefFn(val)}">${textFn ? textFn(val) : val}</a></span>
+      </div>
+    </div>`).join('');
+  };
+
+  const emailRows = infoRows(emails, 'row-email', 'c-email',
+    '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>',
+    'Email', e => 'mailto:' + e);
+
+  const phoneRows = infoRows(phones, 'row-phone', 'c-phone-link',
+    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.07 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/>',
+    'Phone', ph => 'tel:' + ph, ph => fmtPhone(ph));
+
+  const lineRows = infoRows(lines, 'row-line', 'c-line',
+    '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+    'LINE', l => 'https://line.me/ti/p/~' + l);
+
+  const webRows = infoRows(webs, 'row-web', 'c-web',
+    '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    'Website', w => w.startsWith('http') ? w : 'https://' + w);
+
+  const safeAddr = v.address
+    ? '"' + v.address.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"'
+    : 'null';
 
   return `<!DOCTYPE html>
 <html lang="th">
@@ -193,43 +269,11 @@ function buildHTML(v) {
   </div>
 
   <div class="card-body">
-    <div class="info-row" id="row-email">
-      <div class="info-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-      </div>
-      <div class="info-content">
-        <span class="info-label">Email</span>
-        <span class="info-value"><a id="c-email" href="mailto:${v.email}">${v.email}</a></span>
-      </div>
-    </div>
-    <div class="info-row" id="row-phone">
-      <div class="info-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.07 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 22 16.92z"/></svg>
-      </div>
-      <div class="info-content">
-        <span class="info-label">Phone</span>
-        <span class="info-value"><a id="c-phone-link" href="tel:${v.phone}">${phoneDisplay}</a></span>
-      </div>
-    </div>
-    <div class="info-row"${lineRow} id="row-line">
-      <div class="info-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      </div>
-      <div class="info-content">
-        <span class="info-label">LINE</span>
-        <span class="info-value"><a id="c-line" href="${lineHref}">${v.line || ''}</a></span>
-      </div>
-    </div>
-    <div class="info-row"${webRow} id="row-web">
-      <div class="info-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      </div>
-      <div class="info-content">
-        <span class="info-label">Website</span>
-        <span class="info-value"><a id="c-web" href="${webHref}">${v.web || ''}</a></span>
-      </div>
-    </div>
-    <div class="info-row"${addressRow} id="row-address">
+    ${emailRows}
+    ${phoneRows}
+    ${lineRows}
+    ${webRows}
+    <div class="info-row"${v.address ? '' : ' style="display:none"'} id="row-address">
       <div class="info-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
@@ -261,14 +305,13 @@ window.SCW_PERSON = {
   nameLast:     "${v.nameLast}",
   title:        "${v.title}",
   titleDisplay: "${titleDisplay}",
-  email:        "${v.email}",
-  phone:        "${v.phone}",
-  phoneDisplay: "${phoneDisplay}",
-  web:          ${v.web ? '"' + v.web + '"' : 'null'},
-  line:         ${v.line ? '"' + v.line + '"' : 'null'},
-  address:      ${v.address ? '"' + v.address + '"' : 'null'},
-  slug:         "${v.slug}",
-  cardURL:      "${cardURL}"
+  emails:  ${JSON.stringify(emails)},
+  phones:  ${JSON.stringify(phones)},
+  lines:   ${JSON.stringify(lines)},
+  webs:    ${JSON.stringify(webs)},
+  address: ${safeAddr},
+  slug:    "${v.slug}",
+  cardURL: "${cardURL}"
 };
 <\/script>
 <script src="../../assets/card.js"><\/script>
@@ -300,12 +343,17 @@ Siam Cotton Wool Ltd.`
 function generateSignature(v) {
   const nameEN       = v.nameEN || [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
   const titleDisplay = toTitleCase(v.title || '');
-  const phoneDisplay = v.phone ? fmtPhone(v.phone) : '';
+  // Use only the first email/phone in the signature (arrays or legacy singles)
+  const emails  = v.emails || (v.email ? [v.email] : []);
+  const phones  = v.phones || (v.phone ? [v.phone] : []);
+  const email0  = emails[0] || '';
+  const phone0  = phones[0] || '';
+  const phoneDisplay = phone0 ? fmtPhone(phone0) : '';
   const cardURL      = BASE + v.slug + '/';
   const qrSrc        = 'https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=' + encodeURIComponent(cardURL);
   const logoSrc      = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
 
-  const phoneRow = v.phone ? `
+  const phoneRow = phone0 ? `
               <table cellpadding="0" cellspacing="0" border="0">
                 <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                   <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
@@ -358,8 +406,8 @@ function generateSignature(v) {
             <table cellpadding="0" cellspacing="0" border="0">
               <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                 <span style="color:#888888;mso-text-raise:0;">&#9993;&nbsp;</span>
-                <a href="mailto:${v.email}" style="text-decoration:none;">
-                  <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.email}</span>
+                <a href="mailto:${email0}" style="text-decoration:none;">
+                  <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${email0}</span>
                 </a>
               </td></tr>
             </table>${phoneRow}

@@ -211,3 +211,28 @@ iframe#preview { width: 100%; border: none; border-radius: 10px; display: none; 
   border-radius: 50%; animation: spin .7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Multi-value field groups ── */
+.field-group { margin-bottom: 12px; }
+.field-group > label { display: block; font-size: 11px; font-weight: 500; color: #666; margin-bottom: 4px; }
+.field-row { display: flex; gap: 6px; margin-bottom: 6px; align-items: center; }
+.field-row input {
+  flex: 1; padding: 8px 10px; border: 1px solid #e4e4e4;
+  border-radius: 8px; font-size: 13px; font-family: inherit; color: #1a1a1a;
+  transition: border-color .15s, box-shadow .15s; background: #fff;
+}
+.field-row input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
+.btn-add {
+  padding: 6px 10px; border: 1px solid #dde8e2; border-radius: 8px; flex-shrink: 0;
+  background: var(--green-pale); color: var(--green-dark);
+  font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap;
+  transition: background .15s; font-family: inherit;
+}
+.btn-add:hover { background: #d2eee3; }
+.btn-remove {
+  width: 30px; height: 34px; padding: 0; border: 1px solid #fca5a5; border-radius: 8px; flex-shrink: 0;
+  background: var(--red-pale); color: var(--red);
+  font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .15s; font-family: inherit;
+}
+.btn-remove:hover { background: #fecaca; }

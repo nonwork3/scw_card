@@ -3,66 +3,74 @@
   const p = window.SCW_PERSON;
   if (!p) return;
 
+  // Normalize to arrays (backward compat: old cards use email/phone/line/web)
+  const emails = p.emails || (p.email ? [p.email] : []);
+  const phones = p.phones || (p.phone ? [p.phone] : []);
+  const lines  = p.lines  || (p.line  ? [p.line]  : []);
+  const webs   = p.webs   || (p.web   ? [p.web]   : []);
+
   window.downloadVCard = function () {
-    const lines = [
-      "BEGIN:VCARD",
-      "VERSION:3.0",
-      "FN:" + p.nameEN,
-      "N:" + p.nameLast + ";" + p.nameFirst + ";;;",
-      "ORG:Siam Cotton Wool Ltd.",
-      "TITLE:" + p.titleDisplay,
-      "EMAIL;TYPE=WORK:" + p.email,
-      "TEL;TYPE=CELL:" + p.phone,
-      p.web ? "URL:https://" + p.web : null,
-      p.line ? "X-SOCIALPROFILE;type=LINE:https://line.me/ti/p/~" + p.line : null,
-      "ADR;TYPE=WORK:;;40/5 M.3 Soi Krunai\\, Suksawad Rd.;Bangkru\\, Phrapradaeng;Samutprakan;;Thailand",
-      "NOTE:Tax ID 0115551012980",
-      "END:VCARD",
-    ].filter(Boolean).join("\r\n");
-    const blob = new Blob([lines], { type: "text/vcard;charset=utf-8" });
-    const a = document.createElement("a");
+    const addrVal = p.address || '40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru, Phrapradaeng, Samutprakan 10130';
+    const addrVCard = ';;' + addrVal.replace(/,/g, '\\,').replace(/\n/g, ' ');
+    const lines_ = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:'    + p.nameEN,
+      'N:'     + p.nameLast + ';' + p.nameFirst + ';;;',
+      'ORG:Siam Cotton Wool Ltd.',
+      'TITLE:' + p.titleDisplay,
+      ...emails.map(e  => 'EMAIL;TYPE=WORK:' + e),
+      ...phones.map(ph => 'TEL;TYPE=CELL:' + ph),
+      ...webs.map(w    => 'URL:' + (w.startsWith('http') ? w : 'https://' + w)),
+      ...lines.map(l   => 'X-SOCIALPROFILE;type=LINE:https://line.me/ti/p/~' + l),
+      'ADR;TYPE=WORK:' + addrVCard + ';;;Thailand',
+      'NOTE:Tax ID 0115551012980',
+      'END:VCARD',
+    ].filter(Boolean).join('\r\n');
+    const blob = new Blob([lines_], { type: 'text/vcard;charset=utf-8' });
+    const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = p.slug + ".vcf";
+    a.download = p.slug + '.vcf';
     document.body.appendChild(a);
     a.click();
     a.remove();
   };
 
   function init() {
-    document.title = p.nameEN + " — Siam Cotton Wool";
-    set("c-name-th", p.nameTH);
-    set("c-name-en", p.nameEN);
-    set("c-title", p.title);
-    setLink("c-email", "mailto:" + p.email, p.email);
-    var phoneLink = document.getElementById("c-phone-link");
-    if (phoneLink) phoneLink.href = "tel:" + p.phone;
+    document.title = p.nameEN + ' — Siam Cotton Wool';
+    set('c-name-th', p.nameTH);
+    set('c-name-en', p.nameEN);
+    set('c-title', p.title);
 
-    showRow("row-email", p.email);
-    showRow("row-phone", p.phone);
+    // First-row ids used by old cards; new multi-row cards have static HTML already set
+    showRow('row-email', emails.length > 0);
+    if (emails[0]) setLink('c-email', 'mailto:' + emails[0], emails[0]);
 
-    showRow("row-line", p.line);
-    if (p.line) setLink("c-line", "https://line.me/ti/p/~" + p.line, p.line);
+    showRow('row-phone', phones.length > 0);
+    var phoneLink = document.getElementById('c-phone-link');
+    if (phoneLink && phones[0]) phoneLink.href = 'tel:' + phones[0];
 
-    showRow("row-web", p.web);
-    if (p.web) setLink("c-web", "https://" + p.web, p.web);
+    showRow('row-line', lines.length > 0);
+    if (lines[0]) setLink('c-line', 'https://line.me/ti/p/~' + lines[0], lines[0]);
 
-    set("c-address", p.address);
-    showRow("row-address", p.address);
+    showRow('row-web', webs.length > 0);
+    if (webs[0]) setLink('c-web', webs[0].startsWith('http') ? webs[0] : 'https://' + webs[0], webs[0]);
 
-    set("c-qr-url", p.cardURL);
+    set('c-address', p.address);
+    showRow('row-address', p.address);
+    set('c-qr-url', p.cardURL);
 
-    // Render QR immediately
-    new QRCode(document.getElementById("qr-box"), {
+    new QRCode(document.getElementById('qr-box'), {
       text: p.cardURL,
       width: 148, height: 148,
-      colorDark: "#0F6E56",
-      colorLight: "#ffffff",
+      colorDark: '#0F6E56',
+      colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M,
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
@@ -77,6 +85,6 @@
   }
   function showRow(id, condition) {
     const el = document.getElementById(id);
-    if (el) el.style.display = condition ? "flex" : "none";
+    if (el) el.style.display = condition ? 'flex' : 'none';
   }
 })();

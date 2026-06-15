@@ -68,21 +68,34 @@
       <div class="hint">พิมพ์ได้ทั้ง case — แปลงอัตโนมัติ</div>
     </div>
     <div class="divider"></div>
-    <div class="field">
+    <div class="field-group" id="email-group">
       <label>Email</label>
-      <input id="email" type="email" autocomplete="off" />
+      <div class="field-row">
+        <input type="email" class="email-input" placeholder="เช่น siam@siamcottonwool.co.th" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('email')">+ เพิ่ม</button>
+      </div>
     </div>
-    <div class="field">
+    <div class="field-group" id="phone-group">
       <label>เบอร์โทร</label>
-      <input id="phone" type="text" autocomplete="off" />
+      <div class="field-row">
+        <input type="text" class="phone-input" placeholder="เช่น +6612 3456789" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('phone')">+ เพิ่ม</button>
+      </div>
+      <div class="hint">ไม่มีเว้นวรรค เช่น +66123456789</div>
     </div>
-    <div class="field">
+    <div class="field-group" id="line-group">
       <label>LINE ID</label>
-      <input id="line" type="text" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+      <div class="field-row">
+        <input type="text" class="line-input" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
+      </div>
     </div>
-    <div class="field">
+    <div class="field-group" id="web-group">
       <label>Website URL</label>
-      <input id="web" type="text" placeholder="เช่น www.siamcottonwool.co.th หรือเว้นว่างถ้าไม่มี" autocomplete="off" />
+      <div class="field-row">
+        <input type="text" class="web-input" placeholder="เช่น www.siamcottonwool.co.th" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('web')">+ เพิ่ม</button>
+      </div>
     </div>
     <div class="field">
       <label>Address</label>
@@ -164,15 +177,16 @@ async function loadCard() {
     const p    = parseCardData(b64decode(data.content));
     if (!p) throw new Error('ไม่สามารถอ่านข้อมูลได้');
 
-    document.getElementById('nameTH').value = p.nameTH || '';
-    document.getElementById('nameEN').value = p.nameEN || '';
-    document.getElementById('title').value  = p.title  || '';
-    document.getElementById('email').value  = p.email  || '';
-    document.getElementById('phone').value  = p.phone  || '';
-    document.getElementById('line').value    = p.line    || '';
-    document.getElementById('web').value     = p.web     || '';
+    document.getElementById('nameTH').value  = p.nameTH  || '';
+    document.getElementById('nameEN').value  = p.nameEN  || '';
+    document.getElementById('title').value   = p.title   || '';
     document.getElementById('address').value = p.address || '';
     document.getElementById('breadcrumbLabel').textContent = p.nameEN || slug;
+
+    populateGroup('email', p.emails);
+    populateGroup('phone', p.phones);
+    populateGroup('line',  p.lines);
+    populateGroup('web',   p.webs);
 
     document.getElementById('stateWrap').style.display  = 'none';
     document.getElementById('formLayout').style.display = '';
@@ -184,12 +198,17 @@ async function loadCard() {
       this.setSelectionRange(pos, pos);
       update();
     });
-    ['nameTH', 'nameEN', 'email', 'phone', 'line', 'web', 'address'].forEach(id =>
+    ['nameTH', 'nameEN', 'address'].forEach(id =>
       document.getElementById(id).addEventListener('input', update)
     );
-    document.getElementById('phone').addEventListener('blur', function () {
-      const n = normalizePhone(this.value.trim());
-      if (n !== this.value.trim()) { this.value = n; update(); }
+    ['email-group', 'phone-group', 'line-group', 'web-group'].forEach(id =>
+      document.getElementById(id).addEventListener('input', update)
+    );
+    document.getElementById('phone-group').addEventListener('focusout', function (e) {
+      if (e.target.classList.contains('phone-input')) {
+        const n = normalizePhone(e.target.value.trim());
+        if (n !== e.target.value.trim()) { e.target.value = n; update(); }
+      }
     });
   } catch (e) {
     showState(e.status === 401 ? 'Token ไม่ถูกต้องหรือหมดอายุค่ะ' : 'โหลดไม่ได้: ' + e.message);
@@ -211,10 +230,10 @@ function getValues() {
     nameFirst: parts[0] || '',
     nameLast:  parts.slice(1).join(' '),
     title:     document.getElementById('title').value.trim().toUpperCase(),
-    email:     document.getElementById('email').value.trim(),
-    phone:     document.getElementById('phone').value.trim(),
-    line:      document.getElementById('line').value.trim() || null,
-    web:       document.getElementById('web').value.trim() || null,
+    emails:    collectFields('.email-input'),
+    phones:    collectFields('.phone-input').map(normalizePhone),
+    lines:     collectFields('.line-input'),
+    webs:      collectFields('.web-input'),
     address:   document.getElementById('address').value.trim() || null,
     slug:      _editSlug,
   };

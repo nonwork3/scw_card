@@ -62,22 +62,34 @@
       <div class="hint">พิมพ์ได้ทั้ง case — แปลงอัตโนมัติ</div>
     </div>
     <div class="divider"></div>
-    <div class="field">
+    <div class="field-group" id="email-group">
       <label>Email</label>
-      <input id="email" type="email" placeholder="เช่น siam@siamcottonwool.co.th" autocomplete="off" />
+      <div class="field-row">
+        <input type="email" class="email-input" placeholder="เช่น siam@siamcottonwool.co.th" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('email')">+ เพิ่ม</button>
+      </div>
     </div>
-    <div class="field">
+    <div class="field-group" id="phone-group">
       <label>เบอร์โทร</label>
-      <input id="phone" type="text" placeholder="เช่น +6612 3456789" autocomplete="off" />
+      <div class="field-row">
+        <input type="text" class="phone-input" placeholder="เช่น +6612 3456789" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('phone')">+ เพิ่ม</button>
+      </div>
       <div class="hint">ไม่มีเว้นวรรค เช่น +66123456789</div>
     </div>
-    <div class="field">
+    <div class="field-group" id="line-group">
       <label>LINE ID</label>
-      <input id="line" type="text" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+      <div class="field-row">
+        <input type="text" class="line-input" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
+      </div>
     </div>
-    <div class="field">
+    <div class="field-group" id="web-group">
       <label>Website URL</label>
-      <input id="web" type="text" placeholder="เช่น www.siamcottonwool.co.th หรือเว้นว่างถ้าไม่มี" value="www.siamcottonwool.co.th" autocomplete="off" />
+      <div class="field-row">
+        <input type="text" class="web-input" placeholder="เช่น www.siamcottonwool.co.th" value="www.siamcottonwool.co.th" autocomplete="off" />
+        <button type="button" class="btn-add" onclick="addField('web')">+ เพิ่ม</button>
+      </div>
     </div>
     <div class="field">
       <label>Address</label>
@@ -149,12 +161,17 @@ document.getElementById('title').addEventListener('input', function () {
   this.setSelectionRange(pos, pos);
   update();
 });
-['nameTH', 'nameEN', 'email', 'phone', 'line', 'web', 'address'].forEach(id =>
+['nameTH', 'nameEN', 'address'].forEach(id =>
   document.getElementById(id).addEventListener('input', update)
 );
-document.getElementById('phone').addEventListener('blur', function () {
-  const n = normalizePhone(this.value.trim());
-  if (n !== this.value.trim()) { this.value = n; update(); }
+['email-group', 'phone-group', 'line-group', 'web-group'].forEach(id =>
+  document.getElementById(id).addEventListener('input', update)
+);
+document.getElementById('phone-group').addEventListener('focusout', function (e) {
+  if (e.target.classList.contains('phone-input')) {
+    const n = normalizePhone(e.target.value.trim());
+    if (n !== e.target.value.trim()) { e.target.value = n; update(); }
+  }
 });
 
 function getValues() {
@@ -166,10 +183,10 @@ function getValues() {
     nameFirst: parts[0] || '',
     nameLast:  parts.slice(1).join(' '),
     title:     document.getElementById('title').value.trim().toUpperCase(),
-    email:     document.getElementById('email').value.trim(),
-    phone:     document.getElementById('phone').value.trim(),
-    line:      document.getElementById('line').value.trim() || null,
-    web:       document.getElementById('web').value.trim() || null,
+    emails:    collectFields('.email-input'),
+    phones:    collectFields('.phone-input').map(normalizePhone),
+    lines:     collectFields('.line-input'),
+    webs:      collectFields('.web-input'),
     address:   document.getElementById('address').value.trim() || null,
     slug:      makeSlug(nameEN),
   };
