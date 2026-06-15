@@ -312,21 +312,23 @@ function generateSignature(v) {
 <p style="font-size:11px;color:#999;margin:0 0 12px;">
   copy table#sig ถึง /table ไปวางใน Gmail / Outlook
 </p>
-<table id="sig" cellpadding="0" cellspacing="0" border="0" width="460"
+<table id="sig" cellpadding="0" cellspacing="0" border="0" width="464"
   style="font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;font-size:13px;color:#333333;">
-  <!-- ROW 1: green bar (rowspan=2) + spacer (rowspan=2) + logo -->
   <tr>
-    <td width="4" bgcolor="#1D9E75" rowspan="2" style="font-size:0;line-height:0;">&nbsp;</td>
-    <td width="12" rowspan="2" style="font-size:0;line-height:0;">&nbsp;</td>
-    <td style="padding-bottom:8px;">
-      <img src="${logoSrc}" width="120" height="85" alt="Siam Cotton Wool"
-        style="display:block;border:0;">
+    <!-- Green bar: nested table forces full-height bgcolor without rowspan -->
+    <td bgcolor="#1D9E75" width="4" style="font-size:0;line-height:0;">
+      <table width="4" height="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td bgcolor="#1D9E75" style="font-size:0;line-height:0;">&nbsp;</td></tr>
+      </table>
     </td>
-  </tr>
-  <!-- ROW 2: name + divider + contact + QR (bar/spacer covered by rowspan above) -->
-  <tr>
+    <td width="12" style="font-size:0;line-height:0;">&nbsp;</td>
+    <!-- All content in one td / one inner table — no split -->
     <td>
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr><td colspan="2" style="padding-bottom:8px;">
+          <img src="${logoSrc}" width="120" height="85" alt="Siam Cotton Wool"
+            style="display:block;border:0;">
+        </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
           <span style="font-size:20px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
         </td></tr>
