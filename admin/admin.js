@@ -297,9 +297,9 @@ function generateSignature(v) {
 
   const phoneRow = v.phone ? `
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:12px;font-family:Arial,sans-serif;">
-                <span style="color:#888888;">&#9990;&nbsp;</span>
-                <a href="tel:${v.phone}" style="color:#333333;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;">${phoneDisplay}</a>
+              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;">
+                <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
+                <a href="tel:${v.phone}" style="color:#333333;text-decoration:none;font-family:Arial,sans-serif;font-size:16px;mso-text-raise:0;">${phoneDisplay}</a>
               </td></tr>
             </table>` : '';
 
@@ -322,14 +322,14 @@ function generateSignature(v) {
             style="display:block;border:0;">
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
-          <span style="font-size:15px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;">${v.nameTH}</span>
+          <span style="font-size:20px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-text-raise:0;">${v.nameTH}</span>
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:10px;">
-          <span style="font-size:12px;color:#666666;font-family:Arial,sans-serif;">${nameEN}</span>
-          <span style="font-size:12px;color:#cccccc;"> | </span>
-          <span style="font-size:12px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;">${titleDisplay}</span>
-          <span style="font-size:12px;color:#cccccc;"> | </span>
-          <span style="font-size:11px;color:#999999;font-family:Arial,sans-serif;">Siam Cotton Wool Ltd.</span>
+          <span style="font-size:16px;color:#666666;font-family:Arial,sans-serif;mso-text-raise:0;">${nameEN}</span>
+          <span style="font-size:16px;color:#cccccc;mso-text-raise:0;"> | </span>
+          <span style="font-size:16px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-text-raise:0;">${titleDisplay}</span>
+          <span style="font-size:16px;color:#cccccc;mso-text-raise:0;"> | </span>
+          <span style="font-size:15px;color:#999999;font-family:Arial,sans-serif;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
         </td></tr>
         <tr><td colspan="2" height="1" bgcolor="#1D9E75"
           style="font-size:0;line-height:1px;">&nbsp;</td></tr>
@@ -338,16 +338,16 @@ function generateSignature(v) {
         <tr>
           <td valign="top" style="padding-right:16px;">
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:12px;font-family:Arial,sans-serif;">
-                <span style="color:#888888;">&#9993;&nbsp;</span>
-                <a href="mailto:${v.email}" style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;">${v.email}</a>
+              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;">
+                <span style="color:#888888;mso-text-raise:0;">&#9993;&nbsp;</span>
+                <a href="mailto:${v.email}" style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:16px;mso-text-raise:0;">${v.email}</a>
               </td></tr>
             </table>${phoneRow}
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:12px;font-family:Arial,sans-serif;">
-                <span style="color:#888888;">&#127760;&nbsp;</span>
+              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;">
+                <span style="color:#888888;mso-text-raise:0;">&#127760;&nbsp;</span>
                 <a href="https://www.siamcottonwool.co.th"
-                  style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;">www.siamcottonwool.co.th</a>
+                  style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:16px;mso-text-raise:0;">www.siamcottonwool.co.th</a>
               </td></tr>
             </table>
           </td>
@@ -357,8 +357,8 @@ function generateSignature(v) {
                 style="display:block;border:0;">
             </a>
             <table cellpadding="0" cellspacing="0" border="0" width="72">
-              <tr><td align="center" style="font-size:9px;color:#aaaaaa;padding-top:4px;font-family:Arial,sans-serif;line-height:12px;">
-                สแกนบันทึก<br>contact
+              <tr><td align="center" style="font-size:8px;color:#aaaaaa;padding-top:6px;font-family:Arial,sans-serif;line-height:13px;white-space:nowrap;">
+                สแกน QR เพื่อบันทึก
               </td></tr>
             </table>
           </td>
