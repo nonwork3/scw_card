@@ -292,76 +292,78 @@ function generateSignature(v) {
   const titleDisplay = toTitleCase(v.title || '');
   const phoneDisplay = v.phone ? fmtPhone(v.phone) : '';
   const cardURL      = BASE + v.slug + '/';
-  const qrData       = encodeURIComponent(cardURL);
-  const phoneRow     = v.phone ? `
-      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:6px;">
-        <tr><td>
-          <span style="font-size:12px;color:#888;">&#9990;&nbsp;</span>
-          <a href="tel:${v.phone}" style="font-size:12px;color:#333333;text-decoration:none;white-space:nowrap;">${phoneDisplay}</a>
-        </td></tr>
-      </table>` : '';
+  const qrSrc        = 'https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=' + encodeURIComponent(cardURL);
+  const logoSrc      = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
+
+  const phoneRow = v.phone ? `
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="padding-bottom:5px;font-size:12px;font-family:Arial,sans-serif;">
+                <span style="color:#888888;">&#9990;&nbsp;</span>
+                <a href="tel:${v.phone}" style="color:#333333;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;">${phoneDisplay}</a>
+              </td></tr>
+            </table>` : '';
 
   return `<!DOCTYPE html>
 <html lang="th">
 <head><meta charset="UTF-8"><title>Email Signature</title></head>
 <body style="margin:0;padding:24px;background:#f0f0f0;font-family:Arial,sans-serif;">
 <p style="font-size:11px;color:#999;margin:0 0 12px;">
-  copy ตั้งแต่ table#sig ถึง /table ไปวางใน Outlook / Gmail
+  copy table#sig ถึง /table ไปวางใน Gmail / Outlook
 </p>
-<table id="sig" cellpadding="0" cellspacing="0" border="0"
-  style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#333333;background:#ffffff;padding:16px 20px;border-radius:8px;width:420px;max-width:420px;">
+<table id="sig" cellpadding="0" cellspacing="0" border="0" width="460"
+  style="font-family:Arial,sans-serif;font-size:13px;color:#333333;">
   <tr>
-    <td colspan="2" style="padding-bottom:10px;line-height:1;">
-            <img src="https://nonwork3.github.io/scw_card/assets/logo-email.png" alt="Siam Cotton Wool" width="90" style="display:block;border:0;">
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="padding-bottom:1px;line-height:1.3;">
-      <span style="font-size:15px;font-weight:bold;color:#111111;">${v.nameTH}</span>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="padding-bottom:12px;line-height:1.4;white-space:nowrap;">
-      <span style="font-size:12px;color:#666666;">${nameEN}</span>
-      <span style="font-size:12px;color:#cccccc;">&nbsp;|&nbsp;</span>
-      <span style="font-size:12px;font-weight:bold;color:#1D9E75;">${titleDisplay}</span>
-      <span style="font-size:12px;color:#cccccc;">&nbsp;|&nbsp;</span>
-      <span style="font-size:11px;color:#999999;">Siam Cotton Wool Ltd.</span>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="padding:4px 0;">
-      <div style="height:1.5px;background:#1D9E75;width:100%;font-size:0;line-height:0;">&nbsp;</div>
-    </td>
-  </tr>
-  <tr>
-    <td style="vertical-align:top;padding-right:16px;">
-      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:6px;">
-        <tr><td>
-          <span style="font-size:12px;color:#888;">&#9993;&nbsp;</span>
-          <a href="mailto:${v.email}" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">${v.email}</a>
+    <td width="4" bgcolor="#1D9E75" style="font-size:0;line-height:0;">&nbsp;</td>
+    <td width="12" style="font-size:0;line-height:0;">&nbsp;</td>
+    <td>
+      <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr><td colspan="2" style="padding-bottom:8px;">
+          <img src="${logoSrc}" width="120" height="85" alt="Siam Cotton Wool"
+            style="display:block;border:0;">
         </td></tr>
-      </table>${phoneRow}
-      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:6px;">
-        <tr><td style="white-space:nowrap;">
-          <span style="font-size:12px;color:#888;">&#127760;&nbsp;</span>
-          <a href="https://www.siamcottonwool.co.th" style="font-size:12px;color:#1D9E75;text-decoration:none;white-space:nowrap;">www.siamcottonwool.co.th&nbsp;&nbsp;</a>
+        <tr><td colspan="2" style="padding-bottom:2px;">
+          <span style="font-size:15px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;">${v.nameTH}</span>
         </td></tr>
+        <tr><td colspan="2" style="padding-bottom:10px;">
+          <span style="font-size:12px;color:#666666;font-family:Arial,sans-serif;">${nameEN}</span>
+          <span style="font-size:12px;color:#cccccc;"> | </span>
+          <span style="font-size:12px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;">${titleDisplay}</span>
+          <span style="font-size:12px;color:#cccccc;"> | </span>
+          <span style="font-size:11px;color:#999999;font-family:Arial,sans-serif;">Siam Cotton Wool Ltd.</span>
+        </td></tr>
+        <tr><td colspan="2" height="1" bgcolor="#1D9E75"
+          style="font-size:0;line-height:1px;">&nbsp;</td></tr>
+        <tr><td colspan="2" height="10"
+          style="font-size:0;line-height:10px;">&nbsp;</td></tr>
+        <tr>
+          <td valign="top" style="padding-right:16px;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="padding-bottom:5px;font-size:12px;font-family:Arial,sans-serif;">
+                <span style="color:#888888;">&#9993;&nbsp;</span>
+                <a href="mailto:${v.email}" style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;">${v.email}</a>
+              </td></tr>
+            </table>${phoneRow}
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="padding-bottom:5px;font-size:12px;font-family:Arial,sans-serif;">
+                <span style="color:#888888;">&#127760;&nbsp;</span>
+                <a href="https://www.siamcottonwool.co.th"
+                  style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:12px;">www.siamcottonwool.co.th</a>
+              </td></tr>
+            </table>
+          </td>
+          <td valign="middle" align="center" width="80">
+            <a href="${cardURL}" style="text-decoration:none;">
+              <img src="${qrSrc}" width="72" height="72" alt="QR"
+                style="display:block;border:0;">
+            </a>
+            <table cellpadding="0" cellspacing="0" border="0" width="72">
+              <tr><td align="center" style="font-size:9px;color:#aaaaaa;padding-top:4px;font-family:Arial,sans-serif;line-height:12px;">
+                สแกนบันทึก<br>contact
+              </td></tr>
+            </table>
+          </td>
+        </tr>
       </table>
-    </td>
-    <td style="vertical-align:middle;text-align:center;width:90px;">
-      <a href="${cardURL}" style="text-decoration:none;">
-        <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;width:72px;">
-          <tr><td style="text-align:center;">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=${qrData}"
-              alt="QR Code" width="72" height="72"
-              style="display:block;border-radius:4px;border:0;">
-          </td></tr>
-          <tr><td style="text-align:center;padding-top:4px;">
-            <span style="font-size:9px;color:#aaaaaa;line-height:1.3;white-space:nowrap;">สแกนบันทึก<br>contact</span>
-          </td></tr>
-        </table>
-      </a>
     </td>
   </tr>
 </table>
