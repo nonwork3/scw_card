@@ -351,11 +351,17 @@ function generateSignature(v) {
     </td>
     <td style="vertical-align:middle;text-align:center;width:90px;">
       <a href="${cardURL}" style="text-decoration:none;">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=${qrData}"
-          alt="QR Code" width="72" height="72"
-          style="display:block;border:0;border-radius:3px;">
+        <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;width:72px;">
+          <tr><td style="text-align:center;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=${qrData}"
+              alt="QR Code" width="72" height="72"
+              style="display:block;border-radius:4px;border:0;">
+          </td></tr>
+          <tr><td style="text-align:center;padding-top:4px;">
+            <span style="font-size:9px;color:#aaaaaa;line-height:1.3;white-space:nowrap;">สแกนบันทึก<br>contact</span>
+          </td></tr>
+        </table>
       </a>
-      <span style="display:block;font-size:10px;color:#aaaaaa;margin-top:4px;white-space:nowrap;text-align:center;font-family:Arial,sans-serif;line-height:1.4;text-align:center;">สแกนบันทึก contact</span>
     </td>
   </tr>
 </table>
