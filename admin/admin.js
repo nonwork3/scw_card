@@ -296,14 +296,14 @@ function generateSignature(v) {
   const logoSrc      = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
 
   const phoneRow = v.phone ? `
-            <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
-                <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
-                <a href="tel:${v.phone}" style="text-decoration:none;">
-                  <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${phoneDisplay}</span>
-                </a>
-              </td></tr>
-            </table>` : '';
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
+                  <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
+                  <a href="tel:${v.phone}" style="text-decoration:none;">
+                    <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${phoneDisplay}</span>
+                  </a>
+                </td></tr>
+              </table>` : '';
 
   return `<!DOCTYPE html>
 <html lang="th">
@@ -314,15 +314,19 @@ function generateSignature(v) {
 </p>
 <table id="sig" cellpadding="0" cellspacing="0" border="0" width="460"
   style="font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;font-size:13px;color:#333333;">
+  <!-- ROW 1: green bar (rowspan=2) + spacer (rowspan=2) + logo -->
   <tr>
-    <td width="4" bgcolor="#1D9E75" style="font-size:0;line-height:0;">&nbsp;</td>
-    <td width="12" style="font-size:0;line-height:0;">&nbsp;</td>
+    <td width="4" bgcolor="#1D9E75" rowspan="2" style="font-size:0;line-height:0;">&nbsp;</td>
+    <td width="12" rowspan="2" style="font-size:0;line-height:0;">&nbsp;</td>
+    <td style="padding-bottom:8px;">
+      <img src="${logoSrc}" width="120" height="85" alt="Siam Cotton Wool"
+        style="display:block;border:0;">
+    </td>
+  </tr>
+  <!-- ROW 2: name + divider + contact + QR (bar/spacer covered by rowspan above) -->
+  <tr>
     <td>
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr><td colspan="2" style="padding-bottom:8px;">
-          <img src="${logoSrc}" width="120" height="85" alt="Siam Cotton Wool"
-            style="display:block;border:0;">
-        </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
           <span style="font-size:20px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
         </td></tr>
