@@ -297,9 +297,11 @@ function generateSignature(v) {
 
   const phoneRow = v.phone ? `
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;">
+              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                 <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
-                <a href="tel:${v.phone}" style="color:#333333;text-decoration:none;font-family:Arial,sans-serif;font-size:16px;mso-text-raise:0;">${phoneDisplay}</a>
+                <a href="tel:${v.phone}" style="text-decoration:none;">
+                  <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${phoneDisplay}</span>
+                </a>
               </td></tr>
             </table>` : '';
 
@@ -311,7 +313,7 @@ function generateSignature(v) {
   copy table#sig ถึง /table ไปวางใน Gmail / Outlook
 </p>
 <table id="sig" cellpadding="0" cellspacing="0" border="0" width="460"
-  style="font-family:Arial,sans-serif;font-size:13px;color:#333333;">
+  style="font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;font-size:13px;color:#333333;">
   <tr>
     <td width="4" bgcolor="#1D9E75" style="font-size:0;line-height:0;">&nbsp;</td>
     <td width="12" style="font-size:0;line-height:0;">&nbsp;</td>
@@ -322,32 +324,35 @@ function generateSignature(v) {
             style="display:block;border:0;">
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
-          <span style="font-size:20px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-text-raise:0;">${v.nameTH}</span>
+          <span style="font-size:20px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:10px;">
-          <span style="font-size:16px;color:#666666;font-family:Arial,sans-serif;mso-text-raise:0;">${nameEN}</span>
+          <span style="font-size:16px;color:#666666;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${nameEN}</span>
           <span style="font-size:16px;color:#cccccc;mso-text-raise:0;"> | </span>
-          <span style="font-size:16px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-text-raise:0;">${titleDisplay}</span>
+          <span style="font-size:16px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${titleDisplay}</span>
           <span style="font-size:16px;color:#cccccc;mso-text-raise:0;"> | </span>
-          <span style="font-size:15px;color:#999999;font-family:Arial,sans-serif;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
+          <span style="font-size:15px;color:#999999;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
         </td></tr>
-        <tr><td colspan="2" height="1" bgcolor="#1D9E75"
-          style="font-size:0;line-height:1px;">&nbsp;</td></tr>
+        <tr><td colspan="2"
+          style="border-bottom:2px solid #1D9E75;font-size:1px;line-height:1px;mso-line-height-rule:exactly;padding:0;">&nbsp;</td></tr>
         <tr><td colspan="2" height="10"
           style="font-size:0;line-height:10px;">&nbsp;</td></tr>
         <tr>
           <td valign="top" style="padding-right:16px;">
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;">
+              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                 <span style="color:#888888;mso-text-raise:0;">&#9993;&nbsp;</span>
-                <a href="mailto:${v.email}" style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:16px;mso-text-raise:0;">${v.email}</a>
+                <a href="mailto:${v.email}" style="text-decoration:none;">
+                  <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.email}</span>
+                </a>
               </td></tr>
             </table>${phoneRow}
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;">
+              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                 <span style="color:#888888;mso-text-raise:0;">&#127760;&nbsp;</span>
-                <a href="https://www.siamcottonwool.co.th"
-                  style="color:#1D9E75;text-decoration:none;font-family:Arial,sans-serif;font-size:16px;mso-text-raise:0;">www.siamcottonwool.co.th</a>
+                <a href="https://www.siamcottonwool.co.th" style="text-decoration:none;">
+                  <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">www.siamcottonwool.co.th</span>
+                </a>
               </td></tr>
             </table>
           </td>
@@ -357,7 +362,7 @@ function generateSignature(v) {
                 style="display:block;border:0;">
             </a>
             <table cellpadding="0" cellspacing="0" border="0" width="72">
-              <tr><td align="center" style="font-size:8px;color:#aaaaaa;padding-top:6px;font-family:Arial,sans-serif;line-height:13px;white-space:nowrap;">
+              <tr><td align="center" style="font-size:8px;color:#aaaaaa;padding-top:6px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;line-height:13px;white-space:nowrap;">
                 สแกน QR เพื่อบันทึก
               </td></tr>
             </table>
