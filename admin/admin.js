@@ -356,13 +356,13 @@ function generateSignature(v) {
               </td></tr>
             </table>
           </td>
-          <td valign="middle" align="center" width="80">
+          <td valign="middle" align="center" width="90">
             <a href="${cardURL}" style="text-decoration:none;">
               <img src="${qrSrc}" width="72" height="72" alt="QR"
-                style="display:block;border:0;">
+                style="display:block;margin:0 auto;border:0;">
             </a>
-            <table cellpadding="0" cellspacing="0" border="0" width="72">
-              <tr><td align="center" style="font-size:8px;color:#aaaaaa;padding-top:6px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;line-height:13px;white-space:nowrap;">
+            <table cellpadding="0" cellspacing="0" border="0" width="90">
+              <tr><td align="center" style="font-size:11px;color:#aaaaaa;padding-top:6px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;line-height:15px;">
                 สแกน QR เพื่อบันทึก
               </td></tr>
             </table>
