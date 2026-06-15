@@ -355,7 +355,7 @@ function generateSignature(v) {
           alt="QR Code" width="72" height="72"
           style="display:block;border:0;border-radius:3px;">
       </a>
-      <span style="display:block;font-size:10px;color:#aaaaaa;margin-top:4px;white-space:nowrap;text-align:center;font-family:Arial,sans-serif;line-height:1.4;">สแกนบันทึก contact</span>
+      <span style="display:block;font-size:10px;color:#aaaaaa;margin-top:4px;white-space:nowrap;text-align:center;font-family:Arial,sans-serif;line-height:1.4;text-align:center;">สแกนบันทึก contact</span>
     </td>
   </tr>
 </table>
