@@ -434,43 +434,44 @@ function generateSignature(v) {
 </body></html>`;
 }
 
-// ── Cloudflare Worker email ───────────────────────────────────
-// หลัง deploy email-worker/ แล้ว แก้ YOUR-SUBDOMAIN ด้านล่างด้วยค่ะ
-const EMAIL_WORKER_URL =
-  'https://scw-email-service.YOUR-SUBDOMAIN.workers.dev/send-card-email';
+// ── EmailJS ───────────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = 'service_77nq88g';
+const EMAILJS_TEMPLATE_ID = 'template_9yvnisr';
+const EMAILJS_PUBLIC_KEY  = 'sESJlIK6tEy4RczqR';
 
 async function sendCardEmail() {
-  const input    = document.getElementById('send-to-email');
   const statusEl = document.getElementById('send-status');
-  const to       = input ? input.value.trim() : '';
-  if (!to) {
-    if (statusEl) { statusEl.style.color = '#b91c1c'; statusEl.textContent = 'กรุณากรอกอีเมลผู้รับค่ะ'; }
+  const toEmail  = document.getElementById('send-to-email').value.trim();
+  if (!toEmail) {
+    statusEl.style.color = '#b91c1c';
+    statusEl.textContent = 'กรุณาใส่อีเมลก่อนค่ะ';
     return;
   }
 
-  const v       = getValues();
-  const name    = v.nameTH || v.nameFirst || v.nameEN || '';
-  const cardURL = (document.getElementById('cardURL') || {}).value || '';
-  const sig     = generateSignature(v);
+  statusEl.style.color = '#888';
+  statusEl.textContent = 'กำลังส่ง...';
 
-  if (statusEl) { statusEl.style.color = '#888'; statusEl.textContent = 'กำลังส่ง...'; }
+  const v        = getValues();
+  const sig      = generateSignature(v);
+  const cardURL  = BASE + v.slug + '/';
 
   try {
-    const res  = await fetch(EMAIL_WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ to, name, cardURL, signatureHTML: sig }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      if (statusEl) { statusEl.style.color = '#0F6E56'; statusEl.textContent = 'ส่งอีเมลสำเร็จแล้วค่ะ ✓'; }
-      toast('ส่งอีเมลสำเร็จแล้วค่ะ', 4000);
-    } else {
-      throw new Error(data.error || 'Worker returned success:false');
-    }
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        to_email:       toEmail,
+        name:           v.nameTH || v.nameEN || 'พนักงาน',
+        card_url:       cardURL,
+        signature_html: sig,
+      },
+      EMAILJS_PUBLIC_KEY
+    );
+    statusEl.style.color = '#1D9E75';
+    statusEl.textContent = '✅ ส่งสำเร็จแล้วค่ะ!';
   } catch (err) {
-    if (statusEl) { statusEl.style.color = '#b91c1c'; statusEl.textContent = 'ส่งไม่สำเร็จ: ' + err.message; }
-    toast('ส่งอีเมลไม่สำเร็จ: ' + err.message);
+    statusEl.style.color = '#e53e3e';
+    statusEl.textContent = '❌ ส่งไม่สำเร็จ: ' + (err?.text || err);
   }
 }
 

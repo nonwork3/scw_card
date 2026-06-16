@@ -6,6 +6,7 @@
   <title>เพิ่มพนักงาน — SCW Admin</title>
   <link rel="stylesheet" href="../admin.css" />
   <link rel="icon" href="../../assets/scw-logo.svg" type="image/svg+xml" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -132,8 +133,8 @@
     </div>
 
     <div class="divider" style="margin-top:16px"></div>
-    <div class="field-group" id="worker-email-section">
-      <label>ส่งอีเมลให้พนักงาน (ผ่าน Cloudflare Worker)</label>
+    <div class="field-group" id="send-card-email-section">
+      <label>ส่งอีเมลให้พนักงาน</label>
       <div class="field-row">
         <input type="email" id="send-to-email"
           placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />
