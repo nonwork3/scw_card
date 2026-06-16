@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>เพิ่มพนักงาน — SCW Admin</title>
+  <title>เพิ่มพนักงานใหม่ — SCW Admin</title>
   <link rel="stylesheet" href="../admin.css" />
   <link rel="icon" href="../../assets/scw-logo.svg" type="image/svg+xml" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -24,7 +24,7 @@
 <div class="breadcrumb">
   <a href="../">Admin</a>
   <span>›</span>
-  <span>เพิ่มพนักงาน</span>
+  <span>เพิ่มพนักงานใหม่</span>
 </div>
 
 <div class="pat-wrapper" id="patWrapper">
@@ -108,13 +108,13 @@
       <input id="cardURL" type="text" readonly class="derived" />
     </div>
 
-    <div class="success-banner" id="successBanner">
+    <div class="success-banner" id="successBanner" role="status">
       <div class="s-title">✓ สร้างนามบัตรสำเร็จแล้ว</div>
       <div class="s-url"><a id="successLink" href="#" target="_blank"></a></div>
       <div class="s-note">GitHub Pages จะ deploy ภายใน ~2 นาที</div>
     </div>
 
-    <div class="error-banner" id="saveErrorBanner">
+    <div class="error-banner" id="saveErrorBanner" role="alert">
       <div class="e-title">✕ บันทึกไม่สำเร็จ</div>
       <div class="e-detail" id="saveErrorDetail"></div>
       <button type="button" class="e-dismiss" onclick="dismissSaveError()">ปิด</button>
@@ -139,9 +139,9 @@
       <div class="field-row">
         <input type="email" id="send-to-email"
           placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />
-        <button type="button" class="btn-add" id="btnSendCardEmail" onclick="sendCardEmail()">ส่งอีเมล</button>
+        <button type="button" class="btn btn-email btn-sm" id="btnSendCardEmail" onclick="sendCardEmail()">ส่งอีเมล</button>
       </div>
-      <p id="send-status" style="font-size:12px;margin-top:2px;min-height:16px"></p>
+      <p id="send-status" aria-live="polite" style="font-size:12px;margin-top:2px;min-height:16px"></p>
     </div>
   </div>
 
@@ -161,7 +161,7 @@
 
 </div>
 
-<div id="toast"></div>
+<div id="toast" aria-live="polite"></div>
 
 <script src="../admin.js"></script>
 <script>

@@ -454,7 +454,7 @@ async function sendCardEmail() {
     statusEl.style.color = '#1D9E75';
     statusEl.textContent = '✅ ส่งอีเมลสำเร็จแล้วค่ะ!';
   } catch (err) {
-    statusEl.style.color = '#e53e3e';
+    statusEl.style.color = '#b91c1c';
     statusEl.textContent = '❌ ส่งอีเมลไม่สำเร็จ ลองใหม่อีกครั้ง หรือกด "ดาวน์โหลด Email Signature" แล้วส่งเองค่ะ';
   }
 }
@@ -462,8 +462,6 @@ async function sendCardEmail() {
 function downloadSignature() {
   const v    = getValues();
   const html = generateSignature(v);
-  console.log('[signature] getValues:', v);
-  console.log('[signature] html length:', html.length);
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');

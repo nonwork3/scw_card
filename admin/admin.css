@@ -68,7 +68,7 @@ body {
 .pat-status { font-size: 11px; margin-top: 6px; }
 .pat-status.ok  { color: var(--green-dark); }
 .pat-status.err { color: #c0392b; }
-.pat-note { font-size: 10.5px; color: #aaa; margin-top: 6px; line-height: 1.5; }
+.pat-note { font-size: 10.5px; color: #767676; margin-top: 6px; line-height: 1.5; }
 
 /* ── Panel ── */
 .panel {
@@ -156,13 +156,13 @@ body {
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
 .field input.derived { background: #f8faf9; color: #777; }
 .field textarea { resize: vertical; }
-.field .hint, .field-group .hint { font-size: 10.5px; color: #ccc; margin-top: 3px; }
+.field .hint, .field-group .hint { font-size: 10.5px; color: #767676; margin-top: 3px; }
 .divider { height: 1px; background: #f0f0f0; margin: 14px 0; }
 
 /* ── Preview ── */
 .preview-wrap { position: sticky; top: 20px; }
 .preview-empty {
-  text-align: center; padding: 60px 20px; color: #ccc; font-size: 13px;
+  text-align: center; padding: 60px 20px; color: #767676; font-size: 13px;
 }
 .preview-empty svg { display: block; margin: 0 auto 12px; opacity: .3; }
 iframe#preview { width: 100%; border: none; border-radius: 10px; display: none; overflow: hidden; }
