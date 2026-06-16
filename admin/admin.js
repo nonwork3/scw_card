@@ -162,9 +162,13 @@ function addField(type) {
   const group = document.getElementById(type + '-group');
   const row   = document.createElement('div');
   row.className = 'field-row';
-  row.innerHTML = `<input type="${c.type}" class="${c.cls}" placeholder="${c.ph}" autocomplete="off"><button type="button" class="btn-remove" title="ลบ">✕</button>`;
-  row.querySelector('.btn-remove').onclick = () => { row.remove(); update(); };
-  group.insertBefore(row, group.querySelector('.hint') || null);
+  row.innerHTML = `<input type="${c.type}" class="${c.cls}" placeholder="${c.ph}" autocomplete="off"><button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>`;
+  group.insertBefore(row, group.querySelector('.btn-add'));
+}
+
+function removeFieldRow(btn) {
+  btn.closest('.field-row').remove();
+  update();
 }
 
 function populateGroup(type, values) {

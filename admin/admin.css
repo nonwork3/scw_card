@@ -156,7 +156,7 @@ body {
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
 .field input.derived { background: #f8faf9; color: #777; }
 .field textarea { resize: vertical; }
-.field .hint { font-size: 10.5px; color: #ccc; margin-top: 3px; }
+.field .hint, .field-group .hint { font-size: 10.5px; color: #ccc; margin-top: 3px; }
 .divider { height: 1px; background: #f0f0f0; margin: 14px 0; }
 
 /* ── Preview ── */
@@ -242,6 +242,7 @@ iframe#preview { width: 100%; border: none; border-radius: 10px; display: none; 
 }
 .field-row input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
 .btn-add {
+  display: inline-flex; align-items: center; margin-top: 2px;
   padding: 6px 10px; border: 1px solid #dde8e2; border-radius: 8px; flex-shrink: 0;
   background: var(--green-pale); color: var(--green-dark);
   font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap;

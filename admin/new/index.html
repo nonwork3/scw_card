@@ -68,31 +68,35 @@
       <label>Email</label>
       <div class="field-row">
         <input type="email" class="email-input" placeholder="เช่น siam@siamcottonwool.co.th" autocomplete="off" />
-        <button type="button" class="btn-add" onclick="addField('email')">+ เพิ่ม</button>
+        <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
+      <button type="button" class="btn-add" onclick="addField('email')">+ เพิ่ม</button>
     </div>
     <div class="field-group" id="phone-group">
       <label>เบอร์โทร</label>
       <div class="field-row">
         <input type="text" class="phone-input" placeholder="เช่น +6612 3456789" autocomplete="off" />
-        <button type="button" class="btn-add" onclick="addField('phone')">+ เพิ่ม</button>
+        <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
+      <button type="button" class="btn-add" onclick="addField('phone')">+ เพิ่ม</button>
       <div class="hint">ไม่มีเว้นวรรค เช่น +66123456789</div>
     </div>
     <div class="field-group" id="line-group">
       <label>LINE ID</label>
       <div class="field-row">
         <input type="text" class="line-input" placeholder="เช่น siam.sumlee" autocomplete="off" />
-        <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
+        <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
+      <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
       <div class="hint">ใช้ LINE ID ส่วนตัวเท่านั้น (ไม่รองรับ Group ID หรือ Official Account)</div>
     </div>
     <div class="field-group" id="web-group">
       <label>Website URL</label>
       <div class="field-row">
         <input type="text" class="web-input" placeholder="เช่น www.siamcottonwool.co.th" value="www.siamcottonwool.co.th" autocomplete="off" />
-        <button type="button" class="btn-add" onclick="addField('web')">+ เพิ่ม</button>
+        <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
+      <button type="button" class="btn-add" onclick="addField('web')">+ เพิ่ม</button>
     </div>
     <div class="field">
       <label>Address</label>
