@@ -1,0 +1,7 @@
+{
+  "files": ["index.html", "_template/**/*.html", "admin/**/*.html", "card/**/*.html"],
+  "exclude": ["signatures/**", "node_modules/**"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

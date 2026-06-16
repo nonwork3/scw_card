@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-16T00:00:00.000Z",
+  "title": "Design System: SCW Digital Card",
+  "extensions": {
+    "colorMeta": {
+      "scw-green": {
+        "role": "primary",
+        "displayName": "SCW Signal Green",
+        "canonical": "oklch(60% 0.14 160)",
+        "tonalRamp": ["oklch(18% 0.05 160)", "oklch(28% 0.08 160)", "oklch(38% 0.10 160)", "oklch(48% 0.12 160)", "oklch(60% 0.14 160)", "oklch(72% 0.12 160)", "oklch(85% 0.07 160)", "oklch(95% 0.03 160)"]
+      },
+      "scw-green-dark": {
+        "role": "primary-deep",
+        "displayName": "Deep Signal Green",
+        "canonical": "oklch(45% 0.11 160)",
+        "tonalRamp": ["oklch(15% 0.04 160)", "oklch(25% 0.07 160)", "oklch(35% 0.09 160)", "oklch(45% 0.11 160)", "oklch(55% 0.12 160)", "oklch(67% 0.11 160)", "oklch(82% 0.06 160)", "oklch(94% 0.025 160)"]
+      },
+      "scw-green-pale": {
+        "role": "primary-tint",
+        "displayName": "Signal Green Tint",
+        "canonical": "oklch(94% 0.04 160)",
+        "tonalRamp": ["oklch(20% 0.05 160)", "oklch(32% 0.07 160)", "oklch(45% 0.09 160)", "oklch(60% 0.10 160)", "oklch(75% 0.08 160)", "oklch(85% 0.06 160)", "oklch(94% 0.04 160)", "oklch(98% 0.015 160)"]
+      },
+      "slate-blue": {
+        "role": "secondary",
+        "displayName": "Slate Info Blue",
+        "canonical": "oklch(53% 0.08 255)",
+        "tonalRamp": ["oklch(18% 0.04 255)", "oklch(28% 0.06 255)", "oklch(38% 0.07 255)", "oklch(48% 0.08 255)", "oklch(53% 0.08 255)", "oklch(68% 0.06 255)", "oklch(83% 0.04 255)", "oklch(95% 0.015 255)"]
+      },
+      "slate-blue-pale": {
+        "role": "secondary-tint",
+        "displayName": "Slate Info Blue Pale",
+        "canonical": "oklch(95% 0.02 255)",
+        "tonalRamp": ["oklch(20% 0.04 255)", "oklch(35% 0.06 255)", "oklch(50% 0.07 255)", "oklch(65% 0.05 255)", "oklch(78% 0.035 255)", "oklch(88% 0.025 255)", "oklch(95% 0.02 255)", "oklch(98% 0.01 255)"]
+      },
+      "alert-red": {
+        "role": "danger",
+        "displayName": "Alert Red",
+        "canonical": "oklch(45% 0.18 25)",
+        "tonalRamp": ["oklch(15% 0.07 25)", "oklch(25% 0.11 25)", "oklch(35% 0.15 25)", "oklch(45% 0.18 25)", "oklch(55% 0.17 25)", "oklch(68% 0.14 25)", "oklch(83% 0.08 25)", "oklch(95% 0.03 25)"]
+      },
+      "alert-red-pale": {
+        "role": "danger-tint",
+        "displayName": "Alert Red Pale",
+        "canonical": "oklch(95% 0.03 25)",
+        "tonalRamp": ["oklch(20% 0.06 25)", "oklch(35% 0.10 25)", "oklch(50% 0.13 25)", "oklch(65% 0.10 25)", "oklch(78% 0.06 25)", "oklch(88% 0.04 25)", "oklch(95% 0.03 25)", "oklch(98% 0.012 25)"]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Mist Background",
+        "canonical": "oklch(95% 0.006 160)",
+        "tonalRamp": ["oklch(15% 0.004 160)", "oklch(28% 0.005 160)", "oklch(42% 0.006 160)", "oklch(58% 0.006 160)", "oklch(72% 0.006 160)", "oklch(85% 0.006 160)", "oklch(95% 0.006 160)", "oklch(98% 0.003 160)"]
+      },
+      "neutral-surface": {
+        "role": "neutral-surface",
+        "displayName": "Paper Surface",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(30% 0 0)", "oklch(45% 0 0)", "oklch(60% 0 0)", "oklch(75% 0 0)", "oklch(88% 0 0)", "oklch(96% 0 0)", "oklch(100% 0 0)"]
+      },
+      "neutral-ink": {
+        "role": "neutral-text",
+        "displayName": "Near-Black Ink",
+        "canonical": "oklch(20% 0.003 160)",
+        "tonalRamp": ["oklch(10% 0.002 160)", "oklch(20% 0.003 160)", "oklch(32% 0.004 160)", "oklch(45% 0.004 160)", "oklch(60% 0.005 160)", "oklch(75% 0.005 160)", "oklch(88% 0.004 160)", "oklch(97% 0.002 160)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Employee name on the card header. Always the single largest text on screen." },
+      "headline": { "displayName": "Headline", "purpose": "Admin page titles (add/edit employee)." },
+      "title": { "displayName": "Title", "purpose": "Job-title pill on the card header." },
+      "body": { "displayName": "Body", "purpose": "Info-row values on the card and field input text in admin." },
+      "label": { "displayName": "Label", "purpose": "Info-row captions and admin section labels." }
+    },
+    "shadows": [
+      { "name": "card-lift", "value": "0 2px 12px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.06)", "purpose": "Public card surface against the mist background." },
+      { "name": "panel-lift", "value": "0 1px 6px rgba(0,0,0,.06), 0 0 0 .5px rgba(0,0,0,.05)", "purpose": "Admin panel surfaces." },
+      { "name": "focus-glow", "value": "0 0 0 3px rgba(29,158,117,.1)", "purpose": "Shared focus ring for buttons and inputs." }
+    ],
+    "motion": [
+      { "name": "state-transition", "value": "background 0.15s ease, border-color 0.15s ease", "purpose": "Default easing for hover/focus state changes on buttons and inputs." }
+    ],
+    "breakpoints": [
+      { "name": "admin-collapse", "value": "700px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one primary action per screen — save, send.",
+      "html": "<button class=\"ds-btn-primary\">บันทึกขึ้น GitHub</button>",
+      "css": ".ds-btn-primary { background: #1D9E75; color: #ffffff; padding: 11px 16px; border-radius: 9px; border: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s ease; } .ds-btn-primary:hover { background: #0F6E56; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(29,158,117,.1); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Lower-weight action sitting beside a primary button.",
+      "html": "<button class=\"ds-btn-secondary\">ดาวน์โหลด Email Signature</button>",
+      "css": ".ds-btn-secondary { background: #E1F5EE; color: #0F6E56; padding: 11px 16px; border-radius: 9px; border: 1px solid #c5e9db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s ease; } .ds-btn-secondary:hover { background: #d3eee3; } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(29,158,117,.1); }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive admin action (delete card).",
+      "html": "<button class=\"ds-btn-danger\">ลบ</button>",
+      "css": ".ds-btn-danger { background: #fde8e8; color: #b91c1c; padding: 11px 16px; border-radius: 9px; border: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: background 0.15s ease; } .ds-btn-danger:hover { background: #fbd6d6; } .ds-btn-danger:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(185,28,28,.15); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Admin form field — used for every employee data field.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"employee@siamcottonwool.co.th\" />",
+      "css": ".ds-input { background: #ffffff; color: #1a1a1a; border: 1px solid #e4e4e4; border-radius: 8px; padding: 10px 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; width: 100%; box-sizing: border-box; transition: border-color 0.15s ease, box-shadow 0.15s ease; } .ds-input:focus { outline: none; border-color: #1D9E75; box-shadow: 0 0 0 3px rgba(29,158,117,.1); } .ds-input::placeholder { color: #8a8a8a; }"
+    },
+    {
+      "name": "Card Surface",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "The lifted white surface used for both the public card shell and admin panels.",
+      "html": "<div class=\"ds-card\">Paper Surface</div>",
+      "css": ".ds-card { background: #ffffff; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.06); padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; }"
+    },
+    {
+      "name": "Title Pill",
+      "kind": "chip",
+      "refersTo": "badge-title-pill",
+      "description": "Job-title badge sitting on the Signal Green card header — the system's one deliberate translucent surface.",
+      "html": "<div class=\"ds-pill-context\"><span class=\"ds-title-pill\">IT SUPPORT</span></div>",
+      "css": ".ds-pill-context { background: #1D9E75; padding: 24px; border-radius: 18px 18px 0 0; display: inline-block; } .ds-title-pill { background: rgba(255,255,255,0.2); color: #ffffff; padding: 4px 12px; border-radius: 999px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Pocket Introduction",
+    "overview": "This system exists to hand someone your contact details and get out of the way. Every surface in this project either is the introduction (the card a contact scans and saves) or manages the introduction (the admin tool IT staff use to keep that data correct). Neither surface is trying to impress; the card's job is to read clean on a phone screen for the five seconds between \"scan QR\" and \"save contact,\" and the admin tool's job is to make CRUD operations against the GitHub API feel safe and obvious, not stylish.\n\nThe visual language stays close to its print-card ancestor: one brand green, a calm light surface, soft elevation, and no decoration that doesn't carry information. Per PRODUCT.md's anti-references, this system explicitly rejects gradient text, repeated uppercase eyebrow tags, identical card-grid filler, and decorative glassmorphism — none of those serve \"share contact info\" or \"manage employee data,\" so none of them appear here.",
+    "keyCharacteristics": [
+      "One committed brand color (#1D9E75) carries identity; everything else is neutral or semantic.",
+      "Soft, quiet elevation (shadow + hairline border) — never flat, never heavily layered.",
+      "Mobile-first card surface; desktop-first admin surface. Same tokens, different density.",
+      "Admin clarity (loading states, save confirmations, gated actions) outranks admin decoration."
+    ],
+    "rules": [
+      { "name": "The Single Accent Rule", "body": "Signal Green is the only brand color in the system. Blue and red exist solely as semantic admin states (info/edit, danger), never as decoration, and never on the public card surface.", "section": "colors" },
+      { "name": "The One Display Rule", "body": "Only the employee's name uses the 22px display size. Job titles, section headers, and everything else stay at headline size or smaller, so the name is unmistakably the page's one hero element.", "section": "typography" },
+      { "name": "The Lifted-but-Quiet Rule", "body": "Every shadow pairs a soft blur with a hairline border at half-pixel width. The border keeps edges crisp at low shadow opacity; never increase blur or opacity to fake more depth — add the hairline instead.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Signal Green (#1D9E75) as the only brand accent — preserve the existing palette per PRODUCT.md rather than reinventing it.",
+      "Do pair every shadow with a 0.5px hairline border (Card Lift / Panel Lift) — never a bare blur.",
+      "Do hide admin sections that depend on an unsaved record (display:none) rather than showing them disabled with a hint message — this system gates by visibility, not by disabled + caption.",
+      "Do use the shared 3px Signal-Green focus glow on every focusable control (buttons and inputs alike) for one consistent keyboard-focus language."
+    ],
+    "donts": [
+      "Don't use gradient text. PRODUCT.md flags this explicitly as a tell of AI-generated design.",
+      "Don't add a tiny uppercase tracked eyebrow above sections — PRODUCT.md calls out \"repeated uppercase eyebrow tags\" by name as something this system must not read as.",
+      "Don't repeat identical card-grid filler — each employee card is one specific person's information, not a templated grid tile.",
+      "Don't use glassmorphism decoratively. The one translucent surface in this system (the Title Pill) is structural, not stylistic; don't add more.",
+      "Don't invent a second brand color. Blue and red exist only as admin semantic states (info/edit, danger) and must never appear on the public card."
+    ]
+  }
+}

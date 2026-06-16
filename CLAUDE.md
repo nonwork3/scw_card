@@ -75,3 +75,7 @@ scw_card/
                                             - Main branch: `main`
                                             - Auto-deploy: GitHub Pages watches `main` branch root
                                             - Check deploy status: https://github.com/nonwork3/scw_card/deployments
+
+## Design Context
+
+This project has `PRODUCT.md` (strategy: register=product, users, anti-references) and `DESIGN.md` (visual system: colors, typography, components) at the repo root. Read both before any visual/UI work — they're the source of truth for the SCW green identity, "Modern & Minimal" personality, and the AI-generated-look anti-references. Managed by the Impeccable skill (`/impeccable`).
