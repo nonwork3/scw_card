@@ -363,7 +363,7 @@ function generateSignature(v) {
     <td>
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr><td colspan="2" style="padding-bottom:8px;">
-          <img src="${logoSrc}" width="120" height="85" alt="Siam Cotton Wool"
+          <img src="${logoSrc}" width="160" height="83" alt="Siam Cotton Wool"
             style="display:block;border:0;">
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
