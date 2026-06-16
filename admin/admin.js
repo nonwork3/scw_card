@@ -336,7 +336,7 @@ function generateSignature(v) {
               <table cellpadding="0" cellspacing="0" border="0">
                 <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                   <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
-                  <a href="tel:${v.phone}" style="text-decoration:none;">
+                  <a href="tel:${phone0}" style="text-decoration:none;">
                     <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${phoneDisplay}</span>
                   </a>
                 </td></tr>
