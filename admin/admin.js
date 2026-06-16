@@ -88,7 +88,7 @@ function makeSlug(nameEN) {
   const first  = (parts[0] || '').toLowerCase().replace(/[^a-z0-9]/g, '');
   const last   = parts.slice(1).join('').toLowerCase().replace(/[^a-z0-9]/g, '');
   const suffix = last.slice(0, 3);
-  return suffix ? `${first}.${suffix}` : first;
+  return suffix ? `${first}-${suffix}` : first;
 }
 
 const ACRONYMS = new Set([
