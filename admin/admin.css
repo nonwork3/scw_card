@@ -182,6 +182,24 @@ iframe#preview { width: 100%; border: none; border-radius: 10px; display: none; 
 .success-banner .s-url a:hover { text-decoration: underline; }
 .success-banner .s-note { font-size: 11px; color: #7aac95; }
 
+/* ── Error banner ── */
+.error-banner {
+  display: none; background: var(--red-pale); border: 1px solid #fca5a5;
+  border-radius: 11px; padding: 16px; margin-bottom: 14px;
+}
+.error-banner.visible { display: block; }
+.error-banner .e-title { font-size: 13px; font-weight: 600; color: var(--red); margin-bottom: 8px; }
+.error-banner .e-detail {
+  font-size: 12px; color: #991b1b;
+  background: #fff; border-radius: 7px; padding: 8px 10px;
+  border: 1px solid #fcc; word-break: break-word; margin-bottom: 10px; line-height: 1.5;
+}
+.error-banner .e-dismiss {
+  background: none; border: none; padding: 0; font-size: 11px;
+  color: var(--red); font-weight: 600; cursor: pointer; font-family: inherit;
+}
+.error-banner .e-dismiss:hover { text-decoration: underline; }
+
 /* ── Delete confirm ── */
 .delete-wrap { max-width: 480px; margin: 0 auto; }
 .delete-card-info {
