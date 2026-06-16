@@ -66,7 +66,7 @@
     <div class="field">
       <label>ตำแหน่ง</label>
       <input id="title" type="text" autocomplete="off" />
-      <div class="hint">พิมพ์ได้ทั้ง case — แปลงอัตโนมัติ</div>
+      <div class="hint">พิมพ์ตัวพิมพ์เล็กหรือใหญ่ก็ได้ ระบบแปลงเป็นตัวใหญ่ให้อัตโนมัติ</div>
     </div>
     <div class="divider"></div>
     <div class="field-group" id="email-group">
@@ -89,10 +89,11 @@
     <div class="field-group" id="line-group">
       <label>LINE ID</label>
       <div class="field-row">
-        <input type="text" class="line-input" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+        <input type="text" class="line-input" placeholder="เช่น siam.sumlee" autocomplete="off" />
         <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
       <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
+      <div class="hint">ใช้ LINE ID ส่วนตัวเท่านั้น (ไม่รองรับ Group ID หรือ Official Account)</div>
     </div>
     <div class="field-group" id="web-group">
       <label>Website URL</label>
@@ -112,10 +113,16 @@
       <input id="cardURL" type="text" readonly class="derived" />
     </div>
 
-    <div class="success-banner" id="successBanner">
+    <div class="success-banner" id="successBanner" role="status">
       <div class="s-title">✓ แก้ไขนามบัตรสำเร็จแล้ว</div>
       <div class="s-url"><a id="successLink" href="#" target="_blank"></a></div>
       <div class="s-note">GitHub Pages จะ deploy ภายใน ~2 นาที</div>
+    </div>
+
+    <div class="error-banner" id="saveErrorBanner" role="alert">
+      <div class="e-title">✕ บันทึกไม่สำเร็จ</div>
+      <div class="e-detail" id="saveErrorDetail"></div>
+      <button type="button" class="e-dismiss" onclick="dismissSaveError()">ปิด</button>
     </div>
 
     <div class="btn-row">
@@ -139,7 +146,7 @@
           placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />
         <button type="button" class="btn-add" onclick="sendCardEmail()">ส่ง</button>
       </div>
-      <p id="send-status" style="font-size:12px;margin-top:2px;min-height:16px"></p>
+      <p id="send-status" aria-live="polite" style="font-size:12px;margin-top:2px;min-height:16px"></p>
     </div>
   </div>
 
@@ -158,7 +165,7 @@
 
 </div>
 
-<div id="toast"></div>
+<div id="toast" aria-live="polite"></div>
 
 <script src="../admin.js"></script>
 <script>
@@ -261,12 +268,27 @@ function update() {
   };
 }
 
+function dismissSaveError() {
+  document.getElementById('saveErrorBanner').classList.remove('visible');
+}
+
+function describeSaveError(e) {
+  if (e.status === 401) return 'Token ไม่ถูกต้องหรือหมดอายุค่ะ กรุณาตั้ง Token ใหม่ในไอคอนรูปเฟือง';
+  if (e.status === 403) return 'Token นี้ไม่มีสิทธิ์ "Contents: Read and write" หรือถูกจำกัดการเรียก API ชั่วคราว — ตรวจสอบสิทธิ์ Token หรือรอสักครู่แล้วลองใหม่ค่ะ';
+  if (e.status === 429) return 'เรียก GitHub API ถี่เกินไป กรุณารอสักครู่แล้วกดบันทึกอีกครั้งค่ะ';
+  if (e.status >= 500)  return 'GitHub กำลังมีปัญหาฝั่งเซิร์ฟเวอร์ชั่วคราว กรุณาลองบันทึกอีกครั้งค่ะ';
+  if (!e.status)        return 'เชื่อมต่อ GitHub ไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ค่ะ (' + e.message + ')';
+  return 'บันทึกไม่สำเร็จ: ' + e.message + ' — ลองใหม่อีกครั้ง หรือแจ้งผู้ดูแลระบบพร้อมข้อความนี้ค่ะ';
+}
+
 async function doSave() {
   if (!getPAT()) {
     document.getElementById('patWrapper').classList.add('open');
     toast('กรุณากรอก GitHub Token ก่อนค่ะ');
     return;
   }
+
+  dismissSaveError();
 
   const btn = document.getElementById('btnSave');
   btn.disabled = true;
@@ -276,7 +298,11 @@ async function doSave() {
     const v    = getValues();
     const path = `card/${v.slug}/index.html`;
     let sha = null;
-    try { sha = (await apiGet(path)).sha; } catch {}
+    try {
+      sha = (await apiGet(path)).sha;
+    } catch (e) {
+      if (e.status !== 404) throw e;
+    }
 
     const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
     await apiPut(path, buildHTML(v), `Update card: ${nameEN || v.slug}`, sha);
@@ -292,8 +318,9 @@ async function doSave() {
     toast('บันทึกสำเร็จ — รอประมาณ 2 นาทีถึงจะใช้งานได้ค่ะ', 5000);
     document.getElementById('successBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
-    if (e.status === 401) toast('Token ไม่ถูกต้องหรือหมดอายุค่ะ');
-    else toast('เกิดข้อผิดพลาด: ' + e.message);
+    document.getElementById('saveErrorDetail').textContent = describeSaveError(e);
+    document.getElementById('saveErrorBanner').classList.add('visible');
+    document.getElementById('saveErrorBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } finally {
     btn.disabled = false;
     btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> บันทึกการแก้ไข`;
