@@ -53,14 +53,15 @@
       <input id="nameTH" type="text" placeholder="เช่น สยาม สำลี" autocomplete="off" />
     </div>
     <div class="field">
-      <label>ชื่อภาษาอังกฤษ</label>
+      <label>ชื่อภาษาอังกฤษ <span class="required-mark">*</span></label>
       <input id="nameEN" type="text" placeholder="เช่น Siam Sumlee" autocomplete="off" />
+      <div class="hint">จำเป็น — ใช้สร้างลิงก์นามบัตร (URL)</div>
     </div>
     <div class="divider"></div>
     <div class="field">
       <label>ตำแหน่ง</label>
       <input id="title" type="text" placeholder="เช่น IT OFFICER" autocomplete="off" />
-      <div class="hint">พิมพ์ได้ทั้ง case — แปลงอัตโนมัติ</div>
+      <div class="hint">พิมพ์ตัวพิมพ์เล็กหรือใหญ่ก็ได้ ระบบแปลงเป็นตัวใหญ่ให้อัตโนมัติ</div>
     </div>
     <div class="divider"></div>
     <div class="field-group" id="email-group">
@@ -81,9 +82,10 @@
     <div class="field-group" id="line-group">
       <label>LINE ID</label>
       <div class="field-row">
-        <input type="text" class="line-input" placeholder="เช่น lineid หรือ @groupid" autocomplete="off" />
+        <input type="text" class="line-input" placeholder="เช่น siam.sumlee" autocomplete="off" />
         <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
       </div>
+      <div class="hint">ใช้ LINE ID ส่วนตัวเท่านั้น (ไม่รองรับ Group ID หรือ Official Account)</div>
     </div>
     <div class="field-group" id="web-group">
       <label>Website URL</label>
@@ -133,7 +135,7 @@
       <div class="field-row">
         <input type="email" id="send-to-email"
           placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />
-        <button type="button" class="btn-add" id="btnSendCardEmail" onclick="sendCardEmail()">ส่ง</button>
+        <button type="button" class="btn-add" id="btnSendCardEmail" onclick="sendCardEmail()">ส่งอีเมล</button>
       </div>
       <p id="send-status" style="font-size:12px;margin-top:2px;min-height:16px"></p>
     </div>
@@ -227,12 +229,12 @@ function dismissSaveError() {
 }
 
 function describeSaveError(e) {
-  if (e.status === 401) return 'Token ไม่ถูกต้องหรือหมดอายุค่ะ กรุณาตรวจสอบ GitHub Token';
-  if (e.status === 403) return 'Token ไม่มีสิทธิ์เพียงพอ (ต้องมี Contents: Read and write) หรือถูก rate limit ค่ะ';
-  if (e.status === 429) return 'GitHub API ถูกเรียกถี่เกินไป กรุณารอสักครู่แล้วลองใหม่ค่ะ';
-  if (e.status >= 500)  return 'GitHub กำลังมีปัญหาฝั่งเซิร์ฟเวอร์ ลองใหม่อีกครั้งค่ะ';
-  if (!e.status)        return 'เชื่อมต่อ GitHub ไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ค่ะ (' + e.message + ')';
-  return 'เกิดข้อผิดพลาด: ' + e.message;
+  if (e.status === 401) return 'Token ไม่ถูกต้องหรือหมดอายุค่ะ กรุณาตั้ง Token ใหม่ในไอคอนรูปเฟือง';
+  if (e.status === 403) return 'Token นี้ไม่มีสิทธิ์ "Contents: Read and write" หรือถูกจำกัดการเรียก API ชั่วคราว — ตรวจสอบสิทธิ์ Token หรือรอสักครู่แล้วลองใหม่ค่ะ';
+  if (e.status === 429) return 'เรียก GitHub API ถี่เกินไป กรุณารอสักครู่แล้วกดบันทึกอีกครั้งค่ะ';
+  if (e.status >= 500)  return 'GitHub กำลังมีปัญหาฝั่งเซิร์ฟเวอร์ชั่วคราว กรุณาลองบันทึกอีกครั้งค่ะ';
+  if (!e.status)        return 'เชื่อมต่อ GitHub ไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ค่ะ (' + e.message + ')';
+  return 'บันทึกไม่สำเร็จ: ' + e.message + ' — ลองใหม่อีกครั้ง หรือแจ้งผู้ดูแลระบบพร้อมข้อความนี้ค่ะ';
 }
 
 async function doSave() {

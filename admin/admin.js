@@ -153,7 +153,7 @@ function parseCardData(html) {
 const FIELD_CFG = {
   email: { cls: 'email-input', type: 'email', ph: 'เช่น siam@siamcottonwool.co.th' },
   phone: { cls: 'phone-input', type: 'text',  ph: 'เช่น +6612 3456789' },
-  line:  { cls: 'line-input',  type: 'text',  ph: 'เช่น lineid หรือ @groupid' },
+  line:  { cls: 'line-input',  type: 'text',  ph: 'เช่น siam.sumlee' },
   web:   { cls: 'web-input',   type: 'text',  ph: 'เช่น www.siamcottonwool.co.th' },
 };
 
@@ -448,10 +448,10 @@ async function sendCardEmail() {
       EMAILJS_PUBLIC_KEY
     );
     statusEl.style.color = '#1D9E75';
-    statusEl.textContent = '✅ ส่งสำเร็จแล้วค่ะ!';
+    statusEl.textContent = '✅ ส่งอีเมลสำเร็จแล้วค่ะ!';
   } catch (err) {
     statusEl.style.color = '#e53e3e';
-    statusEl.textContent = '❌ ส่งไม่สำเร็จ: ' + (err?.text || err);
+    statusEl.textContent = '❌ ส่งอีเมลไม่สำเร็จ ลองใหม่อีกครั้ง หรือกด "ดาวน์โหลด Email Signature" แล้วส่งเองค่ะ';
   }
 }
 
