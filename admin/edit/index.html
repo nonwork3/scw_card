@@ -127,17 +127,6 @@
       </button>
     </div>
 
-    <div id="emailSection" style="display:none; margin-top:12px">
-      <div class="field" style="margin-bottom:8px">
-        <label>ส่งลิงก์ไปที่อีเมล</label>
-        <input id="sendToEmail" type="email" autocomplete="off" placeholder="อีเมลผู้รับ" />
-      </div>
-      <button class="btn btn-email" style="width:100%" onclick="sendEmail()">
-        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-        ส่งลิงก์ทางอีเมล
-      </button>
-    </div>
-
     <div class="divider" style="margin-top:16px"></div>
     <div class="field-group" id="send-card-email-section">
       <label>ส่งอีเมลให้พนักงาน</label>
@@ -295,8 +284,6 @@ async function doSave() {
     link.href        = _savedCardURL;
     link.textContent = _savedCardURL;
     document.getElementById('successBanner').classList.add('visible');
-    document.getElementById('sendToEmail').value          = v.email || '';
-    document.getElementById('emailSection').style.display = 'block';
 
     toast('บันทึกสำเร็จ — รอประมาณ 2 นาทีถึงจะใช้งานได้ค่ะ', 5000);
     document.getElementById('successBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -307,15 +294,6 @@ async function doSave() {
     btn.disabled = false;
     btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> บันทึกการแก้ไข`;
   }
-}
-
-function sendEmail() {
-  const to = document.getElementById('sendToEmail').value.trim();
-  if (!to) { toast('กรุณากรอกอีเมลผู้รับค่ะ'); return; }
-  const v   = _savedV;
-  const url = _savedCardURL;
-  const nameEN = [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
-  openEmail(to, v.nameTH ? `คุณ${v.nameTH}` : nameEN, url);
 }
 </script>
 </body>

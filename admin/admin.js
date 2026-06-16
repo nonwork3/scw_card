@@ -314,26 +314,6 @@ window.SCW_PERSON = {
 </html>`;
 }
 
-// ── Email helper ──────────────────────────────────────────────
-function openEmail(to, greeting, cardURL) {
-  const subject = encodeURIComponent('นามบัตรดิจิทัล — Siam Cotton Wool Ltd.');
-  const body    = encodeURIComponent(
-`เรียน ${greeting}
-
-นามบัตรดิจิทัลของท่านพร้อมใช้งานแล้วค่ะ
-
-🔗 ${cardURL}
-
-วิธีใช้งาน:
-• เปิดลิงก์บนมือถือ กด "บันทึกลงผู้ติดต่อ" เพื่อบันทึก vCard
-• หรือ Scan QR Code จากหน้านี้ได้เลย
-
-ด้วยความนับถือ
-Siam Cotton Wool Ltd.`
-  );
-  window.open(`mailto:${to}?subject=${subject}&body=${body}`);
-}
-
 // ── Signature generator ───────────────────────────────────────
 function generateSignature(v) {
   const nameEN       = v.nameEN || [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
