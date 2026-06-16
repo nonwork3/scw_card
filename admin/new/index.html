@@ -114,7 +114,7 @@
         บันทึกขึ้น GitHub
       </button>
     </div>
-    <div class="btn-row" style="margin-top:8px;">
+    <div class="btn-row" style="margin-top:8px; display:none" id="downloadSigRow">
       <button class="btn btn-secondary" onclick="downloadSignature()">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         ดาวน์โหลด Email Signature
@@ -122,14 +122,14 @@
     </div>
 
     <div class="divider" style="margin-top:16px"></div>
-    <div class="field-group" id="send-card-email-section">
+    <div class="field-group" id="send-card-email-section" style="display:none">
       <label>ส่งอีเมลให้พนักงาน</label>
       <div class="field-row">
-        <input type="email" id="send-to-email" disabled
+        <input type="email" id="send-to-email"
           placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />
-        <button type="button" class="btn-add" id="btnSendCardEmail" disabled onclick="sendCardEmail()">ส่ง</button>
+        <button type="button" class="btn-add" id="btnSendCardEmail" onclick="sendCardEmail()">ส่ง</button>
       </div>
-      <p id="send-status" style="font-size:12px;margin-top:2px;min-height:16px;color:#999">กรุณาบันทึกข้อมูลก่อนส่งอีเมล</p>
+      <p id="send-status" style="font-size:12px;margin-top:2px;min-height:16px"></p>
     </div>
   </div>
 
@@ -245,10 +245,8 @@ async function doSave() {
     link.href        = _savedCardURL;
     link.textContent = _savedCardURL;
     document.getElementById('successBanner').classList.add('visible');
-    document.getElementById('send-to-email').disabled    = false;
-    document.getElementById('btnSendCardEmail').disabled = false;
-    document.getElementById('send-status').style.color   = '';
-    document.getElementById('send-status').textContent   = '';
+    document.getElementById('downloadSigRow').style.display = 'flex';
+    document.getElementById('send-card-email-section').style.display = 'block';
 
     toast('บันทึกสำเร็จ — รอประมาณ 2 นาทีถึงจะใช้งานได้ค่ะ', 5000);
     document.getElementById('successBanner').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
