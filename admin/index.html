@@ -113,7 +113,7 @@ function renderCards(cards) {
     const initial    = ((c.nameEN || c.slug) + '').charAt(0).toUpperCase();
     const liveURL    = `https://nonwork3.github.io/scw_card/card/${c.slug}/`;
     const nameTHHtml = c.nameTH ? `<div class="emp-name-th">${c.nameTH}</div>` : '';
-    const meta       = [c.title, c.email].filter(Boolean).join(' · ');
+    const meta       = [c.title, (c.emails && c.emails[0]) || c.email].filter(Boolean).join(' · ');
     return `
       <div class="emp-row">
         <div class="emp-avatar">${initial}</div>

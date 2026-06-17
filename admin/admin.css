@@ -25,10 +25,10 @@ body {
   display: flex; align-items: center; gap: 12px; padding: 0 4px;
 }
 .logo-badge {
-  width: 36px; height: 36px; background: var(--green); border-radius: 10px;
+  width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.logo-badge img { width: 22px; height: 22px; }
+.logo-badge img { width: 36px; height: 36px; }
 .header-text { flex: 1; min-width: 0; }
 .header-text h1 { font-size: 17px; font-weight: 600; color: #1a1a1a; }
 .header-text p  { font-size: 12px; color: #999; margin-top: 1px; }
@@ -129,7 +129,7 @@ body {
 .emp-info    { flex: 1; min-width: 0; }
 .emp-name-en { font-size: 14px; font-weight: 600; color: #1a1a1a; }
 .emp-name-th { font-size: 12px; color: #888; margin-top: 2px; }
-.emp-meta    { font-size: 11px; color: #bbb; margin-top: 2px; }
+.emp-meta    { font-size: 11px; color: #767676; margin-top: 2px; }
 .emp-actions { display: flex; gap: 6px; align-items: center; }
 
 .loading-state, .empty-state, .error-state {
