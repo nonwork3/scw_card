@@ -322,24 +322,33 @@ window.SCW_PERSON = {
 function generateSignature(v) {
   const nameEN       = v.nameEN || [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
   const titleDisplay = toTitleCase(v.title || '');
-  // Use only the first email/phone in the signature (arrays or legacy singles)
   const emails  = v.emails || (v.email ? [v.email] : []);
   const phones  = v.phones || (v.phone ? [v.phone] : []);
-  const email0  = emails[0] || '';
-  const phone0  = phones[0] || '';
-  const phoneDisplay = phone0 ? fmtPhone(phone0) : '';
-  const cardURL      = BASE + v.slug + '/';
-  const qrSrc        = 'https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=' + encodeURIComponent(cardURL);
-  const logoSrc      = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
+  const cardURL = BASE + v.slug + '/';
+  const qrSrc   = 'https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=' + encodeURIComponent(cardURL);
+  const logoSrc = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
 
-  const phoneRow = phone0 ? `
-              <table cellpadding="0" cellspacing="0" border="0">
-                <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
-                  <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
-                  <a href="tel:${phone0}" style="text-decoration:none;">
-                    <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${phoneDisplay}</span>
+  const ROW = 'padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;';
+  const emailBlock = emails.length ? `
+              <table cellpadding="0" cellspacing="0" border="0">${
+                emails.map(e => `
+                <tr><td style="${ROW}">
+                  <span style="color:#888888;mso-text-raise:0;">&#9993;&nbsp;</span>
+                  <a href="mailto:${e}" style="text-decoration:none;">
+                    <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${e}</span>
                   </a>
-                </td></tr>
+                </td></tr>`).join('')}
+              </table>` : '';
+
+  const phoneBlock = phones.length ? `
+              <table cellpadding="0" cellspacing="0" border="0">${
+                phones.map(p => `
+                <tr><td style="${ROW}">
+                  <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
+                  <a href="tel:${p}" style="text-decoration:none;">
+                    <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${fmtPhone(p)}</span>
+                  </a>
+                </td></tr>`).join('')}
               </table>` : '';
 
   return `<!DOCTYPE html>
@@ -381,15 +390,7 @@ function generateSignature(v) {
         <tr><td colspan="2" height="10"
           style="font-size:0;line-height:10px;">&nbsp;</td></tr>
         <tr>
-          <td valign="top" style="padding-right:16px;">
-            <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
-                <span style="color:#888888;mso-text-raise:0;">&#9993;&nbsp;</span>
-                <a href="mailto:${email0}" style="text-decoration:none;">
-                  <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${email0}</span>
-                </a>
-              </td></tr>
-            </table>${phoneRow}
+          <td valign="top" style="padding-right:16px;">${emailBlock}${phoneBlock}
             <table cellpadding="0" cellspacing="0" border="0">
               <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
                 <span style="color:#888888;mso-text-raise:0;">&#127760;&nbsp;</span>
