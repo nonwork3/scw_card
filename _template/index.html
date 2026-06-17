@@ -42,7 +42,7 @@
       </div>
       <div class="info-content">
         <span class="info-label">Email</span>
-        <span class="info-value"><a id="c-email" href="#"></a></span>
+        <span class="info-value" id="c-email-list"></span>
       </div>
     </div>
     <div class="info-row" id="row-phone">
@@ -51,7 +51,7 @@
       </div>
       <div class="info-content">
         <span class="info-label">Phone</span>
-        <span class="info-value"><a id="c-phone-link" href="#"></a></span>
+        <span class="info-value" id="c-phone-list"></span>
       </div>
     </div>
     <div class="info-row" id="row-line" style="display:none">
@@ -60,7 +60,7 @@
       </div>
       <div class="info-content">
         <span class="info-label">LINE</span>
-        <span class="info-value"><a id="c-line" href="#">—</a></span>
+        <span class="info-value" id="c-line-list"></span>
       </div>
     </div>
     <div class="info-row" id="row-web" style="display:none">
@@ -69,7 +69,7 @@
       </div>
       <div class="info-content">
         <span class="info-label">Website</span>
-        <span class="info-value"><a id="c-web" href="#"></a></span>
+        <span class="info-value" id="c-web-list"></span>
       </div>
     </div>
     <div class="info-row" id="row-address">
@@ -107,11 +107,10 @@ window.SCW_PERSON = {
   nameLast:     "Lastname",                    // เช่น "Sumlee"
   title:        "JOB TITLE",                   // ALL CAPS เช่น "IT OFFICER"
   titleDisplay: "Job Title",                   // Title Case เช่น "IT Officer"
-  email:        "email@siamcottonwool.co.th",  // เช่น "siam@siamcottonwool.co.th"
-  phone:        "+66XXXXXXXXX",                // ไม่มีเว้นวรรค เช่น "+66123456789"
-  phoneDisplay: "+66XX XXXXXXX",               // แสดงบนหน้า เช่น "+6681 2345678"
-  web:          null,                          // ใส่ "www.siamcottonwool.com" หรือ null
-  line:         null,                          // LINE ID เช่น "somchai123"
+  emails:       ["email@siamcottonwool.co.th"],  // ใส่ได้หลายอัน เช่น ["a@...", "b@..."]
+  phones:       ["+66XXXXXXXXX"],              // ใส่ได้หลายเบอร์ เช่น ["+66812345678"]
+  lines:        [],                            // LINE ID เช่น ["somchai123"]
+  webs:         [],                            // เว็บไซต์ เช่น ["www.siamcottonwool.com"]
   address:      "40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru, Phrapradaeng, Samutprakan 10130",
   slug:         "firstname",                   // ชื่อโฟลเดอร์ lowercase เช่น "somchai"
   cardURL:      "https://nonwork3.github.io/scw_card/card/firstname/"
