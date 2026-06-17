@@ -328,14 +328,15 @@ function generateSignature(v) {
   const qrSrc   = 'https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=' + encodeURIComponent(cardURL);
   const logoSrc = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
 
-  const ROW = 'padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;';
+  const ROW  = 'padding-bottom:4px;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;';
+  const ICON = 'color:#888888;font-size:13px;mso-text-raise:0;';
   const emailBlock = emails.length ? `
               <table cellpadding="0" cellspacing="0" border="0">${
                 emails.map(e => `
                 <tr><td style="${ROW}">
-                  <span style="color:#888888;mso-text-raise:0;">&#9993;&nbsp;</span>
+                  <span style="${ICON}">&#9993;&nbsp;</span>
                   <a href="mailto:${e}" style="text-decoration:none;">
-                    <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${e}</span>
+                    <span style="color:#1D9E75;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${e}</span>
                   </a>
                 </td></tr>`).join('')}
               </table>` : '';
@@ -344,9 +345,9 @@ function generateSignature(v) {
               <table cellpadding="0" cellspacing="0" border="0">${
                 phones.map(p => `
                 <tr><td style="${ROW}">
-                  <span style="color:#888888;mso-text-raise:0;">&#9990;&nbsp;</span>
+                  <span style="${ICON}">&#9990;&nbsp;</span>
                   <a href="tel:${p}" style="text-decoration:none;">
-                    <span style="color:#333333;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${fmtPhone(p)}</span>
+                    <span style="color:#333333;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${fmtPhone(p)}</span>
                   </a>
                 </td></tr>`).join('')}
               </table>` : '';
@@ -376,14 +377,14 @@ function generateSignature(v) {
             style="display:block;border:0;">
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
-          <span style="font-size:20px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
+          <span style="font-size:16px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
         </td></tr>
-        <tr><td colspan="2" style="padding-bottom:10px;">
-          <span style="font-size:16px;color:#666666;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${nameEN}</span>
-          <span style="font-size:16px;color:#cccccc;mso-text-raise:0;"> | </span>
-          <span style="font-size:16px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${titleDisplay}</span>
-          <span style="font-size:16px;color:#cccccc;mso-text-raise:0;"> | </span>
-          <span style="font-size:15px;color:#999999;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
+        <tr><td colspan="2" style="padding-bottom:8px;">
+          <span style="font-size:13px;color:#666666;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${nameEN}</span>
+          <span style="font-size:13px;color:#cccccc;mso-text-raise:0;"> | </span>
+          <span style="font-size:13px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${titleDisplay}</span>
+          <span style="font-size:13px;color:#cccccc;mso-text-raise:0;"> | </span>
+          <span style="font-size:13px;color:#999999;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
         </td></tr>
         <tr><td colspan="2"
           style="border-bottom:2px solid #1D9E75;font-size:1px;line-height:1px;mso-line-height-rule:exactly;padding:0;">&nbsp;</td></tr>
@@ -392,10 +393,10 @@ function generateSignature(v) {
         <tr>
           <td valign="top" style="padding-right:16px;">${emailBlock}${phoneBlock}
             <table cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="padding-bottom:5px;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
-                <span style="color:#888888;mso-text-raise:0;">&#127760;&nbsp;</span>
+              <tr><td style="padding-bottom:4px;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;">
+                <span style="color:#888888;font-size:13px;mso-text-raise:0;">Web&nbsp;</span>
                 <a href="https://www.siamcottonwool.co.th" style="text-decoration:none;">
-                  <span style="color:#1D9E75;font-size:16px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">www.siamcottonwool.co.th</span>
+                  <span style="color:#1D9E75;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">www.siamcottonwool.co.th</span>
                 </a>
               </td></tr>
             </table>
