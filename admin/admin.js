@@ -373,8 +373,10 @@ function generateSignature(v) {
     <td>
       <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr><td colspan="2" style="padding-bottom:8px;">
-          <img src="${logoSrc}" width="160" height="83" alt="Siam Cotton Wool"
-            style="display:block;border:0;">
+          <a href="https://www.siamcottonwool.co.th" style="display:block;border:0;text-decoration:none;">
+            <img src="${logoSrc}" width="160" height="83" alt="Siam Cotton Wool"
+              style="display:block;border:0;">
+          </a>
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
           <span style="font-size:16px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
