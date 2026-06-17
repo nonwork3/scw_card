@@ -83,7 +83,7 @@
 
 </div>
 
-<div id="toast"></div>
+<div id="toast" aria-live="polite"></div>
 
 <script src="../admin.js"></script>
 <script>
@@ -105,7 +105,7 @@ window.addEventListener('load', async () => {
     document.getElementById('delAvatar').textContent = nameEN.charAt(0).toUpperCase();
     document.getElementById('delNameEN').textContent = nameEN;
     document.getElementById('delNameTH').textContent = p.nameTH || '';
-    document.getElementById('delMeta').textContent   = [p.title, p.email].filter(Boolean).join(' · ');
+    document.getElementById('delMeta').textContent   = [p.title, (p.emails && p.emails[0]) || p.email].filter(Boolean).join(' · ');
 
     document.getElementById('loadingState').style.display  = 'none';
     document.getElementById('deleteContent').style.display = '';
@@ -119,6 +119,15 @@ function showError(html) {
   const el = document.getElementById('errorState');
   el.innerHTML = html;
   el.style.display = 'block';
+}
+
+function describeDeleteError(e) {
+  if (e.status === 401) return 'Token ไม่ถูกต้องหรือหมดอายุค่ะ กรุณาตั้ง Token ใหม่ในไอคอนรูปเฟือง';
+  if (e.status === 403) return 'Token นี้ไม่มีสิทธิ์ "Contents: Read and write" หรือถูกจำกัดการเรียก API ชั่วคราว — ตรวจสอบสิทธิ์ Token หรือรอสักครู่แล้วลองใหม่ค่ะ';
+  if (e.status === 429) return 'เรียก GitHub API ถี่เกินไป กรุณารอสักครู่แล้วกดลบอีกครั้งค่ะ';
+  if (e.status >= 500)  return 'GitHub กำลังมีปัญหาฝั่งเซิร์ฟเวอร์ชั่วคราว กรุณาลองลบอีกครั้งค่ะ';
+  if (!e.status)        return 'เชื่อมต่อ GitHub ไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่ค่ะ (' + e.message + ')';
+  return 'ลบไม่สำเร็จ: ' + e.message + ' — ลองใหม่อีกครั้ง หรือแจ้งผู้ดูแลระบบพร้อมข้อความนี้ค่ะ';
 }
 
 async function doDelete() {
@@ -138,8 +147,7 @@ async function doDelete() {
     toast('ลบนามบัตรสำเร็จแล้วค่ะ', 2500);
     setTimeout(() => { window.location.href = '../'; }, 1500);
   } catch (e) {
-    if (e.status === 401) toast('Token ไม่ถูกต้องหรือหมดอายุค่ะ');
-    else toast('เกิดข้อผิดพลาด: ' + e.message);
+    toast(describeDeleteError(e), 6000);
     btn.disabled = false;
     btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg> ลบนามบัตร`;
   }
