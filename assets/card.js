@@ -44,7 +44,7 @@
       a.remove();
       flash('<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> บันทึกแล้ว', 2000);
     } catch (err) {
-      flash('บันทึกไม่สำเร็จ — ลองแตะอีกครั้ง', 2500);
+      flash('<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> บันทึกไม่สำเร็จ — ลองแตะอีกครั้ง', 2500);
     }
   };
 
@@ -97,7 +97,7 @@
       if (webs[0]) setLink('c-web', webs[0].startsWith('http') ? webs[0] : 'https://' + webs[0], webs[0]);
     }
 
-    set('c-address', p.address);
+    if (p.address) setLink('c-address', 'https://maps.google.com/?q=' + encodeURIComponent(p.address), p.address);
     showRow('row-address', p.address);
     set('c-qr-url', p.cardURL);
 

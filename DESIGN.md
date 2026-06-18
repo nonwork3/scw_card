@@ -4,6 +4,8 @@ description: Digital business card and admin tool for Siam Cotton Wool Ltd.
 colors:
   scw-green: "#1D9E75"
   scw-green-dark: "#0F6E56"
+  scw-green-deep: "#085041"
+  scw-green-mid: "#9FE1CB"
   scw-green-pale: "#E1F5EE"
   slate-blue: "#4a6fa5"
   slate-blue-pale: "#e8f0fe"
@@ -75,8 +77,8 @@ components:
     rounded: "{rounded.md}"
     padding: "11px 16px"
   badge-title-pill:
-    backgroundColor: "rgba(255,255,255,0.2)"
-    textColor: "#ffffff"
+    backgroundColor: "rgba(255,255,255,0.92)"
+    textColor: "{colors.scw-green-deep}"
     rounded: "999px"
     padding: "4px 12px"
   input-field:
@@ -173,7 +175,7 @@ This system is lifted, not flat — every primary surface (card, admin panel) ca
 - **Error / Disabled:** disabled inputs are not used as a gating mechanism in this system — see the Don'ts below; sections that aren't ready yet are hidden (`display:none`), not shown disabled.
 
 ### Title Pill (signature component)
-The job-title badge on the card header: a translucent white pill (`rgba(255,255,255,0.2)` background, white text, fully rounded) sitting directly on the Signal Green header. It's the one place translucency is used, and it's structural (text-on-color legibility), not decorative glassmorphism.
+The job-title badge on the card header: a near-opaque white pill (`rgba(255,255,255,0.92)` background, Deep Signal Green text, fully rounded) sitting directly on the Signal Green header. Originally translucent white-on-white-tint with white text, but that recipe capped contrast at 2.74:1 — below WCAG AA even for the page's highest-visibility text. Revised to a solid-reading badge so the job title stays legible without inventing a new color (text uses the existing `--scw-green-deep` token).
 
 ## 6. Do's and Don'ts
 
@@ -187,5 +189,5 @@ The job-title badge on the card header: a translucent white pill (`rgba(255,255,
 - **Don't** use gradient text. PRODUCT.md flags this explicitly as a tell of AI-generated design.
 - **Don't** add a tiny uppercase tracked eyebrow above sections — PRODUCT.md calls out "repeated uppercase eyebrow tags" by name as something this system must not read as.
 - **Don't** repeat identical card-grid filler — each employee card is one specific person's information, not a templated grid tile.
-- **Don't** use glassmorphism decoratively. The one translucent surface in this system (the Title Pill) is structural, not stylistic; don't add more.
+- **Don't** use glassmorphism decoratively. The system has no decorative translucent surfaces; the Title Pill is now a solid badge for contrast reasons (see Components).
 - **Don't** invent a second brand color. Blue and red exist only as admin semantic states (info/edit, danger) and must never appear on the public card.

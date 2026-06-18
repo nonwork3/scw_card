@@ -83,12 +83,11 @@ html, body {
 }
 .title-pill {
   display: inline-block;
-  background: rgba(255,255,255,0.16);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.92);
   border-radius: 20px;
   padding: 4px 13px;
   font-size: 11px; letter-spacing: .8px;
-  color: #fff; font-weight: 500;
+  color: var(--scw-green-deep); font-weight: 600;
 }
 
 /* ── Icon strip ── */
@@ -214,6 +213,7 @@ html, body {
   .info-label { color: #999999; }
   .info-value { color: #d4d4d4; }
   .info-value.addr { color: #999999; }
+  .info-value a, .info-value-link { color: var(--scw-green-mid); }
   .info-value-link.plain { color: #b8b8b8; }
   .card-footer { border-top-color: #2e352e; }
   .qr-panel { background: #1e2520; border-color: #2e352e; }
