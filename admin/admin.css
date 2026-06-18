@@ -4,6 +4,7 @@
 :root {
   --green:      #1D9E75;
   --green-dark: #0F6E56;
+  --green-deep: #085041;
   --green-pale: #E1F5EE;
   --blue:       #4a6fa5;
   --blue-pale:  #e8f0fe;
@@ -31,7 +32,7 @@ body {
 .logo-badge img { width: 36px; height: 36px; }
 .header-text { flex: 1; min-width: 0; }
 .header-text h1 { font-size: 17px; font-weight: 600; color: #1a1a1a; }
-.header-text p  { font-size: 12px; color: #999; margin-top: 1px; }
+.header-text p  { font-size: 12px; color: #767676; margin-top: 1px; }
 
 .btn-icon {
   width: 32px; height: 32px; border: none; background: #f4f4f4;
@@ -64,7 +65,7 @@ body {
   flex: 1; padding: 7px 10px; border: 1px solid #dde8e2;
   border-radius: 7px; font-size: 12px; font-family: monospace; color: #1a1a1a;
 }
-.pat-row input:focus { outline: none; border-color: var(--green); }
+.pat-row input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,.1); }
 .pat-status { font-size: 11px; margin-top: 6px; }
 .pat-status.ok  { color: var(--green-dark); }
 .pat-status.err { color: #c0392b; }
@@ -80,7 +81,7 @@ body {
   margin-bottom: 16px;
 }
 .panel-title {
-  font-size: 11px; font-weight: 600; color: #aaa;
+  font-size: 11px; font-weight: 600; color: #767676;
   text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
 }
 .panel-header .panel-title { margin-bottom: 0; }
@@ -97,8 +98,8 @@ body {
 .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 7px; }
 
-.btn-primary        { background: var(--green);    color: #fff; }
-.btn-primary:hover:not(:disabled) { background: var(--green-dark); }
+.btn-primary        { background: var(--green-dark); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--green-deep); }
 .btn-secondary      { background: var(--green-pale); color: var(--green-dark); border: 1px solid #c8e8da; }
 .btn-secondary:hover { background: #d2eee3; }
 .btn-edit           { background: var(--blue-pale); color: var(--blue); }
@@ -128,12 +129,12 @@ body {
 }
 .emp-info    { flex: 1; min-width: 0; }
 .emp-name-en { font-size: 14px; font-weight: 600; color: #1a1a1a; }
-.emp-name-th { font-size: 12px; color: #888; margin-top: 2px; }
+.emp-name-th { font-size: 12px; color: #767676; margin-top: 2px; }
 .emp-meta    { font-size: 11px; color: #767676; margin-top: 2px; }
 .emp-actions { display: flex; gap: 6px; align-items: center; }
 
 .loading-state, .empty-state, .error-state {
-  text-align: center; padding: 40px 20px; color: #bbb; font-size: 13px; line-height: 1.8;
+  text-align: center; padding: 40px 20px; color: #767676; font-size: 13px; line-height: 1.8;
 }
 .empty-state svg { display: block; margin: 0 auto 12px; }
 

@@ -29,7 +29,7 @@
 
 <div class="pat-wrapper" id="patWrapper">
   <div class="pat-panel">
-    <label>GitHub Personal Access Token</label>
+    <label for="patInput">GitHub Personal Access Token</label>
     <div class="pat-row">
       <input type="password" id="patInput" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" />
       <button class="btn btn-primary btn-sm" onclick="savePAT()">บันทึก</button>
@@ -43,7 +43,7 @@
 </div>
 
 <!-- Loading / error state -->
-<div id="stateWrap" style="text-align:center; padding:60px 20px; color:#aaa; font-size:13px">
+<div id="stateWrap" style="text-align:center; padding:60px 20px; color:#767676; font-size:13px">
   กำลังโหลดข้อมูล...
 </div>
 
@@ -55,61 +55,61 @@
     <div class="panel-title">แก้ไขข้อมูลพนักงาน</div>
 
     <div class="field">
-      <label>ชื่อภาษาไทย</label>
+      <label for="nameTH">ชื่อภาษาไทย</label>
       <input id="nameTH" type="text" autocomplete="off" />
     </div>
     <div class="field">
-      <label>ชื่อภาษาอังกฤษ</label>
+      <label for="nameEN">ชื่อภาษาอังกฤษ</label>
       <input id="nameEN" type="text" autocomplete="off" />
     </div>
     <div class="divider"></div>
     <div class="field">
-      <label>ตำแหน่ง</label>
+      <label for="title">ตำแหน่ง</label>
       <input id="title" type="text" autocomplete="off" />
       <div class="hint">พิมพ์ตัวพิมพ์เล็กหรือใหญ่ก็ได้ ระบบแปลงเป็นตัวใหญ่ให้อัตโนมัติ</div>
     </div>
     <div class="divider"></div>
     <div class="field-group" id="email-group">
-      <label>Email</label>
+      <label id="email-group-label">Email</label>
       <div class="field-row">
-        <input type="email" class="email-input" placeholder="เช่น siam@siamcottonwool.co.th" autocomplete="off" />
+        <input type="email" class="email-input" placeholder="เช่น siam@siamcottonwool.co.th" aria-label="Email" autocomplete="off" />
         <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
       <button type="button" class="btn-add" onclick="addField('email')">+ เพิ่ม</button>
     </div>
     <div class="field-group" id="phone-group">
-      <label>เบอร์โทร</label>
+      <label id="phone-group-label">เบอร์โทร</label>
       <div class="field-row">
-        <input type="text" class="phone-input" placeholder="เช่น +6612 3456789" autocomplete="off" />
+        <input type="text" class="phone-input" placeholder="เช่น +6612 3456789" aria-label="เบอร์โทร" autocomplete="off" />
         <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
       <button type="button" class="btn-add" onclick="addField('phone')">+ เพิ่ม</button>
       <div class="hint">ไม่มีเว้นวรรค เช่น +66123456789</div>
     </div>
     <div class="field-group" id="line-group">
-      <label>LINE ID</label>
+      <label id="line-group-label">LINE ID</label>
       <div class="field-row">
-        <input type="text" class="line-input" placeholder="เช่น siam.sumlee" autocomplete="off" />
+        <input type="text" class="line-input" placeholder="เช่น siam.sumlee" aria-label="LINE ID" autocomplete="off" />
         <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
       <button type="button" class="btn-add" onclick="addField('line')">+ เพิ่ม</button>
       <div class="hint">ใช้ LINE ID ส่วนตัวเท่านั้น (ไม่รองรับ Group ID หรือ Official Account)</div>
     </div>
     <div class="field-group" id="web-group">
-      <label>Website URL</label>
+      <label id="web-group-label">Website URL</label>
       <div class="field-row">
-        <input type="text" class="web-input" placeholder="เช่น www.siamcottonwool.co.th" autocomplete="off" />
+        <input type="text" class="web-input" placeholder="เช่น www.siamcottonwool.co.th" aria-label="Website URL" autocomplete="off" />
         <button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>
       </div>
       <button type="button" class="btn-add" onclick="addField('web')">+ เพิ่ม</button>
     </div>
     <div class="field">
-      <label>Address</label>
+      <label for="address">Address</label>
       <textarea id="address" rows="2" placeholder="40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru, Phrapradaeng, Samutprakan 10130" autocomplete="off"></textarea>
     </div>
     <div class="divider"></div>
     <div class="field">
-      <label>Card URL</label>
+      <label for="cardURL">Card URL</label>
       <input id="cardURL" type="text" readonly class="derived" />
     </div>
 
@@ -140,7 +140,7 @@
 
     <div class="divider" style="margin-top:16px"></div>
     <div class="field-group" id="send-card-email-section">
-      <label>ส่งอีเมลให้พนักงาน</label>
+      <label for="send-to-email">ส่งอีเมลให้พนักงาน</label>
       <div class="field-row">
         <input type="email" id="send-to-email"
           placeholder="เช่น employee@siamcottonwool.co.th" autocomplete="off" />

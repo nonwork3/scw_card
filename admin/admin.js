@@ -151,10 +151,10 @@ function parseCardData(html) {
 
 // ── Multi-value field helpers ─────────────────────────────────
 const FIELD_CFG = {
-  email: { cls: 'email-input', type: 'email', ph: 'เช่น siam@siamcottonwool.co.th' },
-  phone: { cls: 'phone-input', type: 'text',  ph: 'เช่น +6612 3456789' },
-  line:  { cls: 'line-input',  type: 'text',  ph: 'เช่น siam.sumlee' },
-  web:   { cls: 'web-input',   type: 'text',  ph: 'เช่น www.siamcottonwool.co.th' },
+  email: { cls: 'email-input', type: 'email', ph: 'เช่น siam@siamcottonwool.co.th', label: 'Email' },
+  phone: { cls: 'phone-input', type: 'text',  ph: 'เช่น +6612 3456789',             label: 'เบอร์โทร' },
+  line:  { cls: 'line-input',  type: 'text',  ph: 'เช่น siam.sumlee',               label: 'LINE ID' },
+  web:   { cls: 'web-input',   type: 'text',  ph: 'เช่น www.siamcottonwool.co.th',  label: 'Website URL' },
 };
 
 function addField(type) {
@@ -162,7 +162,7 @@ function addField(type) {
   const group = document.getElementById(type + '-group');
   const row   = document.createElement('div');
   row.className = 'field-row';
-  row.innerHTML = `<input type="${c.type}" class="${c.cls}" placeholder="${c.ph}" autocomplete="off"><button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>`;
+  row.innerHTML = `<input type="${c.type}" class="${c.cls}" placeholder="${c.ph}" aria-label="${c.label}" autocomplete="off"><button type="button" class="btn-remove" title="ลบ" onclick="removeFieldRow(this)">✕</button>`;
   group.insertBefore(row, group.querySelector('.btn-add'));
 }
 
