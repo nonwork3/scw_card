@@ -211,9 +211,11 @@ html, body {
   html, body { background: #1a1f1d; }
   .card { background: #242924; box-shadow: 0 2px 12px rgba(0,0,0,0.3), 0 0 0 0.5px rgba(255,255,255,0.06); }
   .info-row { border-bottom-color: #2e352e; }
-  .info-value { color: #e8e8e8; }
-  .info-value.addr { color: #aaa; }
-  .info-value-link.plain { color: #cccccc; }
+  .info-label { color: #999999; }
+  .info-value { color: #d4d4d4; font-weight: 400; }
+  .info-value.addr { color: #999999; }
+  .info-value-link { font-weight: 400; }
+  .info-value-link.plain { color: #b8b8b8; }
   .card-footer { border-top-color: #2e352e; }
   .qr-panel { background: #1e2520; border-color: #2e352e; }
 }
