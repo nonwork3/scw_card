@@ -381,11 +381,12 @@ function generateSignature(v) {
         <tr><td colspan="2" style="padding-bottom:2px;">
           <span style="font-size:16px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
         </td></tr>
-        <tr><td colspan="2" style="padding-bottom:8px;">
+        <tr><td colspan="2" style="padding-bottom:2px;">
           <span style="font-size:13px;color:#666666;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${nameEN}</span>
           <span style="font-size:13px;color:#cccccc;mso-text-raise:0;"> | </span>
           <span style="font-size:13px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${titleDisplay}</span>
-          <span style="font-size:13px;color:#cccccc;mso-text-raise:0;"> | </span>
+        </td></tr>
+        <tr><td colspan="2" style="padding-bottom:8px;">
           <span style="font-size:13px;color:#999999;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
         </td></tr>
         <tr><td colspan="2"
