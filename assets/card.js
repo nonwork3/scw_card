@@ -10,30 +10,42 @@
   const webs   = p.webs   || (p.web   ? [p.web]   : []);
 
   window.downloadVCard = function () {
-    const addrVal = p.address || '40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru, Phrapradaeng, Samutprakan 10130';
-    const addrVCard = ';;' + addrVal.replace(/,/g, '\\,').replace(/\n/g, ' ');
-    const lines_ = [
-      'BEGIN:VCARD',
-      'VERSION:3.0',
-      'FN:'    + p.nameEN,
-      'N:'     + p.nameLast + ';' + p.nameFirst + ';;;',
-      'ORG:Siam Cotton Wool Ltd.',
-      'TITLE:' + p.titleDisplay,
-      ...emails.map(e  => 'EMAIL;TYPE=WORK:' + e),
-      ...phones.map(ph => 'TEL;TYPE=CELL:' + ph),
-      ...webs.map(w    => 'URL:' + (w.startsWith('http') ? w : 'https://' + w)),
-      ...lines.map(l   => 'X-SOCIALPROFILE;type=LINE:https://line.me/ti/p/~' + l),
-      'ADR;TYPE=WORK:' + addrVCard + ';;;Thailand',
-      'NOTE:Tax ID 0115551012980',
-      'END:VCARD',
-    ].filter(Boolean).join('\r\n');
-    const blob = new Blob([lines_], { type: 'text/vcard;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = p.slug + '.vcf';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    const btn = document.querySelector('.btn-save');
+    const original = btn ? btn.innerHTML : null;
+    function flash(html, ms) {
+      if (!btn) return;
+      btn.innerHTML = html;
+      setTimeout(function () { btn.innerHTML = original; }, ms);
+    }
+    try {
+      const addrVal = p.address || '40/5 M.3 Soi Krunai, Suksawad Rd., Bangkru, Phrapradaeng, Samutprakan 10130';
+      const addrVCard = ';;' + addrVal.replace(/,/g, '\\,').replace(/\n/g, ' ');
+      const lines_ = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'FN:'    + p.nameEN,
+        'N:'     + p.nameLast + ';' + p.nameFirst + ';;;',
+        'ORG:Siam Cotton Wool Ltd.',
+        'TITLE:' + p.titleDisplay,
+        ...emails.map(e  => 'EMAIL;TYPE=WORK:' + e),
+        ...phones.map(ph => 'TEL;TYPE=CELL:' + ph),
+        ...webs.map(w    => 'URL:' + (w.startsWith('http') ? w : 'https://' + w)),
+        ...lines.map(l   => 'X-SOCIALPROFILE;type=LINE:https://line.me/ti/p/~' + l),
+        'ADR;TYPE=WORK:' + addrVCard + ';;;Thailand',
+        'NOTE:Tax ID 0115551012980',
+        'END:VCARD',
+      ].filter(Boolean).join('\r\n');
+      const blob = new Blob([lines_], { type: 'text/vcard;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = p.slug + '.vcf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      flash('<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> บันทึกแล้ว', 2000);
+    } catch (err) {
+      flash('บันทึกไม่สำเร็จ — ลองแตะอีกครั้ง', 2500);
+    }
   };
 
   function fmtPh(ph) {
