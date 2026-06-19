@@ -280,6 +280,7 @@ const EMAILJS_TEMPLATE_ID = 'template_9yvnisr';
 const EMAILJS_PUBLIC_KEY  = 'sESJlIK6tEy4RczqR';
 
 async function sendCardEmail() {
+  const btn      = document.getElementById('btnSendCardEmail');
   const statusEl = document.getElementById('send-status');
   const toEmail  = document.getElementById('send-to-email').value.trim();
   if (!toEmail) {
@@ -287,8 +288,15 @@ async function sendCardEmail() {
     statusEl.textContent = 'กรุณาใส่อีเมลก่อนค่ะ';
     return;
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(toEmail)) {
+    statusEl.style.color = '#b91c1c';
+    statusEl.textContent = 'รูปแบบอีเมลไม่ถูกต้องค่ะ';
+    return;
+  }
+  if (btn.disabled) return;
 
-  statusEl.style.color = '#888';
+  btn.disabled = true;
+  statusEl.style.color = '#767676';
   statusEl.textContent = 'กำลังส่ง...';
 
   const v           = getValues();
@@ -314,6 +322,8 @@ async function sendCardEmail() {
   } catch (err) {
     statusEl.style.color = '#b91c1c';
     statusEl.textContent = '❌ ส่งอีเมลไม่สำเร็จ ลองใหม่อีกครั้ง หรือกด "ดาวน์โหลด Email Signature" แล้วส่งเองค่ะ';
+  } finally {
+    btn.disabled = false;
   }
 }
 
