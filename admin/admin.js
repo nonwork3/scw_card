@@ -296,10 +296,7 @@ async function sendCardEmail() {
   const cardURL    = BASE + v.slug + '/';
   const downloadURL = `https://${OWNER}.github.io/${REPO}/signature/?slug=${v.slug}`;
   const attachNote =
-    'ลิงก์ดาวน์โหลด Signature ด้านล่างสำหรับใช้ติดตั้งใน Outlook โดยเฉพาะครับ — ' +
-    'กดลิงก์ ดาวน์โหลดไฟล์ แล้วคัดลอกไปวางในตั้งค่า Signature ของ Outlook ตรงๆ ' +
-    'ไม่ต้อง copy เนื้อหาจากอีเมลนี้ไปวางใน Outlook เพราะ Gmail จะปรับ format ' +
-    'ให้ต่างจากต้นฉบับ ทำให้ signature ใน Outlook ผิดเพี้ยนได้ครับ';
+    'ใช้ Outlook? ดาวน์โหลด Signature จากลิงก์ด้านล่าง ไม่ต้อง copy จากอีเมลนี้ตรงๆ ครับ';
 
   try {
     await emailjs.send(

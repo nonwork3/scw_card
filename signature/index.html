@@ -64,7 +64,7 @@
         sigHtml = generateSignature(p);
         render(p);
       } catch (e) {
-        showError('ไม่พบนามบัตรของพนักงานคนนี้ค่ะ — ลิงก์อาจไม่ถูกต้องหรือนามบัตรถูกลบไปแล้ว');
+        showError('ไม่พบนามบัตรของพนักงานคนนี้ครับ — ลิงก์อาจไม่ถูกต้องหรือนามบัตรถูกลบไปแล้ว');
       }
     }
 
@@ -74,10 +74,7 @@
         <h1>Email Signature${p.nameEN ? ' — ' + p.nameEN : ''}</h1>
         <p>กดปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ signature</p>
         <div class="note">
-          ไฟล์นี้สำหรับใช้ติดตั้งใน Outlook โดยเฉพาะค่ะ — เปิดไฟล์ที่ดาวน์โหลด
-          แล้วคัดลอกไปวางในตั้งค่า Signature ของ Outlook ตรงๆ
-          ไม่ต้อง copy จากอีเมลที่ได้รับไปวางใน Outlook เพราะ Gmail
-          จะปรับ format ให้ต่างจากต้นฉบับ ทำให้ signature ผิดเพี้ยนได้ค่ะ
+          สำหรับ Outlook โดยเฉพาะ — ดาวน์โหลดแล้วคัดลอกไปวางในตั้งค่า Signature ได้เลยครับ
         </div>
         <button class="btn" id="btnDownload">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
