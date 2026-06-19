@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ดาวน์โหลด Email Signature — Siam Cotton Wool</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; background: #f0f4f2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex; align-items: center; justify-content: center;
+      padding: 32px 16px;
+    }
+    .panel {
+      width: 100%; max-width: 440px; background: #fff;
+      border-radius: 18px; padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .logo { width: 48px; height: 48px; margin: 0 auto 16px; display: block; }
+    h1 { font-size: 17px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; }
+    p { font-size: 13px; color: #666; line-height: 1.6; }
+    .note {
+      margin-top: 16px; padding: 12px 14px; border-radius: 11px;
+      background: #E1F5EE; border: 1px solid #b8e0cc;
+      font-size: 12.5px; color: #0F6E56; line-height: 1.6; text-align: left;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; margin-top: 20px; padding: 12px 16px;
+      background: #0F6E56; color: #fff; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit;
+      transition: background .15s;
+    }
+    .btn:hover { background: #085041; }
+    .btn:focus-visible { outline: 2px solid #1D9E75; outline-offset: 2px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn svg { width: 17px; height: 17px; stroke: #fff; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .state { font-size: 13px; color: #888; padding: 24px 0; }
+    .error { color: #b91c1c; }
+  </style>
+</head>
+<body>
+  <main class="panel" id="panel">
+    <div class="state" id="loading">กำลังโหลดข้อมูล...</div>
+  </main>
+
+  <script src="../assets/signature.js"></script>
+  <script>
+    const slug = new URLSearchParams(location.search).get('slug');
+    let sigHtml = '';
+
+    async function init() {
+      if (!slug) { showError('ไม่พบ slug ใน URL ค่ะ'); return; }
+      try {
+        const res = await fetch('../card/' + slug + '/index.html');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const html = await res.text();
+        const p = parseCardData(html);
+        if (!p) throw new Error('parse failed');
+
+        sigHtml = generateSignature(p);
+        render(p);
+      } catch (e) {
+        showError('ไม่พบนามบัตรของพนักงานคนนี้ค่ะ — ลิงก์อาจไม่ถูกต้องหรือนามบัตรถูกลบไปแล้ว');
+      }
+    }
+
+    function render(p) {
+      document.getElementById('panel').innerHTML = `
+        <img class="logo" src="../assets/logo.png" alt="Siam Cotton Wool logo" />
+        <h1>Email Signature${p.nameEN ? ' — ' + p.nameEN : ''}</h1>
+        <p>กดปุ่มด้านล่างเพื่อดาวน์โหลดไฟล์ signature</p>
+        <div class="note">
+          ไฟล์นี้สำหรับใช้ติดตั้งใน Outlook โดยเฉพาะค่ะ — เปิดไฟล์ที่ดาวน์โหลด
+          แล้วคัดลอกไปวางในตั้งค่า Signature ของ Outlook ตรงๆ
+          ไม่ต้อง copy จากอีเมลที่ได้รับไปวางใน Outlook เพราะ Gmail
+          จะปรับ format ให้ต่างจากต้นฉบับ ทำให้ signature ผิดเพี้ยนได้ค่ะ
+        </div>
+        <button class="btn" id="btnDownload">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ดาวน์โหลด Signature
+        </button>
+      `;
+      document.getElementById('btnDownload').addEventListener('click', () => {
+        downloadHtmlFile(sigHtml, 'signature-' + (p.slug || slug) + '.html');
+      });
+    }
+
+    function showError(msg) {
+      document.getElementById('panel').innerHTML =
+        '<p class="state error">' + msg + '</p>';
+    }
+
+    init();
+  </script>
+</body>
+</html>
