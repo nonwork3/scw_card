@@ -63,7 +63,8 @@ function downloadHtmlFile(html, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function generateSignature(v) {
+function generateSignature(v, opts = {}) {
+  const { standalone = true } = opts;
   const nameEN       = v.nameEN || [v.nameFirst, v.nameLast].filter(Boolean).join(' ');
   const titleDisplay = toTitleCase(v.title || '');
   const emails  = v.emails || (v.email ? [v.email] : []);
@@ -97,14 +98,7 @@ function generateSignature(v) {
                 </td></tr>`).join('')}
               </table>` : '';
 
-  return `<!DOCTYPE html>
-<html lang="th">
-<head><meta charset="UTF-8"><title>Email Signature</title></head>
-<body style="margin:0;padding:24px;background:#f0f0f0;font-family:Arial,sans-serif;">
-<p style="font-size:11px;color:#999;margin:0 0 12px;">
-  copy table#sig ถึง /table ไปวางใน Gmail / Outlook
-</p>
-<table id="sig" cellpadding="0" cellspacing="0" border="0" width="464"
+  const table = `<table id="sig" cellpadding="0" cellspacing="0" border="0" width="464"
   style="font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;font-size:13px;color:#333333;">
   <tr>
     <!-- Green bar: nested table forces full-height bgcolor without rowspan -->
@@ -164,6 +158,17 @@ function generateSignature(v) {
       </table>
     </td>
   </tr>
-</table>
+</table>`;
+
+  if (!standalone) return table;
+
+  return `<!DOCTYPE html>
+<html lang="th">
+<head><meta charset="UTF-8"><title>Email Signature</title></head>
+<body style="margin:0;padding:24px;background:#f0f0f0;font-family:Arial,sans-serif;">
+<p style="font-size:11px;color:#999;margin:0 0 12px;">
+  copy table#sig ถึง /table ไปวางใน Gmail / Outlook
+</p>
+${table}
 </body></html>`;
 }

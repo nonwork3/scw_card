@@ -300,7 +300,7 @@ async function sendCardEmail() {
   statusEl.textContent = 'กำลังส่ง...';
 
   const v           = getValues();
-  const sig         = generateSignature(v);
+  const sig         = generateSignature(v, { standalone: false });
   const cardURL     = BASE + v.slug + '/';
   const downloadURL = `https://${OWNER}.github.io/${REPO}/signature/?slug=${v.slug}`;
 
