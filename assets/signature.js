@@ -166,8 +166,8 @@ function generateSignature(v, opts = {}) {
 <html lang="th">
 <head><meta charset="UTF-8"><title>Email Signature</title></head>
 <body style="margin:0;padding:24px;background:#f0f0f0;font-family:Arial,sans-serif;">
-<p style="font-size:13px;color:#666;margin:0 0 16px;font-family:Arial,sans-serif;">
-  เลือกลายเซ็นด้านล่างทั้งหมด (Ctrl+A แล้ว Ctrl+C) แล้วนำไปวางในการตั้งค่าลายเซ็นของ Gmail หรือ Outlook
+<p style="font-size:13px;color:#666;margin:0 0 16px;font-family:Arial,sans-serif;user-select:none;">
+  กด Ctrl+A แล้ว Ctrl+C เพื่อคัดลอกลายเซ็นด้านล่าง แล้วนำไปวางในการตั้งค่าลายเซ็นของ Gmail หรือ Outlook
 </p>
 ${table}
 </body></html>`;
