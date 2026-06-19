@@ -53,7 +53,7 @@
     let sigHtml = '';
 
     async function init() {
-      if (!slug) { showError('ไม่พบ slug ใน URL ค่ะ'); return; }
+      if (!slug) { showError('ลิงก์นี้ไม่สมบูรณ์ครับ — กรุณาตรวจสอบลิงก์อีกครั้ง'); return; }
       try {
         const res = await fetch('../card/' + slug + '/index.html');
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -78,8 +78,12 @@
           ดาวน์โหลด Signature
         </button>
       `;
-      document.getElementById('btnDownload').addEventListener('click', () => {
+      const btn = document.getElementById('btnDownload');
+      const original = btn.innerHTML;
+      btn.addEventListener('click', () => {
         downloadHtmlFile(sigHtml, 'signature-' + (p.slug || slug) + '.html');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> ดาวน์โหลดแล้ว';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
       });
     }
 
