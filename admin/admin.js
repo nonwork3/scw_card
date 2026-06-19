@@ -345,7 +345,7 @@ function generateSignature(v) {
               <table cellpadding="0" cellspacing="0" border="0">${
                 phones.map(p => `
                 <tr><td style="${ROW}">
-                  <span style="${ICON}">&#9990;&nbsp;</span>
+                  <span style="${ICON}">&#9742;&nbsp;</span>
                   <a href="tel:${p}" style="text-decoration:none;">
                     <span style="color:#333333;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${fmtPhone(p)}</span>
                   </a>
