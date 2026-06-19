@@ -328,8 +328,9 @@ function generateSignature(v) {
   const qrSrc   = 'https://api.qrserver.com/v1/create-qr-code/?size=72x72&color=0F6E56&data=' + encodeURIComponent(cardURL);
   const logoSrc = 'https://nonwork3.github.io/scw_card/assets/logo-email.png';
 
-  const ROW  = 'padding-bottom:4px;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;';
-  const ICON = 'color:#888888;font-size:13px;mso-text-raise:0;';
+  const ROW        = 'padding-bottom:4px;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;';
+  const ICON       = 'color:#888888;font-size:13px;mso-text-raise:0;';
+  const ICON_PHONE = 'color:#888888;font-size:17px;mso-text-raise:0;';
   const emailBlock = emails.length ? `
               <table cellpadding="0" cellspacing="0" border="0">${
                 emails.map(e => `
@@ -345,7 +346,7 @@ function generateSignature(v) {
               <table cellpadding="0" cellspacing="0" border="0">${
                 phones.map(p => `
                 <tr><td style="${ROW}">
-                  <span style="${ICON}">&#9742;&nbsp;</span>
+                  <span style="${ICON_PHONE}">&#9990;&nbsp;</span>
                   <a href="tel:${p}" style="text-decoration:none;">
                     <span style="color:#333333;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${fmtPhone(p)}</span>
                   </a>
