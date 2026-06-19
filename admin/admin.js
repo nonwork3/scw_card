@@ -444,16 +444,26 @@ async function sendCardEmail() {
   const v        = getValues();
   const sig      = generateSignature(v);
   const cardURL  = BASE + v.slug + '/';
+  const sigFile  = 'signature-' + (v.slug || 'scw') + '.html';
+  const sigB64   = btoa(unescape(encodeURIComponent(sig)));
+  const attachNote =
+    'ไฟล์ ' + sigFile + ' ที่แนบมานี้สำหรับใช้ติดตั้งใน Outlook โดยเฉพาะค่ะ — ' +
+    'กรุณาเปิดไฟล์ที่แนบแล้วคัดลอกไปวางในตั้งค่า Signature ของ Outlook ตรงๆ ' +
+    'ไม่ต้อง copy เนื้อหาจากอีเมลนี้ไปวางใน Outlook เพราะ Gmail จะปรับ format ' +
+    'ให้ต่างจากต้นฉบับ ทำให้ signature ใน Outlook ผิดเพี้ยนได้ค่ะ';
 
   try {
     await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       {
-        to_email:       toEmail,
-        name:           v.nameTH || v.nameEN || 'พนักงาน',
-        card_url:       cardURL,
-        signature_html: sig,
+        to_email:             toEmail,
+        name:                 v.nameTH || v.nameEN || 'พนักงาน',
+        card_url:             cardURL,
+        signature_html:       sig,
+        signature_attachment: sigB64,
+        signature_filename:   sigFile,
+        attachment_note:      attachNote,
       },
       EMAILJS_PUBLIC_KEY
     );
