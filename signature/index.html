@@ -26,6 +26,7 @@
       background: #E1F5EE; border: 1px solid #b8e0cc;
       font-size: 12.5px; color: #0F6E56; line-height: 1.6; text-align: center;
     }
+    .note strong { font-weight: 700; }
     .note .one-line { white-space: nowrap; }
     @media (max-width: 420px) {
       .note .one-line { white-space: normal; }
@@ -102,7 +103,7 @@
       document.getElementById('panel').innerHTML = `
         <img class="logo" src="../assets/logo.png" alt="Siam Cotton Wool logo" />
         <h1>Email Signature${p.nameEN ? ' — ' + p.nameEN : ''}</h1>
-        <div class="note">สำหรับ Outlook<br><span class="one-line">ดาวน์โหลดแล้วนำไปตั้งค่า Signature ได้เลยครับ</span></div>
+        <div class="note"><strong>สำหรับ Outlook</strong><br><span class="one-line">ดาวน์โหลดแล้วนำไปตั้งค่า Signature ได้เลยครับ</span></div>
         <button class="btn" type="button" id="btnDownload">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           ดาวน์โหลด Signature
