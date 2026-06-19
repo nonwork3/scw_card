@@ -291,12 +291,10 @@ async function sendCardEmail() {
   statusEl.style.color = '#888';
   statusEl.textContent = 'กำลังส่ง...';
 
-  const v          = getValues();
-  const sig        = generateSignature(v);
-  const cardURL    = BASE + v.slug + '/';
+  const v           = getValues();
+  const sig         = generateSignature(v);
+  const cardURL     = BASE + v.slug + '/';
   const downloadURL = `https://${OWNER}.github.io/${REPO}/signature/?slug=${v.slug}`;
-  const attachNote =
-    'ใช้ Outlook? ดาวน์โหลด Signature จากลิงก์ด้านล่าง ไม่ต้อง copy จากอีเมลนี้ตรงๆ ครับ';
 
   try {
     await emailjs.send(
@@ -308,7 +306,6 @@ async function sendCardEmail() {
         card_url:               cardURL,
         signature_html:         sig,
         signature_download_url: downloadURL,
-        attachment_note:        attachNote,
       },
       EMAILJS_PUBLIC_KEY
     );
