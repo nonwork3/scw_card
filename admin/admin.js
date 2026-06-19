@@ -447,10 +447,10 @@ async function sendCardEmail() {
   const sigFile  = 'signature-' + (v.slug || 'scw') + '.html';
   const sigB64   = btoa(unescape(encodeURIComponent(sig)));
   const attachNote =
-    'ไฟล์ ' + sigFile + ' ที่แนบมานี้สำหรับใช้ติดตั้งใน Outlook โดยเฉพาะค่ะ — ' +
+    'ไฟล์ ' + sigFile + ' ที่แนบมานี้สำหรับใช้ติดตั้งใน Outlook โดยเฉพาะครับ — ' +
     'กรุณาเปิดไฟล์ที่แนบแล้วคัดลอกไปวางในตั้งค่า Signature ของ Outlook ตรงๆ ' +
     'ไม่ต้อง copy เนื้อหาจากอีเมลนี้ไปวางใน Outlook เพราะ Gmail จะปรับ format ' +
-    'ให้ต่างจากต้นฉบับ ทำให้ signature ใน Outlook ผิดเพี้ยนได้ค่ะ';
+    'ให้ต่างจากต้นฉบับ ทำให้ signature ใน Outlook ผิดเพี้ยนได้ครับ';
 
   try {
     await emailjs.send(
