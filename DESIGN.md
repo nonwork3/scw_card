@@ -11,6 +11,7 @@ colors:
   slate-blue-pale: "#e8f0fe"
   alert-red: "#b91c1c"
   alert-red-pale: "#fde8e8"
+  alert-red-dark: "#f87171"
   neutral-bg: "#f0f4f2"
   neutral-surface: "#ffffff"
   neutral-ink: "#1a1a1a"
@@ -118,6 +119,7 @@ The palette is restrained: one brand green family carries identity, a slate blue
 
 ### Secondary
 - **Slate Info Blue** (`#4a6fa5`) / **Slate Info Blue Pale** (`#e8f0fe`): admin-only semantic pair for "edit" actions and informational states. Never appears on the public-facing card.
+- **Alert Red Dark** (`#f87171`): dark-mode-only substitute for Alert Red (`#b91c1c`) on public surfaces that support `prefers-color-scheme: dark` (e.g. the signature download page). Alert Red itself drops to ~2.3:1 against the dark panel background (`#242924`); this lighter red restores ≥4.5:1.
 
 ### Neutral
 - **Mist Background** (`#f0f4f2`): the page background behind every card and every admin panel.
