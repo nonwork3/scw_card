@@ -1,8 +1,8 @@
 ﻿'use strict';
 
 // OWNER, REPO, BASE, ACRONYMS, toTitleCase, fmtPhone, parseCardData,
-// generateSignature, downloadHtmlFile all come from assets/signature.js,
-// loaded before this file.
+// generateSignature, downloadHtmlFile, escapeHtml all come from
+// assets/signature.js, loaded before this file.
 
 // ── PAT ──────────────────────────────────────────────────────
 function getPAT() { return localStorage.getItem('scw_pat'); }
@@ -105,15 +105,7 @@ function b64decode(b64) {
   return new TextDecoder('utf-8').decode(bytes);
 }
 
-// Escape a value for placement in HTML markup (text content or attribute).
-function escapeHtml(s) {
-  return String(s ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+// escapeHtml() comes from assets/signature.js, loaded before this file.
 
 // JSON-stringify a value for placement inside an inline <script> block,
 // escaping "</" so the value can't prematurely close the script tag.

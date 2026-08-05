@@ -111,15 +111,16 @@ async function loadCards() {
 
 function renderCards(cards) {
   const rows = cards.map(c => {
-    const initial    = ((c.nameEN || c.slug) + '').charAt(0).toUpperCase();
-    const liveURL    = `https://nonwork3.github.io/scw_card/card/${c.slug}/`;
-    const nameTHHtml = c.nameTH ? `<div class="emp-name-th">${c.nameTH}</div>` : '';
-    const meta       = [c.title, (c.emails && c.emails[0]) || c.email].filter(Boolean).join(' · ');
+    const initial    = escapeHtml(((c.nameEN || c.slug) + '').charAt(0).toUpperCase());
+    const liveURL    = `https://nonwork3.github.io/scw_card/card/${encodeURIComponent(c.slug)}/`;
+    const nameTHHtml = c.nameTH ? `<div class="emp-name-th">${escapeHtml(c.nameTH)}</div>` : '';
+    const meta       = escapeHtml([c.title, (c.emails && c.emails[0]) || c.email].filter(Boolean).join(' · '));
+    const slugParam  = encodeURIComponent(c.slug);
     return `
       <div class="emp-row">
         <div class="emp-avatar">${initial}</div>
         <div class="emp-info">
-          <div class="emp-name-en">${c.nameEN || c.slug}</div>
+          <div class="emp-name-en">${escapeHtml(c.nameEN || c.slug)}</div>
           ${nameTHHtml}
           <div class="emp-meta">${meta}</div>
         </div>
@@ -128,8 +129,8 @@ function renderCards(cards) {
             <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
               <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <a href="./edit/?slug=${c.slug}" class="btn btn-edit btn-sm">แก้ไข</a>
-          <a href="./delete/?slug=${c.slug}" class="btn btn-danger btn-sm">ลบ</a>
+          <a href="./edit/?slug=${slugParam}" class="btn btn-edit btn-sm">แก้ไข</a>
+          <a href="./delete/?slug=${slugParam}" class="btn btn-danger btn-sm">ลบ</a>
         </div>
       </div>`;
   }).join('');

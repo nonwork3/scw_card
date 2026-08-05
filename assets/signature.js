@@ -21,6 +21,15 @@ function toTitleCase(s) {
   });
 }
 
+function escapeHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function fmtPhone(raw) {
   const d = raw.replace(/\D/g, '');
   if (d.startsWith('66') && d.length >= 11) return '+' + d.slice(0, 4) + ' ' + d.slice(4);
@@ -81,8 +90,8 @@ function generateSignature(v, opts = {}) {
                 emails.map(e => `
                 <tr><td style="${ROW}">
                   <span style="${ICON}">&#9993;&nbsp;</span>
-                  <a href="mailto:${e}" style="text-decoration:none;">
-                    <span style="color:#1D9E75;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${e}</span>
+                  <a href="mailto:${escapeHtml(e)}" style="text-decoration:none;">
+                    <span style="color:#1D9E75;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${escapeHtml(e)}</span>
                   </a>
                 </td></tr>`).join('')}
               </table>` : '';
@@ -92,8 +101,8 @@ function generateSignature(v, opts = {}) {
                 phones.map(p => `
                 <tr><td style="${ROW}">
                   <span style="${ICON_PHONE}">&#9990;&nbsp;</span>
-                  <a href="tel:${p}" style="text-decoration:none;">
-                    <span style="color:#333333;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${fmtPhone(p)}</span>
+                  <a href="tel:${escapeHtml(p)}" style="text-decoration:none;">
+                    <span style="color:#333333;font-size:13px;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${escapeHtml(fmtPhone(p))}</span>
                   </a>
                 </td></tr>`).join('')}
               </table>` : '';
@@ -118,12 +127,12 @@ function generateSignature(v, opts = {}) {
           </a>
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
-          <span style="font-size:16px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${v.nameTH}</span>
+          <span style="font-size:16px;font-weight:bold;color:#111111;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${escapeHtml(v.nameTH)}</span>
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:2px;">
-          <span style="font-size:13px;color:#666666;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${nameEN}</span>
+          <span style="font-size:13px;color:#666666;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${escapeHtml(nameEN)}</span>
           <span style="font-size:13px;color:#cccccc;mso-text-raise:0;"> | </span>
-          <span style="font-size:13px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${titleDisplay}</span>
+          <span style="font-size:13px;font-weight:bold;color:#1D9E75;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">${escapeHtml(titleDisplay)}</span>
         </td></tr>
         <tr><td colspan="2" style="padding-bottom:8px;">
           <span style="font-size:13px;color:#999999;font-family:Arial,sans-serif;mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;mso-text-raise:0;">Siam Cotton Wool Ltd.</span>
