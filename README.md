@@ -34,13 +34,29 @@ scw_card/
     │   └── index.html
     ├── deshin-sid/
     │   └── index.html
+    ├── jiraporn-pim/
+    │   └── index.html
+    ├── kamontip-uta/
+    │   └── index.html
     ├── kannika-cha/
     │   └── index.html
     ├── mukrawee-man/
     │   └── index.html
+    ├── natnaree-pua/
+    │   └── index.html
+    ├── natthaphat-pap/
+    │   └── index.html
+    ├── nontharat-tha/
+    │   └── index.html
+    ├── orasa-boo/
+    │   └── index.html
     ├── pornpan-lor/
     │   └── index.html
+    ├── schlada-sid/
+    │   └── index.html
     ├── siriwan-kam/
+    │   └── index.html
+    ├── taratorn-the/
     │   └── index.html
     ├── thanapatch-san/
     │   └── index.html
@@ -56,12 +72,20 @@ scw_card/
 
 | ชื่อ | ตำแหน่ง | URL |
 |------|---------|-----|
-| ชฏาพร จิราวรรธนสกุล (Chadaporn Jirawantanasakun) | DCC. & QA. | https://nonwork3.github.io/scw_card/card/chadaporn-jir/ |
+| ชฏาพร จิราวรรธนสกุล (Chadaporn Jirawantanasakun) | Dcc. & QA. | https://nonwork3.github.io/scw_card/card/chadaporn-jir/ |
 | เตชิน สิทธิชินวุฒิ (Deshin Sidhishinawudh) | General Manager | https://nonwork3.github.io/scw_card/card/deshin-sid/ |
-| กรรณิกา จันทิภักดิ์ (Kannika Chanthiphak) | Safety | https://nonwork3.github.io/scw_card/card/kannika-cha/ |
+| จิราพร พิมพา (Jiraporn Pimpa) | Human Resources Supervisor | https://nonwork3.github.io/scw_card/card/jiraporn-pim/ |
+| กมลทิพย์ อุตรา (Kamontip Utar) | Purchasing Officer | https://nonwork3.github.io/scw_card/card/kamontip-uta/ |
+| กรรณิกา จันทิภักดิ์ (Kannika Chanthiphak) | Safety Supervisor | https://nonwork3.github.io/scw_card/card/kannika-cha/ |
 | มุกระวี มณีวุฒิวรสกุล (Mukrawee Maneewuthiworasakul) | QMR. | https://nonwork3.github.io/scw_card/card/mukrawee-man/ |
+| ณัฐนรี พวงพิมพ์ (Natnaree Puangpim) | Accounting Supervisor | https://nonwork3.github.io/scw_card/card/natnaree-pua/ |
+| ณัฐพัชญ์ ปภาพงศ์สิทธิ์ (Natthaphat Papapongsit) | Sales Coordinator | https://nonwork3.github.io/scw_card/card/natthaphat-pap/ |
+| นนทรัตน์ ททรัพย์วีสิน (Nontharat Thasabwisin) | Production Manager | https://nonwork3.github.io/scw_card/card/nontharat-tha/ |
+| อรสา บุญชิต (Orasa Boonchit) | Purchasing & Administration Manager | https://nonwork3.github.io/scw_card/card/orasa-boo/ |
 | พรพรรณ หล่อเลอเกียรติ (Pornpan Lorlerkiat) | Secretary | https://nonwork3.github.io/scw_card/card/pornpan-lor/ |
-| สิริวรรณ คำแสง (Siriwan Kamsang) | Sales Coordination | https://nonwork3.github.io/scw_card/card/siriwan-kam/ |
+| ชลดา สิทธิชินวุฒิ (Schlada Sidhishinawudh) | Executive Director | https://nonwork3.github.io/scw_card/card/schlada-sid/ |
+| สิริวรรณ คำแสง (Siriwan Kamsang) | Sales Coordinator Supervisor | https://nonwork3.github.io/scw_card/card/siriwan-kam/ |
+| ธราธร เทพบุตร (Taratorn Theppabut) | Sales Coordinator | https://nonwork3.github.io/scw_card/card/taratorn-the/ |
 | ธนพัชญ์ แสงอรุณ (Thanapatch Sangarun) | IT Manager | https://nonwork3.github.io/scw_card/card/thanapatch-san/ |
 | ถิรชัย สิริรัตนตรัย (Tirachai Sirirattanatrai) | Factory Manager | https://nonwork3.github.io/scw_card/card/tirachai-sir/ |
 | วรพรต ปุญสุรัตน์ (Worapord Punsurat) | IT Support | https://nonwork3.github.io/scw_card/card/worapord-pun/ |
