@@ -105,6 +105,22 @@ function b64decode(b64) {
   return new TextDecoder('utf-8').decode(bytes);
 }
 
+// Escape a value for placement in HTML markup (text content or attribute).
+function escapeHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// JSON-stringify a value for placement inside an inline <script> block,
+// escaping "</" so the value can't prematurely close the script tag.
+function jsSafeStringify(v) {
+  return JSON.stringify(v).replace(/<\//g, '<\\/');
+}
+
 // ── Multi-value field helpers ─────────────────────────────────
 const FIELD_CFG = {
   email: { cls: 'email-input', type: 'email', ph: 'เช่น siam@siamcottonwool.co.th' },
@@ -161,7 +177,7 @@ function buildHTML(v) {
       <div class="info-content">
         <span class="info-label">${label}</span>
         <div id="${listId}">${vals.map(val =>
-          `<a href="${hrefFn(val)}" class="info-value-link${extraCls ? ' ' + extraCls : ''}">${textFn ? textFn(val) : val}</a>`
+          `<a href="${escapeHtml(hrefFn(val))}" class="info-value-link${extraCls ? ' ' + extraCls : ''}">${escapeHtml(textFn ? textFn(val) : val)}</a>`
         ).join('')}</div>
       </div>
     </div>`;
@@ -182,23 +198,19 @@ function buildHTML(v) {
     '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
     'Website', w => w.startsWith('http') ? w : 'https://' + w);
 
-  const safeAddr = v.address
-    ? '"' + v.address.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"'
-    : 'null';
-
   return `<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${nameEN || 'New Employee'} — Siam Cotton Wool</title>
-  <meta name="description" content="${titleDisplay}, Siam Cotton Wool Ltd." />
+  <title>${escapeHtml(nameEN || 'New Employee')} — Siam Cotton Wool</title>
+  <meta name="description" content="${escapeHtml(titleDisplay)}, Siam Cotton Wool Ltd." />
   <link rel="stylesheet" href="../../assets/card.css" />
   <link rel="icon" href="../../assets/logo.png" type="image/png" />
-  <meta property="og:title" content="${nameEN} — ${titleDisplay}" />
+  <meta property="og:title" content="${escapeHtml(nameEN)} — ${escapeHtml(titleDisplay)}" />
   <meta property="og:description" content="Siam Cotton Wool Ltd." />
   <meta property="og:image" content="https://nonwork3.github.io/scw_card/assets/logo.png" />
-  <meta property="og:url" content="${cardURL}" />
+  <meta property="og:url" content="${escapeHtml(cardURL)}" />
   <meta property="og:type" content="profile" />
 </head>
 <body>
@@ -209,9 +221,9 @@ function buildHTML(v) {
       <img class="logo-img" src="../../assets/logo.png" alt="Siam Cotton Wool logo" />
       <span class="logo-text">Siam Cotton Wool Ltd.</span>
     </div>
-    <p class="name-th" id="c-name-th">${v.nameTH}</p>
-    <h1 class="name-en" id="c-name-en">${nameEN}</h1>
-    <span class="title-pill" id="c-title">${v.title}</span>
+    <p class="name-th" id="c-name-th">${escapeHtml(v.nameTH)}</p>
+    <h1 class="name-en" id="c-name-en">${escapeHtml(nameEN)}</h1>
+    <span class="title-pill" id="c-title">${escapeHtml(v.title)}</span>
     <div class="icon-bar" aria-hidden="true">
       <svg><use href="../../assets/icons.svg#scw-roll"/></svg>
       <svg><use href="../../assets/icons.svg#scw-cotton"/></svg>
@@ -234,7 +246,7 @@ function buildHTML(v) {
       </div>
       <div class="info-content">
         <span class="info-label">Address</span>
-        <span class="info-value addr" id="c-address">${v.address || ''}</span>
+        <span class="info-value addr" id="c-address">${escapeHtml(v.address || '')}</span>
       </div>
     </div>
   </div>
@@ -254,19 +266,19 @@ function buildHTML(v) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script>
 <script>
 window.SCW_PERSON = {
-  nameTH:       "${v.nameTH}",
-  nameEN:       "${nameEN}",
-  nameFirst:    "${v.nameFirst}",
-  nameLast:     "${v.nameLast}",
-  title:        "${v.title}",
-  titleDisplay: "${titleDisplay}",
-  emails:  ${JSON.stringify(emails)},
-  phones:  ${JSON.stringify(phones)},
-  lines:   ${JSON.stringify(lines)},
-  webs:    ${JSON.stringify(webs)},
-  address: ${safeAddr},
-  slug:    "${v.slug}",
-  cardURL: "${cardURL}"
+  nameTH:       ${jsSafeStringify(v.nameTH)},
+  nameEN:       ${jsSafeStringify(nameEN)},
+  nameFirst:    ${jsSafeStringify(v.nameFirst)},
+  nameLast:     ${jsSafeStringify(v.nameLast)},
+  title:        ${jsSafeStringify(v.title)},
+  titleDisplay: ${jsSafeStringify(titleDisplay)},
+  emails:  ${jsSafeStringify(emails)},
+  phones:  ${jsSafeStringify(phones)},
+  lines:   ${jsSafeStringify(lines)},
+  webs:    ${jsSafeStringify(webs)},
+  address: ${jsSafeStringify(v.address || null)},
+  slug:    ${jsSafeStringify(v.slug)},
+  cardURL: ${jsSafeStringify(cardURL)}
 };
 <\/script>
 <script src="../../assets/card.js"><\/script>

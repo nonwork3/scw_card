@@ -99,7 +99,7 @@
 
     if (p.address) setLink('c-address', 'https://maps.google.com/?q=' + encodeURIComponent(p.address), p.address);
     showRow('row-address', p.address);
-    set('c-qr-url', p.cardURL);
+    set('c-qr-url', 'สแกนเพื่อเปิด/บันทึกนามบัตรนี้');
 
     new QRCode(document.getElementById('qr-box'), {
       text: p.cardURL,

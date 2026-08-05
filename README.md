@@ -30,15 +30,23 @@ scw_card/
 │   ├── new/index.html      ← เพิ่มพนักงานใหม่
 │   └── delete/index.html   ← ลบนามบัตร
 └── card/
+    ├── chadaporn-jir/
+    │   └── index.html
     ├── deshin-sid/
     │   └── index.html
-    ├── tirachai-sir/
-    │   └── index.html
-    ├── worapord-pun/
+    ├── kannika-cha/
     │   └── index.html
     ├── mukrawee-man/
     │   └── index.html
-    └── thanapatch-san/
+    ├── pornpan-lor/
+    │   └── index.html
+    ├── siriwan-kam/
+    │   └── index.html
+    ├── thanapatch-san/
+    │   └── index.html
+    ├── tirachai-sir/
+    │   └── index.html
+    └── worapord-pun/
         └── index.html
 ```
 
@@ -48,11 +56,15 @@ scw_card/
 
 | ชื่อ | ตำแหน่ง | URL |
 |------|---------|-----|
-| เดชิน สิทธิชินวุฒิ (Deshin Sidhishinawudh) | General Manager | https://nonwork3.github.io/scw_card/card/deshin-sid/ |
+| ชฏาพร จิราวรรธนสกุล (Chadaporn Jirawantanasakun) | DCC. & QA. | https://nonwork3.github.io/scw_card/card/chadaporn-jir/ |
+| เตชิน สิทธิชินวุฒิ (Deshin Sidhishinawudh) | General Manager | https://nonwork3.github.io/scw_card/card/deshin-sid/ |
+| กรรณิกา จันทิภักดิ์ (Kannika Chanthiphak) | Safety | https://nonwork3.github.io/scw_card/card/kannika-cha/ |
+| มุกระวี มณีวุฒิวรสกุล (Mukrawee Maneewuthiworasakul) | QMR. | https://nonwork3.github.io/scw_card/card/mukrawee-man/ |
+| พรพรรณ หล่อเลอเกียรติ (Pornpan Lorlerkiat) | Secretary | https://nonwork3.github.io/scw_card/card/pornpan-lor/ |
+| สิริวรรณ คำแสง (Siriwan Kamsang) | Sales Coordination | https://nonwork3.github.io/scw_card/card/siriwan-kam/ |
+| ธนพัชญ์ แสงอรุณ (Thanapatch Sangarun) | IT Manager | https://nonwork3.github.io/scw_card/card/thanapatch-san/ |
 | ถิรชัย สิริรัตนตรัย (Tirachai Sirirattanatrai) | Factory Manager | https://nonwork3.github.io/scw_card/card/tirachai-sir/ |
 | วรพรต ปุญสุรัตน์ (Worapord Punsurat) | IT Support | https://nonwork3.github.io/scw_card/card/worapord-pun/ |
-| มุกระวี มณีวุฒิวรสกุล (Mukrawee Maneewuthiworasakul) | QMR. | https://nonwork3.github.io/scw_card/card/mukrawee-man/ |
-| ธนพัชญ์ แสงอรุณ (Thanapatch Sangarun) | IT Manager | https://nonwork3.github.io/scw_card/card/thanapatch-san/ |
 
 ---
 

@@ -84,7 +84,7 @@
     let sigHtml = '';
 
     async function init() {
-      if (!slug) { showError('ลิงก์นี้ไม่สมบูรณ์ครับ — กรุณาตรวจสอบลิงก์อีกครั้ง'); return; }
+      if (!slug) { showError('ลิงก์นี้ไม่สมบูรณ์ค่ะ — กรุณาตรวจสอบลิงก์อีกครั้ง'); return; }
       try {
         const res = await fetch('../card/' + slug + '/index.html');
         if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -95,7 +95,7 @@
         sigHtml = generateSignature(p);
         render(p);
       } catch (e) {
-        showError('ไม่พบนามบัตรของพนักงานคนนี้ครับ — ลิงก์อาจไม่ถูกต้องหรือนามบัตรถูกลบไปแล้ว');
+        showError('ไม่พบนามบัตรของพนักงานคนนี้ค่ะ — ลิงก์อาจไม่ถูกต้องหรือนามบัตรถูกลบไปแล้ว');
       }
     }
 
@@ -103,7 +103,7 @@
       document.getElementById('panel').innerHTML = `
         <img class="logo" src="../assets/logo.png" alt="Siam Cotton Wool logo" />
         <h1>Email Signature${p.nameEN ? ' — ' + p.nameEN : ''}</h1>
-        <div class="note"><strong>สำหรับ Outlook</strong><br><span class="one-line">ดาวน์โหลดแล้วนำไปตั้งค่า Signature ได้เลยครับ</span></div>
+        <div class="note"><strong>สำหรับ Outlook</strong><br><span class="one-line">ดาวน์โหลดแล้วนำไปตั้งค่า Signature ได้เลยค่ะ</span></div>
         <button class="btn" type="button" id="btnDownload">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           ดาวน์โหลด Signature
